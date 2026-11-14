@@ -1,44 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Latest - Radova</title>
-    <meta name="description" content="The newest Radova agenda, articles, news, and security advisories.">
+    <meta name="description" content="The newest agenda, articles, news, and security advisories from Radova Linux, in one place.">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <h1>Latest</h1>
-      <ol>
+      <header class="editorial-header">
+        <div>
+          <p class="eyebrow">[Radova Updates]</p>
+          <h1>Read Our Latest Updates</h1>
+        </div>
+        <p>The newest agenda, articles, news, and security advisories from Radova Linux, in one place.</p>
+      </header>
+      <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+        <ul>
+          <li><a href="/latest/" aria-current="page">All Latest</a></li>
+          <li><a href="/latest/agenda/">Agenda</a></li>
+          <li><a href="/latest/article/">Article</a></li>
+          <li><a href="/latest/news/">News</a></li>
+          <li><a href="/latest/security/">Security</a></li>
+        </ul>
+      </nav>
+      <ol class="post-grid">
         <li>
-          <article>
-            <h2><a href="/latest/agenda/sample-agenda/">Sample Agenda Entry</a></h2>
-            <p><a href="/latest/agenda/">Agenda</a> &middot; <time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
-            <p>Placeholder event used to test Agenda layout and styling.</p>
+          <article class="post-row post-row--agenda">
+            <div class="post-row__main">
+              <p class="post-row__kicker"><span class="badge badge--type">Agenda</span></p>
+              <h2><a href="/latest/agenda/sample-agenda/">Sample Agenda Entry</a></h2>
+              <p>Placeholder event used to test Agenda layout and styling.</p>
+              <p class="meta"><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
+            </div>
+            <dl class="post-row__panel meta-dl">
+              <dt>Starts</dt>
+              <dd class="meta-dl__lead"><time datetime="2026-12-05T19:00:00+07:00">5 Dec 2026, 19:00 WIB</time></dd>
+              <dt>Location</dt>
+              <dd>Online</dd>
+              <dt>Status</dt>
+              <dd><span class="badge badge--scheduled">Scheduled</span></dd>
+            </dl>
           </article>
         </li>
         <li>
-          <article>
-            <h2><a href="/latest/article/sample-article/">Sample Article Entry</a></h2>
-            <p><a href="/latest/article/">Article</a> &middot; <time datetime="2026-11-13T09:00:00+07:00">13 Nov 2026</time></p>
-            <p>Placeholder article used to test Article layout and styling.</p>
+          <article class="post-row post-row--article">
+            <div class="post-row__main">
+              <p class="post-row__kicker"><span class="badge badge--type">Article</span></p>
+              <h2><a href="/latest/article/sample-article/">Sample Article Entry</a></h2>
+              <p>Placeholder article used to test Article layout and styling.</p>
+              <p class="meta"><time datetime="2026-11-13T09:00:00+07:00">13 Nov 2026</time><span class="sep"> · </span><span>1 min read</span></p>
+            </div>
+            <dl class="post-row__panel meta-dl">
+              <dt>Author</dt>
+              <dd>Radova Team</dd>
+              <dt>Tags</dt>
+              <dd class="meta-dl__lead">sample, linux</dd>
+            </dl>
           </article>
         </li>
         <li>
-          <article>
-            <h2><a href="/latest/news/sample-news/">Sample News Entry</a></h2>
-            <p><a href="/latest/news/">News</a> &middot; <time datetime="2026-11-12T09:00:00+07:00">12 Nov 2026</time></p>
-            <p>Placeholder news item used to test News layout and styling.</p>
+          <article class="post-row post-row--news">
+            <div class="post-row__main">
+              <p class="post-row__kicker"><span class="badge badge--type">News</span></p>
+              <h2><a href="/latest/news/sample-news/">Sample News Entry</a></h2>
+              <p>Placeholder news item used to test News layout and styling.</p>
+              <p class="meta"><time datetime="2026-11-12T09:00:00+07:00">12 Nov 2026</time></p>
+            </div>
+            <dl class="post-row__panel meta-dl">
+              <dt>Author</dt>
+              <dd>Radova Team</dd>
+              <dt>Tags</dt>
+              <dd class="meta-dl__lead">sample, announcement</dd>
+            </dl>
           </article>
         </li>
         <li>
-          <article>
-            <h2><a href="/latest/security/sample-security/">RSA-2026-001: Sample Security Advisory</a></h2>
-            <p><a href="/latest/security/">Security</a> &middot; <time datetime="2026-11-11T09:00:00+07:00">11 Nov 2026</time></p>
-            <p>Placeholder advisory used to test Security layout and styling.</p>
+          <article class="post-row post-row--security">
+            <div class="post-row__main">
+              <p class="post-row__kicker"><span class="badge badge--type">Security</span></p>
+              <h2><a href="/latest/security/sample-security/">Sample Security Advisory</a></h2>
+              <p>Placeholder advisory used to test Security layout and styling.</p>
+              <p class="meta"><time datetime="2026-11-11T09:00:00+07:00">11 Nov 2026</time></p>
+            </div>
+            <dl class="post-row__panel meta-dl">
+              <dt>Advisory ID</dt>
+              <dd class="advisory-id">RSA-2026-001</dd>
+              <dt>Severity</dt>
+              <dd><span class="badge badge--severity-high">High</span></dd>
+              <dt>Status</dt>
+              <dd>Resolved</dd>
+              <dt>Affected versions</dt>
+              <dd>1.0, 1.1</dd>
+            </dl>
           </article>
         </li>
       </ol>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

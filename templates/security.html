@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,53 +16,74 @@
     <meta name="radova:patched_versions" content="{{patched_versions}}">
     <meta name="radova:cve" content="{{cve}}">
     <meta name="radova:status" content="{{status}}">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <article>
+      <!-- Security. Optional: cve (delete meta + "CVE" row). severity: low|medium|high|critical; status: investigating|mitigated|resolved|informational. -->
+      <article class="single-split">
         <header>
-          <p><a href="/latest/security/">Security</a></p>
+          <p class="back-link"><a href="/latest/security/">&larr; Back to Security</a></p>
+          <p class="eyebrow">[Security]</p>
           <h1>{{advisory_id}}: {{title}}</h1>
-          <p>Published <time datetime="{{date}}">{{date_text}}</time></p>
+          <dl class="meta-dl">
+            <dt>Advisory ID</dt>
+            <dd class="advisory-id">{{advisory_id}}</dd>
+            <dt>Severity</dt>
+            <dd><span class="badge badge--severity-{{severity}}">{{Severity}}</span></dd>
+            <dt>Status</dt>
+            <dd>{{Status}}</dd>
+            <dt>Affected versions</dt>
+            <dd>{{affected_versions}}</dd>
+            <dt>Patched versions</dt>
+            <dd>{{patched_versions}}</dd>
+            <dt>CVE</dt>
+            <dd><a href="https://www.cve.org/CVERecord?id={{cve}}" hx-boost="false">{{cve}}</a></dd>
+            <dt>Published</dt>
+            <dd><time datetime="{{date}}">{{date_text}}</time></dd>
+          </dl>
         </header>
-        <!-- Delete the CVE row (and its meta tag) when there is none. -->
-        <dl>
-          <dt>Advisory ID</dt>
-          <dd>{{advisory_id}}</dd>
-          <dt>Severity</dt>
-          <dd>{{Severity}}</dd>
-          <dt>Status</dt>
-          <dd>{{Status}}</dd>
-          <dt>Affected versions</dt>
-          <dd>{{affected_versions}}</dd>
-          <dt>Patched versions</dt>
-          <dd>{{patched_versions}}</dd>
-          <dt>CVE</dt>
-          <dd><a href="https://www.cve.org/CVERecord?id={{cve}}">{{cve}}</a></dd>
-        </dl>
-        <section aria-labelledby="summary">
-          <h2 id="summary">Summary</h2>
-          <p>{{summary_body}}</p>
-        </section>
-        <section aria-labelledby="impact">
-          <h2 id="impact">Impact</h2>
-          <p>{{impact}}</p>
-        </section>
-        <section aria-labelledby="mitigation">
-          <h2 id="mitigation">Mitigation</h2>
-          <p>{{mitigation}}</p>
-        </section>
-        <section aria-labelledby="credits">
-          <h2 id="credits">Credits</h2>
-          <p>{{credits}}</p>
-        </section>
-        <section aria-labelledby="timeline">
-          <h2 id="timeline">Timeline</h2>
-          <ol>
-            <li><time datetime="{{yyyy-mm-dd}}">{{date_text}}</time>: {{event}}</li>
-          </ol>
-        </section>
+        <div class="editorial-prose">
+          <section aria-labelledby="summary">
+            <h2 id="summary">Summary</h2>
+            <p>{{summary}}</p>
+          </section>
+          <section aria-labelledby="impact">
+            <h2 id="impact">Impact</h2>
+            <p>{{impact}}</p>
+          </section>
+          <section aria-labelledby="mitigation">
+            <h2 id="mitigation">Mitigation</h2>
+            <p>{{mitigation}}</p>
+          </section>
+          <section aria-labelledby="credits">
+            <h2 id="credits">Credits</h2>
+            <p>{{credits}}</p>
+          </section>
+          <section aria-labelledby="timeline">
+            <h2 id="timeline">Timeline</h2>
+            <ol>
+              <li><time datetime="{{yyyy-mm-dd}}">{{day_text}}</time>: {{event}}</li>
+            </ol>
+          </section>
+        </div>
       </article>
+      <!-- Post navigation: drop a link when there is no older/newer post. -->
+      <nav class="pager" aria-label="More posts">
+        <a href="/latest/{{type}}/{{prev_slug}}/" rel="prev">&larr; Previous: {{prev_title}}</a>
+        <a href="/latest/{{type}}/{{next_slug}}/" rel="next">Next: {{next_title}} &rarr;</a>
+      </nav>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

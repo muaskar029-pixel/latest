@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Radova Linux//Latest//EN
+BEGIN:VEVENT
+UID:sample-agenda@latest.radova
+DTSTAMP:20261114T020000Z
+DTSTART:20261205T120000Z
+DTEND:20261205T140000Z
+SUMMARY:Sample Agenda Entry
+LOCATION:Online
+DESCRIPTION:Placeholder event used to test Agenda layout and styling.
+END:VEVENT
+END:VCALENDAR

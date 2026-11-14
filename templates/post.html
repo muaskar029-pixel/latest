@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,21 +10,49 @@
     <meta name="radova:date" content="{{date}}">
     <meta name="radova:summary" content="{{summary}}">
     <meta name="radova:tags" content="{{tags}}">
-    <!-- Article only; delete for News: -->
+    <meta name="radova:author" content="{{author}}">
     <meta name="radova:reading_time" content="{{reading_time}}">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <article>
+      <!-- Article and News. News: delete the radova:reading_time meta and the "Reading time" row, Article: add "editorial-prose--article" to the prose div (drop cap). {{Types}} is Articles or News. -->
+      <article class="single-split">
         <header>
-          <p><a href="/latest/{{type}}/">{{Type}}</a></p>
+          <p class="back-link"><a href="/latest/{{type}}/">&larr; Back to {{Types}}</a></p>
+          <p class="eyebrow">[{{Type}}]</p>
           <h1>{{title}}</h1>
-          <!-- Drop "&middot; N min read" for News. -->
-          <p><time datetime="{{date}}">{{date_text}}</time> &middot; {{reading_time}} min read</p>
-          <p>Tags: {{tags}}</p>
+          <dl class="meta-dl">
+            <dt>Author</dt>
+            <dd>{{author}}</dd>
+            <dt>Published</dt>
+            <dd><time datetime="{{date}}">{{date_text}}</time></dd>
+            <dt>Reading time</dt>
+            <dd>{{reading_time}} min read</dd>
+            <dt>Tags</dt>
+            <dd>{{tags}}</dd>
+          </dl>
         </header>
-        <p>{{body}}</p>
+        <div class="editorial-prose">
+          <p>{{body}}</p>
+        </div>
       </article>
+      <!-- Post navigation: drop a link when there is no older/newer post. -->
+      <nav class="pager" aria-label="More posts">
+        <a href="/latest/{{type}}/{{prev_slug}}/" rel="prev">&larr; Previous: {{prev_title}}</a>
+        <a href="/latest/{{type}}/{{next_slug}}/" rel="next">Next: {{next_title}} &rarr;</a>
+      </nav>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

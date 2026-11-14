@@ -1,30 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Page 1 is latest/{{type}}/index.html; page N>1 adds " - Page N" and lives in latest/{{type}}/page/N/index.html. -->
     <title>{{Type}} - Page {{n}} - Radova Latest</title>
     <meta name="description" content="{{description}}">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <h1>{{Type}}</h1>
-      <!-- 10 items per page, newest first. -->
-      <ol>
+      <!-- Listing page. Page 1 is latest/{{type}}/index.html; page N>1 is latest/{{type}}/page/N/index.html with " - Page N" in <title>.
+      10 items per page, newest first. One <li> per post; the right panel (dl.post-row__panel) depends on the type:
+      Article / News: Author, Tags (dd.meta-dl__lead)
+      Agenda:         Starts (dd.meta-dl__lead, WIB), Location, Status (<span class="badge badge--scheduled|cancelled">)
+      Security:       Advisory ID (dd.advisory-id), Severity (<span class="badge badge--severity-LEVEL">), Status, Affected versions
+      Only /latest/ shows the type badge (p.post-row__kicker). The agenda page has two sections: Upcoming Events and Past Events. -->
+      <header class="editorial-header">
+        <div>
+          <p class="eyebrow">[Category: {{Type}}]</p>
+          <h1>{{Type}}</h1>
+        </div>
+        <p>{{description}}</p>
+      </header>
+      <!-- Add aria-current="page" to this category's tab. -->
+      <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+        <ul>
+          <li><a href="/latest/">All Latest</a></li>
+          <li><a href="/latest/agenda/">Agenda</a></li>
+          <li><a href="/latest/article/">Article</a></li>
+          <li><a href="/latest/news/">News</a></li>
+          <li><a href="/latest/security/">Security</a></li>
+        </ul>
+      </nav>
+      <ol class="post-grid" id="post-list">
         <li>
-          <article>
-            <h2><a href="/latest/{{type}}/{{slug}}/">{{title}}</a></h2>
-            <p><time datetime="{{date}}">{{date_text}}</time></p>
-            <p>{{summary}}</p>
+          <article class="post-row post-row--{{type}}">
+            <div class="post-row__main">
+              <h2><a href="/latest/{{type}}/{{slug}}/">{{title}}</a></h2>
+              <p>{{summary}}</p>
+              <p class="meta"><time datetime="{{date}}">{{date_text}}</time></p>
+            </div>
+            <dl class="post-row__panel meta-dl">
+              <dt>Author</dt>
+              <dd>{{author}}</dd>
+              <dt>Tags</dt>
+              <dd class="meta-dl__lead">{{tags}}</dd>
+            </dl>
           </article>
         </li>
       </ol>
-      <!-- Omit on a single-page category. Previous from page 2 goes to /latest/{{type}}/. No Next on the last page. -->
-      <nav aria-label="Pagination">
-        <a href="/latest/{{type}}/page/{{n-1}}/" rel="prev">Previous</a>
-        <a href="/latest/{{type}}/page/{{n+1}}/" rel="next">Next</a>
+      <!-- Omit on a single-page category. Previous from page 2 goes to /latest/{{type}}/. No Next on the last page.
+      With JS, Next becomes "Load more": it appends the next page's items to #post-list and swaps in that page's #pager. -->
+      <nav class="pager" id="pager" aria-label="Pagination">
+        <a href="/latest/{{type}}/page/{{n-1}}/" rel="prev">&larr; Previous</a>
+        <a href="/latest/{{type}}/page/{{n+1}}/" rel="next" hx-get="/latest/{{type}}/page/{{n+1}}/" hx-select="#post-list > li" hx-target="#post-list" hx-swap="beforeend ignoreTitle:true" hx-select-oob="#pager">Next &rarr;</a>
       </nav>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

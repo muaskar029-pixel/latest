@@ -1,0 +1,522 @@
+/* Radova theme on top of pico.classless.min.css. Load after Pico.
+   Sections: fonts · tokens · base · site chrome · editorial-header · tab-grid · post-grid/post-row
+   · meta-dl · badge · button · pager · single-split · editorial-prose */
+
+/* ---------- Fonts ---------- */
+@font-face {
+  font-family: "Lato";
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/lato-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lato";
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/lato-latin-700-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/roboto-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/roboto-latin-700-normal.woff2") format("woff2");
+}
+
+/* ---------- Tokens ----------
+   Same selector as Pico's light theme so this file wins by load order, no !important. */
+:root:not([data-theme=dark]),
+[data-theme=light] {
+  --radova-navy: #0E0347;
+  --radova-red: #A10000;
+  --radova-red-2: #BB080B;
+  --radova-red-3: #DB000F;
+  --radova-blue: #0B2E8D;
+  --radova-lavender: #F7F6FF;
+  --radova-white: #FFFFFF;
+  --radova-hairline: rgba(14, 3, 71, 0.12);
+  --radova-heading-font: "Lato", system-ui, sans-serif;
+
+  --pico-font-family: "Roboto", system-ui, sans-serif;
+  --pico-background-color: var(--radova-lavender);
+  --pico-color: var(--radova-navy);
+  --pico-h1-color: var(--radova-navy);
+  --pico-h2-color: var(--radova-navy);
+  --pico-h3-color: var(--radova-navy);
+  --pico-h4-color: var(--radova-navy);
+  --pico-h5-color: var(--radova-navy);
+  --pico-h6-color: var(--radova-navy);
+
+  --pico-primary: var(--radova-red);
+  --pico-primary-background: var(--radova-red);
+  --pico-primary-border: var(--radova-red);
+  --pico-primary-underline: rgba(161, 0, 0, 0.5);
+  --pico-primary-hover: var(--radova-red-2);
+  --pico-primary-hover-background: var(--radova-red-2);
+  --pico-primary-hover-border: var(--radova-red-2);
+  --pico-primary-hover-underline: var(--radova-red-2);
+  --pico-primary-focus: rgba(219, 0, 15, 0.5);
+  --pico-primary-inverse: var(--radova-white);
+
+  --pico-card-background-color: var(--radova-white);
+  --pico-card-box-shadow: none;
+  --pico-blockquote-border-color: var(--radova-red);
+}
+
+/* ---------- Base ---------- */
+h1, h2, h3, h4, h5, h6 {
+  --pico-font-family: var(--radova-heading-font);
+}
+
+/* Figma heading scale (56/48/40/32/24/20 px) on wide screens; Pico's smaller scale below.
+   Pico's root is 20px at >=1280px, so rem = px / 20. */
+@media (min-width: 1024px) {
+  h1 { --pico-font-size: 2.8rem; }
+  h2 { --pico-font-size: 2.4rem; }
+  h3 { --pico-font-size: 2rem; }
+  h4 { --pico-font-size: 1.6rem; }
+  h5 { --pico-font-size: 1.2rem; }
+  h6 { --pico-font-size: 1rem; }
+}
+
+/* Long words and URLs wrap instead of widening the page. */
+body {
+  overflow-wrap: break-word;
+}
+main p {
+  max-width: 65ch;
+}
+
+/* Read by screen readers, not shown (used for site.js announcements). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Text separators stay in the HTML for Lynx and screen readers; spacing replaces them on screen. */
+.sep {
+  display: none;
+}
+
+.eyebrow {
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--radova-red);
+}
+
+/* Pico adds a large top margin to a heading that follows a paragraph; a title right under its
+   eyebrow, badge or back link belongs with it. */
+.editorial-header h1,
+.post-row h2,
+.post-row h3,
+.single-split h1 {
+  margin-top: 0;
+}
+
+/* ---------- Site chrome ---------- */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--pico-primary-background);
+  color: var(--pico-primary-inverse);
+}
+
+.brand {
+  font-family: var(--radova-heading-font);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--radova-red);
+}
+
+body > footer {
+  color: var(--pico-muted-color);
+}
+
+/* ---------- .editorial-header: split page header (title left, description right) ---------- */
+.editorial-header {
+  display: grid;
+  gap: var(--pico-spacing);
+  margin-bottom: calc(var(--pico-spacing) * 2);
+}
+.editorial-header h1,
+.editorial-header > p {
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  .editorial-header {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+  }
+  .editorial-header > p {
+    justify-self: end;
+    max-width: 40ch;
+  }
+}
+
+/* ---------- .tab-grid: category tabs as equal bordered cells ---------- */
+nav.tab-grid {
+  display: block;
+  margin-bottom: calc(var(--pico-spacing) * 2);
+}
+/* The 1px gap over a hairline background draws the cell borders. */
+nav.tab-grid ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--radova-hairline);
+  background: var(--radova-hairline);
+}
+.tab-grid li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tab-grid li:first-child {
+  grid-column: 1 / -1;
+}
+.tab-grid a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+  text-align: center;
+  text-decoration: none;
+  color: var(--radova-navy);
+  background: var(--radova-lavender);
+}
+.tab-grid a:hover,
+.tab-grid a:focus-visible {
+  color: var(--radova-red);
+  background: var(--radova-white);
+}
+.tab-grid a[aria-current="page"] {
+  font-weight: 700;
+  background: var(--radova-white);
+  border-bottom-color: var(--radova-red);
+}
+@media (min-width: 768px) {
+  nav.tab-grid ul {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .tab-grid li:first-child {
+    grid-column: auto;
+  }
+}
+
+/* ---------- .post-grid / .post-row: bordered listing, split row ---------- */
+.post-grid {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--radova-hairline);
+  background: var(--radova-hairline);
+}
+.post-grid > li {
+  margin: 0;
+  list-style: none;
+}
+.post-row {
+  position: relative;
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: var(--radova-hairline);
+}
+/* Grid children may shrink below their content so long words and code never widen the page. */
+.post-row > * {
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .post-row {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+.post-row__main {
+  padding: 1.5rem;
+  background: var(--radova-white);
+}
+.post-row__main > :last-child {
+  margin-bottom: 0;
+}
+.post-row__kicker {
+  margin-bottom: 0.75rem;
+}
+.post-row h2,
+.post-row h3 {
+  --pico-font-size: 1.4rem;
+  --pico-line-height: 1.25;
+  margin-bottom: 0.5rem;
+  overflow-wrap: anywhere;
+}
+.post-row h2 a,
+.post-row h3 a {
+  text-decoration: none;
+}
+/* The title link is stretched over the whole row, so the row is one click target. */
+.post-row h2 a::after,
+.post-row h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.post-row:hover h2 a,
+.post-row:hover h3 a {
+  text-decoration: underline;
+}
+.post-row:has(a:focus-visible) {
+  outline: 3px solid var(--radova-red-3);
+  outline-offset: -3px;
+}
+.post-row__main p:not([class]) {
+  max-width: 60ch;
+}
+.post-row__panel {
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--radova-lavender);
+}
+/* Visual cue only: the "/ ''" alt text keeps it silent for screen readers; Lynx ignores CSS. */
+.post-row--article .post-row__panel::after,
+.post-row--news .post-row__panel::after {
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+  font-weight: 700;
+  color: var(--radova-red);
+}
+.post-row--article .post-row__panel::after {
+  content: "Read article \2192" / "";
+}
+.post-row--news .post-row__panel::after {
+  content: "Read news \2192" / "";
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  font-size: 0.875em;
+  color: var(--pico-muted-color);
+}
+
+/* ---------- .meta-dl: key/value grid with 1px dividers ---------- */
+.meta-dl {
+  display: grid;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+  margin: 0;
+}
+/* Cells stretch to the row so each divider runs straight across; content is centred in it. */
+.meta-dl dt,
+.meta-dl dd {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.625rem 0;
+  border-top: 1px solid var(--radova-hairline);
+}
+.meta-dl dt:first-of-type,
+.meta-dl dd:first-of-type {
+  border-top: 0;
+}
+.meta-dl dt {
+  padding-right: 1.25rem;
+  font-size: 0.875rem;
+  color: var(--pico-muted-color);
+}
+.meta-dl__lead {
+  font-family: var(--radova-heading-font);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.advisory-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+/* ---------- .badge: meaning is always in the text; colour only reinforces it ---------- */
+.badge {
+  display: inline-block;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--radova-white);
+  background: var(--radova-navy);
+}
+.badge--type {
+  background: var(--radova-navy);
+}
+.badge--severity-critical,
+.badge--cancelled {
+  background: var(--radova-red);
+}
+.badge--severity-high {
+  background: var(--radova-red-3);
+}
+.badge--severity-medium,
+.badge--scheduled {
+  background: var(--radova-blue);
+}
+.badge--severity-low {
+  color: var(--radova-navy);
+  background: #E4E1F7;
+}
+
+/* ---------- .button: primary call to action ---------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--radova-white);
+  background: var(--radova-red);
+}
+.button:hover,
+.button:focus-visible {
+  color: var(--radova-white);
+  background: var(--radova-red-2);
+}
+
+/* ---------- .pager: bordered Previous / Next bar (pagination and post navigation) ---------- */
+nav.pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: calc(var(--pico-spacing) * 2);
+  border: 1px solid var(--radova-hairline);
+  background: var(--radova-white);
+}
+.pager a {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.pager a:hover,
+.pager a:focus-visible {
+  background: var(--radova-lavender);
+}
+.pager a[rel="next"] {
+  grid-column: 2;
+  justify-content: flex-end;
+  text-align: right;
+  border-left: 1px solid var(--radova-hairline);
+}
+
+/* ---------- .single-split: detail page, context left, prose right ---------- */
+.single-split {
+  display: grid;
+  gap: calc(var(--pico-spacing) * 2);
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+}
+.single-split > * {
+  min-width: 0;
+}
+/* Undo Pico's card header (negative margins, tint, rule) on the context column. */
+.single-split > header {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.single-split h1 {
+  --pico-font-size: 2rem;
+  --pico-line-height: 1.15;
+}
+.back-link a {
+  font-weight: 700;
+  text-decoration: none;
+}
+.single-split .meta-dl {
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .single-split {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: start;
+  }
+}
+
+/* ---------- .editorial-prose: readable body column ---------- */
+.editorial-prose {
+  padding: 1.5rem;
+  background: var(--radova-white);
+}
+@media (min-width: 768px) {
+  .editorial-prose {
+    padding: 2.5rem;
+  }
+}
+.editorial-prose > *,
+.editorial-prose section > * {
+  max-width: 65ch;
+}
+.editorial-prose > :last-child,
+.editorial-prose section:last-child > :last-child {
+  margin-bottom: 0;
+}
+.editorial-prose h2 {
+  --pico-font-size: 1.75rem;
+  margin-top: 2rem;
+}
+.editorial-prose h3 {
+  --pico-font-size: 1.375rem;
+  margin-top: 1.5rem;
+}
+.editorial-prose > h2:first-child,
+.editorial-prose section:first-child > h2 {
+  margin-top: 0;
+}
+.editorial-prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  font-family: var(--radova-heading-font);
+  font-size: 1.25rem;
+}
+.editorial-prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.editorial-prose--article > p:first-of-type::first-letter {
+  float: left;
+  margin: 0.05em 0.12em 0 0;
+  font-family: var(--radova-heading-font);
+  font-size: 3.6em;
+  font-weight: 700;
+  line-height: 0.8;
+  color: var(--radova-red);
+}

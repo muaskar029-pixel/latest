@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,53 +16,69 @@
     <meta name="radova:patched_versions" content="1.2">
     <meta name="radova:cve" content="CVE-2026-00000">
     <meta name="radova:status" content="resolved">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <article>
+      <article class="single-split">
         <header>
-          <p><a href="/latest/security/">Security</a></p>
+          <p class="back-link"><a href="/latest/security/">&larr; Back to Security</a></p>
+          <p class="eyebrow">[Security]</p>
           <h1>RSA-2026-001: Sample Security Advisory</h1>
-          <p>Published <time datetime="2026-11-11T09:00:00+07:00">11 Nov 2026</time></p>
+          <dl class="meta-dl">
+            <dt>Advisory ID</dt>
+            <dd class="advisory-id">RSA-2026-001</dd>
+            <dt>Severity</dt>
+            <dd><span class="badge badge--severity-high">High</span></dd>
+            <dt>Status</dt>
+            <dd>Resolved</dd>
+            <dt>Affected versions</dt>
+            <dd>1.0, 1.1</dd>
+            <dt>Patched versions</dt>
+            <dd>1.2</dd>
+            <dt>CVE</dt>
+            <dd><a href="https://www.cve.org/CVERecord?id=CVE-2026-00000" hx-boost="false">CVE-2026-00000</a></dd>
+            <dt>Published</dt>
+            <dd><time datetime="2026-11-11T09:00:00+07:00">11 Nov 2026</time></dd>
+          </dl>
         </header>
-        <dl>
-          <dt>Advisory ID</dt>
-          <dd>RSA-2026-001</dd>
-          <dt>Severity</dt>
-          <dd>High</dd>
-          <dt>Status</dt>
-          <dd>Resolved</dd>
-          <dt>Affected versions</dt>
-          <dd>1.0, 1.1</dd>
-          <dt>Patched versions</dt>
-          <dd>1.2</dd>
-          <dt>CVE</dt>
-          <dd><a href="https://www.cve.org/CVERecord?id=CVE-2026-00000">CVE-2026-00000</a></dd>
-        </dl>
-        <section aria-labelledby="summary">
-          <h2 id="summary">Summary</h2>
-          <p>Placeholder advisory used to test Security layout and styling.</p>
-        </section>
-        <section aria-labelledby="impact">
-          <h2 id="impact">Impact</h2>
-          <p>Placeholder impact description.</p>
-        </section>
-        <section aria-labelledby="mitigation">
-          <h2 id="mitigation">Mitigation</h2>
-          <p>Upgrade to version 1.2.</p>
-        </section>
-        <section aria-labelledby="credits">
-          <h2 id="credits">Credits</h2>
-          <p>Placeholder credit.</p>
-        </section>
-        <section aria-labelledby="timeline">
-          <h2 id="timeline">Timeline</h2>
-          <ol>
-            <li><time datetime="2026-11-01">1 Nov 2026</time>: Report received.</li>
-            <li><time datetime="2026-11-11">11 Nov 2026</time>: Fix released and advisory published.</li>
-          </ol>
-        </section>
+        <div class="editorial-prose">
+          <section aria-labelledby="summary">
+            <h2 id="summary">Summary</h2>
+            <p>Placeholder advisory used to test Security layout and styling.</p>
+          </section>
+          <section aria-labelledby="impact">
+            <h2 id="impact">Impact</h2>
+            <p>Placeholder impact description.</p>
+          </section>
+          <section aria-labelledby="mitigation">
+            <h2 id="mitigation">Mitigation</h2>
+            <p>Upgrade to version 1.2.</p>
+          </section>
+          <section aria-labelledby="credits">
+            <h2 id="credits">Credits</h2>
+            <p>Placeholder credit.</p>
+          </section>
+          <section aria-labelledby="timeline">
+            <h2 id="timeline">Timeline</h2>
+            <ol>
+              <li><time datetime="2026-11-01">1 Nov 2026</time>: Report received.</li>
+              <li><time datetime="2026-11-11">11 Nov 2026</time>: Fix released and advisory published.</li>
+            </ol>
+          </section>
+        </div>
       </article>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

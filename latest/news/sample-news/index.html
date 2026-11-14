@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,18 +10,40 @@
     <meta name="radova:date" content="2026-11-12T09:00:00+07:00">
     <meta name="radova:summary" content="Placeholder news item used to test News layout and styling.">
     <meta name="radova:tags" content="sample, announcement">
+    <meta name="radova:author" content="Radova Team">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <article>
+      <article class="single-split">
         <header>
-          <p><a href="/latest/news/">News</a></p>
+          <p class="back-link"><a href="/latest/news/">&larr; Back to News</a></p>
+          <p class="eyebrow">[News]</p>
           <h1>Sample News Entry</h1>
-          <p><time datetime="2026-11-12T09:00:00+07:00">12 Nov 2026</time></p>
-          <p>Tags: sample, announcement</p>
+          <dl class="meta-dl">
+            <dt>Author</dt>
+            <dd>Radova Team</dd>
+            <dt>Published</dt>
+            <dd><time datetime="2026-11-12T09:00:00+07:00">12 Nov 2026</time></dd>
+            <dt>Tags</dt>
+            <dd>sample, announcement</dd>
+          </dl>
         </header>
-        <p>Placeholder news item used to test News layout and styling.</p>
+        <div class="editorial-prose">
+          <p>Placeholder news item used to test News layout and styling.</p>
+        </div>
       </article>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>
