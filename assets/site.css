@@ -156,6 +156,7 @@ body > footer {
   margin-bottom: calc(var(--pico-spacing) * 2);
 }
 .editorial-header h1,
+.editorial-header > :nth-child(2) > :last-child,
 .editorial-header > p {
   margin-bottom: 0;
 }
@@ -164,7 +165,8 @@ body > footer {
     grid-template-columns: 1fr 1fr;
     align-items: end;
   }
-  .editorial-header > p {
+  /* Right column: the description, plus an optional action under it. */
+  .editorial-header > :nth-child(2) {
     justify-self: end;
     max-width: 40ch;
   }
@@ -487,6 +489,10 @@ nav.pager {
 }
 
 /* ---------- .editorial-prose: readable body column ---------- */
+/* As a standalone section on a listing page (e.g. the Security explainer). */
+main > .editorial-prose {
+  margin-top: calc(var(--pico-spacing) * 2);
+}
 .editorial-prose {
   padding: 1.5rem;
   background: var(--radova-white);
@@ -522,9 +528,21 @@ nav.pager {
   font-family: var(--radova-heading-font);
   font-size: 1.25rem;
 }
-.editorial-prose pre {
+.editorial-prose pre,
+.table-scroll {
   max-width: 100%;
   overflow-x: auto;
+}
+/* Wrap wide tables in .table-scroll so they scroll inside the column, never the page. */
+.table-scroll {
+  margin-bottom: var(--pico-typography-spacing-vertical);
+}
+.table-scroll table {
+  margin-bottom: 0;
+}
+.editorial-prose th,
+.editorial-prose td {
+  vertical-align: top;
 }
 .editorial-prose--article > p:first-of-type::first-letter {
   float: left;

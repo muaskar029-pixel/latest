@@ -63,6 +63,7 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 |---|---|
 | `post.html` | Article and News detail pages |
 | `agenda.html` | Agenda detail pages |
+| `event.ics` | Calendar file for an Agenda post |
 | `security.html` | Security advisory detail pages |
 | `listing.html` | Category pages and their `/page/<n>/` pages |
 
@@ -71,7 +72,7 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 1. Copy the matching template to `latest/<type>/<slug>/index.html` and replace every `{{...}}`. `{{Type}}`/`{{Status}}`/`{{Severity}}` are the capitalised display forms; `*_text` is the human date, e.g. `5 Dec 2026, 19:00`.
 2. Add the post to the top of `latest/<type>/index.html`. When that list passes 10 items, move the oldest into `latest/<type>/page/2/` (and so on) and add the pagination nav.
 3. Add it to the top of `latest/index.html` and drop the 11th item there.
-4. Agenda only: add `latest/agenda/<slug>/<slug>.ics` for the "Add to calendar (.ics)" link. Copy `latest/agenda/sample-agenda/sample-agenda.ics` and change `UID`, `DTSTAMP`, `DTSTART`, `DTEND` (UTC: WIB minus 7 hours), `SUMMARY`, `LOCATION`, `DESCRIPTION`. Keep CRLF line endings.
+4. Agenda only: copy `templates/event.ics` to `latest/agenda/<slug>/<slug>.ics` for the "Add to calendar (.ics)" link and fill it in. Times are UTC in `YYYYMMDDTHHMMSSZ` form (WIB minus 7 hours: 19:00 WIB on 5 Dec 2026 is `20261205T120000Z`); drop the `DTEND` line if there is no end time. Keep the CRLF line endings.
 5. Agenda only: `latest/agenda/index.html` has two lists. **Upcoming** is sorted by `start_time`, soonest first; **Past Events** is sorted by `start_time`, newest first. Move events from Upcoming to Past by hand once they end.
 
 ## Components (classes in `assets/site.css`)

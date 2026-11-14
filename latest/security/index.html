@@ -22,7 +22,10 @@
           <p class="eyebrow">[Category: Security]</p>
           <h1>Security</h1>
         </div>
-        <p>Security advisories for Radova Linux, with severity, affected versions, and how to stay safe.</p>
+        <div>
+          <p>Security advisories for Radova Linux, with severity, affected versions, and how to stay safe. Found a vulnerability? Report it privately to <a href="mailto:security@example.org" hx-boost="false">security@example.org</a>.</p>
+          <p><a class="button" href="/latest/security/policy/">Report a vulnerability</a></p>
+        </div>
       </header>
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
@@ -33,27 +36,27 @@
           <li><a href="/latest/security/" aria-current="page">Security</a></li>
         </ul>
       </nav>
-      <ol class="post-grid" id="post-list">
-        <li>
-          <article class="post-row post-row--security">
-            <div class="post-row__main">
-              <h2><a href="/latest/security/sample-security/">Sample Security Advisory</a></h2>
-              <p>Placeholder advisory used to test Security layout and styling.</p>
-              <p class="meta"><time datetime="2026-11-11T09:00:00+07:00">11 Nov 2026</time></p>
-            </div>
-            <dl class="post-row__panel meta-dl">
-              <dt>Advisory ID</dt>
-              <dd class="advisory-id">RSA-2026-001</dd>
-              <dt>Severity</dt>
-              <dd><span class="badge badge--severity-high">High</span></dd>
-              <dt>Status</dt>
-              <dd>Resolved</dd>
-              <dt>Affected versions</dt>
-              <dd>1.0, 1.1</dd>
-            </dl>
-          </article>
-        </li>
-      </ol>
+      <div class="empty-state">
+        <p>No security advisories have been published yet.</p>
+        <p><a href="/latest/">See all latest updates</a></p>
+      </div>
+      <section class="editorial-prose" aria-labelledby="read-advisory">
+        <h2 id="read-advisory">How to read an advisory</h2>
+        <p>Each advisory has an ID, a severity rating, a status, and the affected and patched versions.</p>
+        <h3>Severity ratings</h3>
+        <dl class="meta-dl">
+          <dt><span class="badge badge--severity-critical">Critical</span></dt>
+          <dd>Can be exploited remotely without authentication or user interaction, and leads to full control of a system or wide exposure of institutional data. Update immediately.</dd>
+          <dt><span class="badge badge--severity-high">High</span></dt>
+          <dd>Leads to serious compromise of a system or its data, but needs a precondition such as local access, a signed-in user, or user interaction. Update as soon as possible.</dd>
+          <dt><span class="badge badge--severity-medium">Medium</span></dt>
+          <dd>Real but limited impact, or hard to exploit. Update during your next regular maintenance.</dd>
+          <dt><span class="badge badge--severity-low">Low</span></dt>
+          <dd>Minimal impact, or a hardening improvement. Update when convenient.</dd>
+        </dl>
+        <h3>Advisory IDs</h3>
+        <p>Advisory IDs follow the format <strong>RSA-YYYY-NNN</strong>: the year the advisory was published and a three-digit number counting up within that year. For example, RSA-2026-001 is the first advisory of 2026.</p>
+      </section>
     </main>
     <footer>
       <p>&copy; 2026 Radova Linux</p>
