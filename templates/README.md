@@ -85,6 +85,32 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 | `.editorial-prose--article` | Adds the drop cap; Article pages only |
 | `.meta-dl` | Key/value `<dl>`; `.meta-dl__lead` enlarges one value, `.advisory-id` sets the ID |
 | `.badge` + `--type`, `--severity-low/medium/high/critical`, `--scheduled`, `--cancelled` | Labels; the text always states the value |
-| `.button` | One primary action (e.g. Register Now) |
+| `.button` | One primary action (e.g. Register now) |
 | `.pager` | Previous / Next bar for pagination and post navigation |
+| `.empty-state` | Notice for a category or Agenda section with nothing published |
 | `.sep` | ` · ` separator: read in Lynx, hidden on screen |
+
+## UI copy
+
+Buttons and links use sentence case and say what they do. Use these exact labels:
+
+| Where | Label |
+|---|---|
+| First link on every page | Skip to main content |
+| Listing tabs | All Latest, Agenda, Article, News, Security |
+| Pager without JS / with JS | ← Previous, Next → / Load more |
+| Post navigation | ← Previous: {title}, Next: {title} → |
+| Detail page back link | ← Back to Agenda / Articles / News / Security |
+| Agenda actions | Register now, Add to calendar (.ics) |
+| Empty state and 404 link | See all latest updates, Go to the latest updates |
+
+Empty states (category with no posts, followed by the "See all latest updates" link):
+
+| Category | Copy |
+|---|---|
+| Agenda | No events have been scheduled yet. |
+| Article | No articles have been published yet. |
+| News | No news has been published yet. |
+| Security | No security advisories have been published yet. |
+
+An empty Agenda section uses "No upcoming events yet." or "No past events yet." without a link.

@@ -22,7 +22,17 @@
       Article / News: Author, Tags (dd.meta-dl__lead)
       Agenda:         Starts (dd.meta-dl__lead, WIB), Location, Status (<span class="badge badge--scheduled|cancelled">)
       Security:       Advisory ID (dd.advisory-id), Severity (<span class="badge badge--severity-LEVEL">), Status, Affected versions
-      Only /latest/ shows the type badge (p.post-row__kicker). The agenda page has two sections: Upcoming Events and Past Events. -->
+      Only /latest/ shows the type badge (p.post-row__kicker). The agenda page has two sections: Upcoming Events and Past Events.
+      No posts yet? Replace the <ol> and the pager with the empty state, using this category's line:
+      Agenda:   No events have been scheduled yet.
+      Article:  No articles have been published yet.
+      News:     No news has been published yet.
+      Security: No security advisories have been published yet.
+      <div class="empty-state">
+        <p>No security advisories have been published yet.</p>
+        <p><a href="/latest/">See all latest updates</a></p>
+      </div>
+      An empty Agenda section (Upcoming or Past) uses the same box without the link: "No upcoming events yet." / "No past events yet." -->
       <header class="editorial-header">
         <div>
           <p class="eyebrow">[Category: {{Type}}]</p>

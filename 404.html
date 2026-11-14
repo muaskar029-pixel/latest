@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page not found - Radova</title>
+    <meta name="description" content="The page you were looking for could not be found.">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
+    <main id="main">
+      <header class="editorial-header">
+        <div>
+          <p class="eyebrow">[Error 404]</p>
+          <h1>Page not found</h1>
+        </div>
+        <p>The page you were looking for does not exist or has moved. The latest Radova updates are one click away.</p>
+      </header>
+      <p><a class="button" href="/latest/">Go to the latest updates</a></p>
+      <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+        <ul>
+          <li><a href="/latest/">All Latest</a></li>
+          <li><a href="/latest/agenda/">Agenda</a></li>
+          <li><a href="/latest/article/">Article</a></li>
+          <li><a href="/latest/news/">News</a></li>
+          <li><a href="/latest/security/">Security</a></li>
+        </ul>
+      </nav>
+    </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
+  </body>
+</html>

@@ -325,6 +325,21 @@ nav.tab-grid ul {
   color: var(--pico-muted-color);
 }
 
+/* ---------- .empty-state: a category or section with nothing published yet ---------- */
+.empty-state {
+  padding: 2rem 1.5rem;
+  border: 1px solid var(--radova-hairline);
+  background: var(--radova-white);
+}
+.empty-state > :first-child {
+  font-family: var(--radova-heading-font);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.empty-state > :last-child {
+  margin-bottom: 0;
+}
+
 /* ---------- .meta-dl: key/value grid with 1px dividers ---------- */
 .meta-dl {
   display: grid;

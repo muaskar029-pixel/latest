@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agenda - Radova Latest</title>
-    <meta name="description" content="Radova events and community sessions. All times are in WIB (UTC+07:00).">
+    <meta name="description" content="Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
     <link rel="stylesheet" href="/assets/pico.classless.min.css">
     <link rel="stylesheet" href="/assets/site.css">
@@ -22,7 +22,7 @@
           <p class="eyebrow">[Category: Agenda]</p>
           <h1>Agenda</h1>
         </div>
-        <p>Radova events and community sessions. All times are in WIB (UTC+07:00).</p>
+        <p>Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).</p>
       </header>
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
@@ -57,7 +57,9 @@
       </section>
       <section aria-labelledby="past">
         <h2 id="past">Past Events</h2>
-        <p>No past events yet.</p>
+        <div class="empty-state">
+          <p>No past events yet.</p>
+        </div>
       </section>
     </main>
     <footer>
