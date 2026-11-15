@@ -1,16 +1,16 @@
 # Content metadata standard
 
-Every post is a static HTML file at `latest/<type>/<slug>/index.html`.
+Every post is a static HTML file at `<type>/<slug>/index.html`.
 `<type>` is one of `agenda`, `article`, `news`, `security`.
 
 ## URL structure
 
 | URL | File |
 |---|---|
-| `/latest/` | `latest/index.html` |
-| `/latest/<type>/` | `latest/<type>/index.html` |
-| `/latest/<type>/page/<number>/` | `latest/<type>/page/<number>/index.html` |
-| `/latest/<type>/<slug>/` | `latest/<type>/<slug>/index.html` |
+| `/latest/` | `index.html` |
+| `/latest/<type>/` | `<type>/index.html` |
+| `/latest/<type>/page/<number>/` | `<type>/page/<number>/index.html` |
+| `/latest/<type>/<slug>/` | `<type>/<slug>/index.html` |
 
 ## How metadata is stored
 
@@ -69,6 +69,7 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 
 ## Publishing a post
 
+<<<<<<< HEAD
 1. Copy the matching template to `latest/<type>/<slug>/index.html` and replace every `{{...}}`. `{{Type}}`/`{{Status}}`/`{{Severity}}` are the capitalised display forms; `*_text` is the human date, e.g. `5 Dec 2026, 19:00`.
 2. Add the post to the top of `latest/<type>/index.html`. When that list passes 10 items, move the oldest into `latest/<type>/page/2/` (and so on) and add the pagination nav.
 3. Add it to the top of `latest/index.html` and drop the 11th item there.
@@ -115,3 +116,9 @@ Empty states (category with no posts, followed by the "See all latest updates" l
 | Security | No security advisories have been published yet. |
 
 An empty Agenda section uses "No upcoming events yet." or "No past events yet." without a link.
+=======
+1. Copy the matching template to `<type>/<slug>/index.html` and replace every `{{...}}`. `{{Type}}`/`{{Status}}`/`{{Severity}}` are the capitalised display forms; `*_text` is the human date, e.g. `5 Dec 2026, 19:00`.
+2. Add the post to the top of `<type>/index.html`. When that list passes 10 items, move the oldest into `<type>/page/2/` (and so on) and add the pagination nav.
+3. Add it to the top of `index.html` and drop the 11th item there.
+4. Agenda only: `agenda/index.html` has two lists. **Upcoming** is sorted by `start_time`, soonest first; **Past Events** is sorted by `start_time`, newest first. Move events from Upcoming to Past by hand once they end.
+>>>>>>> upstream/main
