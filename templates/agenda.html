@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,30 +15,51 @@
     <meta name="radova:location" content="{{location}}">
     <meta name="radova:register_url" content="{{register_url}}">
     <meta name="radova:status" content="{{status}}">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <article>
+      <!-- Agenda. Optional: end_time (delete meta + "Ends" row), register_url (delete meta + Register button). status is scheduled or cancelled; badge class badge--{{status}}. Put {{slug}}.ics next to this file (see templates/README.md). -->
+      <article class="single-split">
         <header>
-          <p><a href="/latest/agenda/">Agenda</a></p>
+          <p class="back-link"><a href="/latest/agenda/">&larr; Back to Agenda</a></p>
+          <p class="eyebrow">[Agenda]</p>
           <h1>{{title}}</h1>
-          <p>Published <time datetime="{{date}}">{{date_text}}</time></p>
+          <dl class="meta-dl">
+            <dt>Starts</dt>
+            <dd class="meta-dl__lead"><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
+            <dt>Ends</dt>
+            <dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
+            <dt>Location</dt>
+            <dd>{{location}}</dd>
+            <dt>Status</dt>
+            <dd><span class="badge badge--{{status}}">{{Status}}</span></dd>
+            <dt>Published</dt>
+            <dd><time datetime="{{date}}">{{date_text}}</time></dd>
+          </dl>
+          <p><a class="button" href="{{register_url}}" hx-boost="false">Register now</a></p>
+          <p><a href="{{slug}}.ics" download hx-boost="false">Add to calendar (.ics)</a></p>
         </header>
-        <!-- Delete the End and Registration rows (and their meta tags) when not set. -->
-        <dl>
-          <dt>Start</dt>
-          <dd><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
-          <dt>End</dt>
-          <dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
-          <dt>Location</dt>
-          <dd>{{location}}</dd>
-          <dt>Status</dt>
-          <dd>{{Status}}</dd>
-          <dt>Registration</dt>
-          <dd><a href="{{register_url}}">Register for this event</a></dd>
-        </dl>
-        <p>{{body}}</p>
+        <div class="editorial-prose">
+          <p>{{body}}</p>
+        </div>
       </article>
+      <!-- Post navigation: drop a link when there is no older/newer post. -->
+      <nav class="pager" aria-label="More posts">
+        <a href="/latest/{{type}}/{{prev_slug}}/" rel="prev">&larr; Previous: {{prev_title}}</a>
+        <a href="/latest/{{type}}/{{next_slug}}/" rel="next">Next: {{next_title}} &rarr;</a>
+      </nav>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

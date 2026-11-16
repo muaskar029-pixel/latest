@@ -1,30 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Agenda - Radova Latest</title>
-    <meta name="description" content="Radova events and community sessions.">
+    <meta name="description" content="Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <h1>Agenda</h1>
+      <header class="editorial-header">
+        <div>
+          <p class="eyebrow">[Category: Agenda]</p>
+          <h1>Agenda</h1>
+        </div>
+        <p>Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).</p>
+      </header>
+      <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+        <ul>
+          <li><a href="/latest/">All Latest</a></li>
+          <li><a href="/latest/agenda/" aria-current="page">Agenda</a></li>
+          <li><a href="/latest/article/">Article</a></li>
+          <li><a href="/latest/news/">News</a></li>
+          <li><a href="/latest/security/">Security</a></li>
+        </ul>
+      </nav>
       <section aria-labelledby="upcoming">
-        <h2 id="upcoming">Upcoming</h2>
-        <ol>
-          <li>
-            <article>
-              <h3><a href="/latest/agenda/sample-agenda/">Sample Agenda Entry</a></h3>
-              <p><time datetime="2026-12-05T19:00:00+07:00">5 Dec 2026, 19:00 WIB</time></p>
-              <p>Placeholder event used to test Agenda layout and styling.</p>
-            </article>
-          </li>
-        </ol>
+        <h2 id="upcoming">Upcoming Events</h2>
+        <div class="empty-state">
+          <p>No events have been scheduled yet.</p>
+          <p><a href="/latest/">See all latest updates</a></p>
+        </div>
       </section>
       <section aria-labelledby="past">
         <h2 id="past">Past Events</h2>
-        <p>No past events yet.</p>
+        <div class="empty-state">
+          <p>No past events yet.</p>
+        </div>
       </section>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>

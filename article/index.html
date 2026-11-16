@@ -1,23 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Article - Radova Latest</title>
-    <meta name="description" content="Radova articles.">
+    <meta name="description" content="In-depth articles on how Radova Linux is built and the thinking behind it.">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="stylesheet" href="/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/assets/site.css">
+    <script src="/assets/htmx.min.js" defer></script>
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header>
+      <a class="brand" href="/">RADOVA</a>
+    </header>
     <main id="main">
-      <h1>Article</h1>
-      <ol>
+      <header class="editorial-header">
+        <div>
+          <p class="eyebrow">[Category: Article]</p>
+          <h1>Article</h1>
+        </div>
+        <p>In-depth articles on how Radova Linux is built and the thinking behind it.</p>
+      </header>
+      <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+        <ul>
+          <li><a href="/latest/">All Latest</a></li>
+          <li><a href="/latest/agenda/">Agenda</a></li>
+          <li><a href="/latest/article/" aria-current="page">Article</a></li>
+          <li><a href="/latest/news/">News</a></li>
+          <li><a href="/latest/security/">Security</a></li>
+        </ul>
+      </nav>
+      <ol class="post-grid" id="post-list">
         <li>
-          <article>
-            <h2><a href="/latest/article/sample-article/">Sample Article Entry</a></h2>
-            <p><time datetime="2026-11-13T09:00:00+07:00">13 Nov 2026</time></p>
-            <p>Placeholder article used to test Article layout and styling.</p>
+          <article class="post-row post-row--article">
+            <div class="post-row__main">
+              <h2><a href="/latest/article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
+              <p>An introduction to Radova Linux: an operating system for libraries, archives, and digital assets, its four built-in applications, and the principles behind them.</p>
+              <p class="meta"><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time><span class="sep"> · </span><span>2 min read</span></p>
+            </div>
+            <dl class="post-row__panel meta-dl">
+              <dt>Author</dt>
+              <dd>Radova Team</dd>
+              <dt>Tags</dt>
+              <dd class="meta-dl__lead">introduction, architecture</dd>
+            </dl>
           </article>
         </li>
       </ol>
     </main>
+    <footer>
+      <p>&copy; 2026 Radova Linux</p>
+    </footer>
   </body>
 </html>
