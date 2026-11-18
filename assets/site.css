@@ -627,6 +627,10 @@ body > footer.site-footer,
   }
 }
 
+nav.footer-col {
+  display: block;
+}
+
 .footer-heading {
   font-family: var(--radova-heading-font);
   font-size: 14px;

@@ -61,7 +61,7 @@
 })();
 
 document.addEventListener("DOMContentLoaded", function () {
-  var navBtn = document.getElementById("test2");
+  var navBtn = document.getElementById("about-menu-btn");
   var dropdownContainer = document.querySelector(".dropdown");
   var backBtn = document.querySelector(".d-content-back");
   var isTouchDevice = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0) || window.matchMedia("(pointer: coarse)").matches;
