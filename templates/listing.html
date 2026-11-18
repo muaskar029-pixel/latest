@@ -17,8 +17,50 @@
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <header>
-      <a class="brand" href="/">RADOVA</a>
+    <header class="site-header">
+      <a class="brand-lockup" href="https://radova.org/">
+        <img src="/assets/logo.png" alt="Radova Logo" width="32">
+        <span class="brand-name">RADOVA</span>
+      </a>
+
+      <div id="primary-nav" class="header-menu">
+        <nav aria-label="Primary navigation">
+          <ul class="nav-list">
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
+            <li><a href="https://radova.org/learns">Learning</a></li>
+            <li><a href="https://radova.org/events">Events</a></li>
+            <li><a href="/latest/" aria-current="page">Latest</a></li>
+          </ul>
+        </nav>
+
+        <nav class="navbar" aria-label="About menu">
+          <ul class="nav-links">
+            <li class="dropdown">
+              <a id="test2" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false">About</a>
+              <div class="menu-arrow" aria-hidden="true"></div>
+              <div class="dropdown-content" role="menu">
+                <a class="d-content-h" href="https://radova.org/about/" role="menuitem">About</a>
+                <a class="d-content-r" href="https://radova.org/about/history" role="menuitem">History</a>
+                <a class="d-content-c" href="https://radova.org/about/contact" role="menuitem">Contact</a>
+                <button type="button" class="d-content-back" role="menuitem">Back</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Buka menu navigasi"
+        aria-controls="primary-nav"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </header>
     <main id="main">
       <!-- Listing page. Page 1 is latest/{{type}}/index.html; page N>1 is latest/{{type}}/page/N/index.html with " - Page N" in <title>.
@@ -78,8 +120,59 @@
         <a href="/latest/{{type}}/page/{{n+1}}/" rel="next" hx-get="/latest/{{type}}/page/{{n+1}}/" hx-select="#post-list > li" hx-target="#post-list" hx-swap="beforeend ignoreTitle:true" hx-select-oob="#pager">Next &rarr;</a>
       </nav>
     </main>
-    <footer>
-      <p>&copy; 2026 Radova Linux</p>
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3 class="footer-heading">Learn About Radova</h3>
+          <ul class="footer-links">
+            <li><a href="https://radova.org/about/">About</a></li>
+            <li><a href="https://radova.org/about/history">History</a></li>
+            <li><a href="https://radova.org/latest/">Latest</a></li>
+            <li><a href="https://radova.org/events">Events</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">Resources</h3>
+          <ul class="footer-links">
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
+            <li><a href="https://radova.org/learns">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">Core Pillars</h3>
+          <ul class="footer-links">
+            <li><a href="https://radova.org/#fitur">Memora</a></li>
+            <li><a href="https://radova.org/#fitur">Evrocks</a></li>
+            <li><a href="https://radova.org/#fitur">Coretez</a></li>
+            <li><a href="https://radova.org/#fitur">Linkers</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3 class="footer-heading">Help &amp; Specs</h3>
+          <ul class="footer-links">
+            <li><a href="https://radova.org/about/contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/">Security Advisories</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-brand-bar">
+          <span class="brand-lockup brand-lockup-light">
+            <img src="https://radova.org/assets/logo-white.png" alt="Radova Logo" width="28">
+            <span class="brand-name">RADOVA</span>
+          </span>
+          <p class="footer-copy">© 2026 yuros.org · Released under the MIT License</p>
+        </div>
+
+        <a class="footer-top" href="#main">Back to top ↑</a>
+      </div>
     </footer>
   </body>
 </html>
