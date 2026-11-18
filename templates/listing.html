@@ -16,7 +16,7 @@
     <script src="/assets/site.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
     <header class="site-header">
       <a class="brand-lockup" href="https://radova.org/">
         <img src="/assets/logo.png" alt="Radova Logo" width="32">
@@ -26,29 +26,31 @@
       <div id="primary-nav" class="header-menu">
         <nav aria-label="Primary navigation">
           <ul class="nav-list">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a href="https://radova.org/learns">Learning</a></li>
-            <li><a href="https://radova.org/events">Events</a></li>
-            <li><a href="/latest/" aria-current="page">Latest</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
+            <li><a href="/latest/" aria-current="page" data-i18n="nav.latest">Latest</a></li>
           </ul>
         </nav>
 
         <nav class="navbar" aria-label="About menu">
           <ul class="nav-links">
             <li class="dropdown">
-              <a id="test2" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false">About</a>
+              <a id="test2" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</a>
               <div class="menu-arrow" aria-hidden="true"></div>
               <div class="dropdown-content" role="menu">
-                <a class="d-content-h" href="https://radova.org/about/" role="menuitem">About</a>
-                <a class="d-content-r" href="https://radova.org/about/history" role="menuitem">History</a>
-                <a class="d-content-c" href="https://radova.org/about/contact" role="menuitem">Contact</a>
-                <button type="button" class="d-content-back" role="menuitem">Back</button>
+                <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
+                <a class="d-content-r" href="https://radova.org/about/history" role="menuitem" data-i18n="nav.history">History</a>
+                <a class="d-content-c" href="https://radova.org/about/contact" role="menuitem" data-i18n="nav.contact">Contact</a>
+                <button type="button" class="d-content-back" role="menuitem" data-i18n="nav.back">Back</button>
               </div>
             </li>
           </ul>
         </nav>
       </div>
+
+      <button type="button" id="lang-toggle" class="btn-lang" aria-label="Switch language to Indonesian">EN</button>
 
       <button
         type="button"

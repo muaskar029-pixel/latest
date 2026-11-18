@@ -139,4 +139,88 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("resize", function () {
     if (window.innerWidth >= 768) setMenuState(false);
   });
+
+  // language switcher (EN <-> ID)
+  var langBtn = document.getElementById("lang-toggle");
+  if (langBtn) {
+    var LANG_KEY = "radova-lang";
+    var ID_TEXT = {
+      "skip": "Langsung ke konten",
+      "nav.packages": "Paket",
+      "nav.wiki": "Wiki",
+      "nav.learning": "Belajar",
+      "nav.events": "Acara",
+      "nav.latest": "Terbaru",
+      "nav.about": "Tentang",
+      "nav.history": "Sejarah",
+      "nav.contact": "Kontak",
+      "nav.back": "Kembali",
+      "latest.eyebrow": "[Pembaruan Radova]",
+      "latest.title": "Baca Pembaruan Terbaru Kami",
+      "latest.desc": "Acara, artikel, berita, dan informasi keamanan dari Radova Linux, diurutkan dari yang terbaru.",
+      "latest.all": "Semua Terbaru",
+      "latest.agenda": "Agenda",
+      "latest.article": "Artikel",
+      "latest.news": "Berita",
+      "latest.security": "Keamanan",
+      "footer.col1": "Tentang Radova",
+      "footer.col2": "Sumber Daya",
+      "footer.col3": "Pilar Utama",
+      "footer.col4": "Bantuan & Spesifikasi",
+      "footer.download": "Unduh ISO",
+      "footer.specs": "Kebutuhan Sistem",
+      "footer.security": "Info Keamanan",
+      "footer.copy": "© 2026 yuros.org · Dirilis di bawah Lisensi MIT",
+      "footer.top": "Ke atas ↑"
+    };
+
+    var nodes = [];
+    var enList = [];
+
+    function snapshotNodes() {
+      nodes = Array.prototype.slice.call(document.querySelectorAll("[data-i18n], [data-i18n-prefix]"));
+      enList = nodes.map(function (node) {
+        return node.hasAttribute("data-i18n")
+          ? node.textContent
+          : (node.firstChild ? node.firstChild.nodeValue : "");
+      });
+    }
+
+    function applyLang(lang) {
+      nodes.forEach(function (el, i) {
+        if (el.hasAttribute("data-i18n")) {
+          var key = el.getAttribute("data-i18n");
+          el.textContent = lang === "id" && ID_TEXT[key] != null ? ID_TEXT[key] : enList[i];
+        } else if (el.firstChild) {
+          var pkey = el.getAttribute("data-i18n-prefix");
+          el.firstChild.nodeValue = lang === "id" && ID_TEXT[pkey] != null ? ID_TEXT[pkey] + " " : enList[i];
+        }
+      });
+      document.documentElement.lang = lang;
+      langBtn.textContent = lang.toUpperCase();
+      langBtn.setAttribute("aria-label", lang === "id" ? "Switch language to English" : "Switch language to Indonesian");
+    }
+
+    snapshotNodes();
+    var currentLang = "en";
+    try {
+      var saved = localStorage.getItem(LANG_KEY);
+      if (saved === "id" || saved === "en") currentLang = saved;
+    } catch (_) {}
+
+    if (currentLang !== "en") applyLang(currentLang);
+
+    langBtn.addEventListener("click", function () {
+      currentLang = currentLang === "en" ? "id" : "en";
+      applyLang(currentLang);
+      try {
+        localStorage.setItem(LANG_KEY, currentLang);
+      } catch (_) {}
+    });
+
+    document.addEventListener("htmx:afterSettle", function () {
+      snapshotNodes();
+      if (currentLang !== "en") applyLang(currentLang);
+    });
+  }
 });

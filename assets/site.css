@@ -210,6 +210,11 @@ body > header.site-header,
   padding: 0;
 }
 
+.nav-list li :where(a, [role="link"]) {
+  margin: 0;
+  padding: 0;
+}
+
 .nav-list a {
   font-size: 15px;
   font-weight: 500;
@@ -546,6 +551,46 @@ nav.navbar li :where(a, [role="link"]) {
     background-color: rgba(219, 0, 15, 0.08);
     color: var(--radova-red-3);
     border-radius: 10px;
+  }
+}
+
+button.btn-lang {
+  margin: 0;
+  width: auto;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--radova-white);
+  border: 1.5px solid rgba(14, 3, 71, 0.22);
+  color: #0E0347;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  border-radius: 16px;
+  cursor: pointer;
+  line-height: normal;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+button.btn-lang:hover {
+  border-color: var(--radova-red);
+  color: var(--radova-red);
+  background-color: var(--radova-lavender);
+}
+
+@media (max-width: 767px) {
+  button.btn-lang {
+    margin-left: auto;
+    padding: 0.45rem 0.75rem;
+    position: relative;
+    z-index: 1002;
+  }
+
+  .nav-toggle {
+    margin-left: 0;
   }
 }
 
