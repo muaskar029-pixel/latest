@@ -1325,3 +1325,166 @@ main > .editorial-prose {
     transition: none;
   }
 }
+
+
+/* ==========================================================================
+   Dark Mode Toggle Button & Official Radova Dark Palette (darkmode.pdf)
+   Background: #0B0711 | Card: #150B52 | Deep Navy: #0E0347
+   Primary Text: #FFFFFF | Secondary Text: #C4C0D4
+   Primary: #A10000 | Hover: #BB080B | CTA Accent: #DB000F | Blue: #0035C6
+   ========================================================================== */
+button.btn-theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+  margin: 0;
+  margin-left: auto;
+  padding: 0;
+  border-radius: 999px;
+  border: 1.5px solid rgba(14, 3, 71, 0.18);
+  background: #ffffff;
+  color: #0E0347;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease, transform 140ms ease;
+}
+
+button.btn-theme + button.btn-lang {
+  margin-left: 0;
+}
+
+@media (min-width: 768px) {
+  button.btn-theme {
+    margin-left: 0;
+  }
+}
+
+button.btn-theme:hover {
+  border-color: #DB000F;
+  color: #DB000F;
+  background: #F7F6FF;
+}
+
+button.btn-theme:active {
+  transform: scale(0.96);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --radova-navy: #FFFFFF;
+  --radova-muted: #C4C0D4;
+  --radova-red: #FFFFFF;
+  --radova-red-2: #BB080B;
+  --radova-red-3: #DB000F;
+  --radova-blue: #0035C6;
+  --radova-lavender: #150B52;
+  --radova-dock: #0E0347;
+  --radova-white: #0B0711;
+  --radova-hairline: rgba(196, 192, 212, 0.18);
+  --radova-shadow-card: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --radova-shadow-hover: 0 14px 32px rgba(0, 0, 0, 0.5);
+
+  --pico-background-color: #0B0711;
+  --pico-color: #FFFFFF;
+  --pico-muted-color: #C4C0D4;
+  --pico-h1-color: #FFFFFF;
+  --pico-h2-color: #FFFFFF;
+  --pico-h3-color: #FFFFFF;
+  --pico-primary: #DB000F;
+  --pico-primary-background: #DB000F;
+  --pico-primary-hover-background: #BB080B;
+  --pico-card-background-color: #150B52;
+}
+
+:root[data-theme="dark"] body > header.site-header,
+:root[data-theme="dark"] .site-header {
+  background: rgba(11, 7, 17, 0.88);
+  border-bottom-color: rgba(196, 192, 212, 0.16);
+}
+
+:root[data-theme="dark"] .brand-name,
+:root[data-theme="dark"] .nav-list a {
+  color: #FFFFFF;
+}
+
+:root[data-theme="dark"] .nav-toggle span {
+  background-color: #FFFFFF;
+}
+
+:root[data-theme="dark"] .dropdown-content {
+  background-color: #150B52;
+  border-color: rgba(196, 192, 212, 0.22);
+}
+
+:root[data-theme="dark"] .dropdown-content a,
+:root[data-theme="dark"] .dropdown-content button.d-content-back {
+  color: #FFFFFF;
+}
+
+:root[data-theme="dark"] button.btn-theme,
+:root[data-theme="dark"] button.btn-lang {
+  background-color: #150B52;
+  border-color: rgba(196, 192, 212, 0.28);
+  color: #F7F6FF;
+}
+
+:root[data-theme="dark"] button.btn-theme:hover,
+:root[data-theme="dark"] button.btn-lang:hover {
+  border-color: #DB000F;
+  color: #FFFFFF;
+  background-color: #0E0347;
+}
+
+:root[data-theme="dark"] .editorial-header,
+:root[data-theme="dark"] .single-split > header {
+  background:
+    radial-gradient(48% 70% at 86% 18%, rgba(219, 0, 15, 0.22), transparent 72%),
+    radial-gradient(40% 60% at 12% 82%, rgba(21, 11, 82, 0.65), transparent 72%),
+    linear-gradient(180deg, #0E0347 0%, #150B52 100%);
+}
+
+:root[data-theme="dark"] .tab-grid a[aria-current="page"] {
+  background: #DB000F;
+  border-color: #DB000F;
+  color: #FFFFFF;
+}
+
+:root[data-theme="dark"] .post-row,
+:root[data-theme="dark"] .post-row__main,
+:root[data-theme="dark"] .editorial-prose,
+:root[data-theme="dark"] nav.pager {
+  background-color: #150B52;
+}
+
+:root[data-theme="dark"] .post-row--news .post-row__panel {
+  background: #0E0347;
+}
+
+:root[data-theme="dark"] .post-row--news .post-row__panel::after {
+  color: #FFFFFF;
+  background: rgba(219, 0, 15, 0.25);
+  border-color: #DB000F;
+}
+
+:root[data-theme="dark"] .eyebrow {
+  background: rgba(219, 0, 15, 0.22);
+  color: #FFFFFF;
+}
+
+:root[data-theme="dark"] .badge--type {
+  background: #0E0347;
+  color: #FFFFFF;
+}
+
+:root[data-theme="dark"] .button {
+  color: #FFFFFF;
+}
+
+@media (max-width: 767px) {
+  :root[data-theme="dark"] .header-menu {
+    background-color: #0B0711;
+  }
+}
