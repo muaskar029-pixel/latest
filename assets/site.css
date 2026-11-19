@@ -33,28 +33,38 @@
 :root:not([data-theme=dark]),
 [data-theme=light] {
   --radova-navy: #0E0347;
+  --radova-muted: #5b5a78;
   --radova-red: #A10000;
   --radova-red-2: #BB080B;
   --radova-red-3: #DB000F;
   --radova-blue: #0B2E8D;
   --radova-lavender: #F7F6FF;
+  --radova-dock: #F0EFFC;
   --radova-white: #FFFFFF;
   --radova-hairline: rgba(14, 3, 71, 0.12);
   --radova-heading-font: "Lato", system-ui, sans-serif;
+  --radova-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --radova-radius: 20px;
+  --radova-radius-md: 16px;
+  --radova-radius-sm: 12px;
+  --radova-shadow-card: 0 2px 10px rgba(14, 3, 71, 0.04);
+  --radova-shadow-hover: 0 12px 30px rgba(14, 3, 71, 0.08);
+  --radova-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   --pico-font-family: "Roboto", system-ui, sans-serif;
-  --pico-background-color: var(--radova-lavender);
+  --pico-background-color: var(--radova-white);
   --pico-color: var(--radova-navy);
-  --pico-h1-color: var(--radova-navy);
-  --pico-h2-color: var(--radova-navy);
+  --pico-muted-color: var(--radova-muted);
+  --pico-h1-color: var(--radova-red);
+  --pico-h2-color: var(--radova-red);
   --pico-h3-color: var(--radova-navy);
   --pico-h4-color: var(--radova-navy);
   --pico-h5-color: var(--radova-navy);
   --pico-h6-color: var(--radova-navy);
 
   --pico-primary: var(--radova-red);
-  --pico-primary-background: var(--radova-red);
-  --pico-primary-border: var(--radova-red);
+  --pico-primary-background: var(--radova-red-3);
+  --pico-primary-border: var(--radova-red-3);
   --pico-primary-underline: rgba(161, 0, 0, 0.5);
   --pico-primary-hover: var(--radova-red-2);
   --pico-primary-hover-background: var(--radova-red-2);
@@ -65,28 +75,32 @@
 
   --pico-card-background-color: var(--radova-white);
   --pico-card-box-shadow: none;
-  --pico-blockquote-border-color: var(--radova-red);
+  --pico-border-radius: 12px;
+  --pico-blockquote-border-color: var(--radova-red-3);
 }
 
 /* ---------- Base ---------- */
 h1, h2, h3, h4, h5, h6 {
   --pico-font-family: var(--radova-heading-font);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 /* Figma heading scale (56/48/40/32/24/20 px) on wide screens; Pico's smaller scale below.
    Pico's root is 20px at >=1280px, so rem = px / 20. */
 @media (min-width: 1024px) {
   h1 { --pico-font-size: 2.8rem; }
-  h2 { --pico-font-size: 2.4rem; }
-  h3 { --pico-font-size: 2rem; }
-  h4 { --pico-font-size: 1.6rem; }
-  h5 { --pico-font-size: 1.2rem; }
+  h2 { --pico-font-size: 2.2rem; }
+  h3 { --pico-font-size: 1.75rem; }
+  h4 { --pico-font-size: 1.4rem; }
+  h5 { --pico-font-size: 1.15rem; }
   h6 { --pico-font-size: 1rem; }
 }
 
 /* Long words and URLs wrap instead of widening the page. */
 body {
   overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
 }
 main p {
   max-width: 65ch;
@@ -108,9 +122,16 @@ main p {
 }
 
 .eyebrow {
-  margin-bottom: 0.25rem;
-  font-size: 0.875rem;
+  display: inline-block;
+  margin-bottom: 0.65rem;
+  padding: 0.22rem 0.7rem;
+  border-radius: 9999px;
+  background: rgba(219, 0, 15, 0.08);
+  font-family: var(--radova-mono);
+  font-size: 0.72rem;
   font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
   color: var(--radova-red);
 }
 
@@ -725,40 +746,52 @@ nav.footer-col {
 /* ---------- .editorial-header: split page header (title left, description right) ---------- */
 .editorial-header {
   display: grid;
-  gap: var(--pico-spacing);
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+  padding: 2rem 1.5rem;
+  border-radius: var(--radova-radius);
+  border: 1px solid var(--radova-hairline);
+  background:
+    radial-gradient(48% 70% at 86% 18%, rgba(219, 0, 15, 0.09), transparent 72%),
+    radial-gradient(40% 60% at 12% 82%, rgba(14, 3, 71, 0.05), transparent 72%),
+    linear-gradient(180deg, #ffffff 0%, var(--radova-lavender) 100%);
 }
 .editorial-header h1,
 .editorial-header > :nth-child(2) > :last-child,
 .editorial-header > p {
   margin-bottom: 0;
 }
+.editorial-header p {
+  color: var(--radova-muted);
+}
 @media (min-width: 768px) {
   .editorial-header {
+    padding: 2.5rem;
     grid-template-columns: 1fr 1fr;
     align-items: end;
+    gap: 2rem;
   }
   /* Right column: the description, plus an optional action under it. */
   .editorial-header > :nth-child(2) {
     justify-self: end;
-    max-width: 40ch;
+    max-width: 42ch;
   }
 }
 
-/* ---------- .tab-grid: category tabs as equal bordered cells ---------- */
+/* ---------- .tab-grid: category tabs as segmented pill navigation ---------- */
 nav.tab-grid {
   display: block;
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  margin-bottom: 1.75rem;
 }
-/* The 1px gap over a hairline background draws the cell borders. */
 nav.tab-grid ul {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
+  gap: 0.5rem;
   margin: 0;
-  padding: 0;
+  padding: 0.4rem;
   border: 1px solid var(--radova-hairline);
-  background: var(--radova-hairline);
+  border-radius: var(--radova-radius-md);
+  background: var(--radova-lavender);
 }
 .tab-grid li {
   margin: 0;
@@ -772,43 +805,49 @@ nav.tab-grid ul {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 52px;
+  min-height: 44px;
   margin: 0;
   padding: 0.5rem 1rem;
-  border-radius: 0;
-  border-bottom: 3px solid transparent;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  font-family: var(--radova-heading-font);
+  font-size: 0.9rem;
+  font-weight: 700;
   text-align: center;
   text-decoration: none;
   color: var(--radova-navy);
-  background: var(--radova-lavender);
+  background: transparent;
+  transition: color 180ms var(--radova-ease), background-color 180ms var(--radova-ease), border-color 180ms var(--radova-ease), box-shadow 180ms var(--radova-ease);
 }
 .tab-grid a:hover,
 .tab-grid a:focus-visible {
   color: var(--radova-red);
   background: var(--radova-white);
+  border-color: var(--radova-hairline);
 }
 .tab-grid a[aria-current="page"] {
   font-weight: 700;
-  background: var(--radova-white);
-  border-bottom-color: var(--radova-red);
+  color: var(--radova-white);
+  background: var(--radova-red);
+  border-color: var(--radova-red);
+  box-shadow: 0 4px 12px rgba(161, 0, 0, 0.2);
 }
 @media (min-width: 768px) {
   nav.tab-grid ul {
     grid-template-columns: repeat(5, 1fr);
+    border-radius: 9999px;
   }
   .tab-grid li:first-child {
     grid-column: auto;
   }
 }
 
-/* ---------- .post-grid / .post-row: bordered listing, split row ---------- */
+/* ---------- .post-grid / .post-row: spaced architectural split cards ---------- */
 .post-grid {
   display: grid;
-  gap: 1px;
+  gap: 1.25rem;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--radova-hairline);
-  background: var(--radova-hairline);
 }
 .post-grid > li {
   margin: 0;
@@ -817,11 +856,22 @@ nav.tab-grid ul {
 .post-row {
   position: relative;
   display: grid;
-  gap: 1px;
+  gap: 0;
   margin: 0;
   padding: 0;
-  border-radius: 0;
-  background: var(--radova-hairline);
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
+  overflow: hidden;
+  background: var(--radova-white);
+  box-shadow: var(--radova-shadow-card);
+  transition: transform 200ms var(--radova-ease), border-color 200ms var(--radova-ease), box-shadow 200ms var(--radova-ease);
+}
+@media (hover: hover) {
+  .post-row:hover {
+    transform: translateY(-2px);
+    border-color: var(--radova-red-3);
+    box-shadow: var(--radova-shadow-hover);
+  }
 }
 /* Grid children may shrink below their content so long words and code never widen the page. */
 .post-row > * {
@@ -833,7 +883,7 @@ nav.tab-grid ul {
   }
 }
 .post-row__main {
-  padding: 1.5rem;
+  padding: 1.65rem 1.75rem;
   background: var(--radova-white);
 }
 .post-row__main > :last-child {
@@ -844,14 +894,17 @@ nav.tab-grid ul {
 }
 .post-row h2,
 .post-row h3 {
-  --pico-font-size: 1.4rem;
+  --pico-font-size: 1.35rem;
   --pico-line-height: 1.25;
   margin-bottom: 0.5rem;
+  color: var(--radova-navy);
   overflow-wrap: anywhere;
 }
 .post-row h2 a,
 .post-row h3 a {
+  color: inherit;
   text-decoration: none;
+  transition: color 160ms var(--radova-ease);
 }
 /* The title link is stretched over the whole row, so the row is one click target. */
 .post-row h2 a::after,
@@ -862,33 +915,111 @@ nav.tab-grid ul {
 }
 .post-row:hover h2 a,
 .post-row:hover h3 a {
-  text-decoration: underline;
+  color: var(--radova-red-3);
+  text-decoration: none;
 }
 .post-row:has(a:focus-visible) {
-  outline: 3px solid var(--radova-red-3);
-  outline-offset: -3px;
+  outline: 2px solid var(--radova-red-3);
+  outline-offset: 2px;
 }
 .post-row__main p:not([class]) {
   max-width: 60ch;
+  color: var(--radova-muted);
 }
 .post-row__panel {
   margin: 0;
-  padding: 1.5rem;
-  background: var(--radova-lavender);
+  padding: 1.5rem 1.75rem;
+  background: var(--radova-dock);
+  border-top: 1px solid var(--radova-hairline);
+}
+@media (min-width: 768px) {
+  .post-row__panel {
+    border-top: 0;
+    border-left: 1px solid var(--radova-hairline);
+  }
 }
 /* Visual cue only: the "/ ''" alt text keeps it silent for screen readers; Lynx ignores CSS. */
 .post-row--article .post-row__panel::after,
 .post-row--news .post-row__panel::after {
   grid-column: 1 / -1;
-  margin-top: 1rem;
+  justify-self: start;
+  margin-top: 1.15rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  font-family: var(--radova-heading-font);
+  font-size: 0.82rem;
   font-weight: 700;
-  color: var(--radova-red);
+  letter-spacing: 0.02em;
 }
-.post-row--article .post-row__panel::after {
-  content: "Read article \2192" / "";
+
+/* Per-Content-Type Card Archetypes (100% Radova Palette) */
+/* 1. News: Press Dispatch with crimson leading rail + light dock */
+.post-row--news {
+  border-inline-start: 5px solid var(--radova-red-3);
+}
+.post-row--news .post-row__panel {
+  background: linear-gradient(180deg, var(--radova-lavender) 0%, var(--radova-dock) 100%);
 }
 .post-row--news .post-row__panel::after {
   content: "Read news \2192" / "";
+  color: var(--radova-red);
+  background: rgba(219, 0, 15, 0.09);
+  border: 1px solid rgba(161, 0, 0, 0.22);
+}
+
+/* 2. Article: Long-Form Editorial Feature with Deep Navy Dock */
+.post-row--article {
+  box-shadow: 0 6px 22px rgba(14, 3, 71, 0.06);
+}
+.post-row--article .post-row__panel {
+  background:
+    radial-gradient(85% 90% at 100% 0%, rgba(219, 0, 15, 0.28), transparent 68%),
+    linear-gradient(155deg, #0E0347 0%, #17065c 100%);
+  color: var(--radova-white);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+.post-row--article .meta-dl dt,
+.post-row--article .meta-dl dd {
+  border-top-color: rgba(255, 255, 255, 0.16);
+}
+.post-row--article .meta-dl dt {
+  color: rgba(247, 246, 255, 0.68);
+}
+.post-row--article .meta-dl dd {
+  color: var(--radova-white);
+}
+.post-row--article .post-row__panel::after {
+  content: "Read article \2192" / "";
+  color: var(--radova-white);
+  background: var(--radova-red-3);
+}
+
+/* 3. Security: Technical Advisory Dossier with top alert bar + blueprint dot grid */
+.post-row--security {
+  border-top: 4px solid var(--radova-red);
+}
+.post-row--security .post-row__panel {
+  background-color: var(--radova-lavender);
+  background-image: radial-gradient(rgba(14, 3, 71, 0.07) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+.post-row--security .advisory-id {
+  padding: 0.2rem 0.55rem;
+  border-radius: 8px;
+  background: rgba(219, 0, 15, 0.09);
+  border: 1px solid rgba(161, 0, 0, 0.22);
+}
+
+/* 4. Agenda: Schedule Ticket Pass with dashed perforation divider */
+.post-row--agenda .post-row__panel {
+  background: linear-gradient(180deg, var(--radova-dock) 0%, var(--radova-lavender) 100%);
+  border-top: 2px dashed rgba(14, 3, 71, 0.22);
+}
+@media (min-width: 768px) {
+  .post-row--agenda .post-row__panel {
+    border-top: 0;
+    border-inline-start: 2px dashed rgba(14, 3, 71, 0.22);
+  }
 }
 
 .meta {
@@ -896,20 +1027,23 @@ nav.tab-grid ul {
   flex-wrap: wrap;
   align-items: center;
   gap: 0.25rem 0.75rem;
-  font-size: 0.875em;
+  font-family: var(--radova-mono);
+  font-size: 0.8rem;
   color: var(--pico-muted-color);
 }
 
 /* ---------- .empty-state: a category or section with nothing published yet ---------- */
 .empty-state {
-  padding: 2rem 1.5rem;
+  padding: 2rem 1.75rem;
   border: 1px solid var(--radova-hairline);
-  background: var(--radova-white);
+  border-radius: var(--radova-radius-md);
+  background: var(--radova-lavender);
 }
 .empty-state > :first-child {
   font-family: var(--radova-heading-font);
   font-size: 1.25rem;
   font-weight: 700;
+  color: var(--radova-navy);
 }
 .empty-state > :last-child {
   margin-bottom: 0;
@@ -936,28 +1070,36 @@ nav.tab-grid ul {
 }
 .meta-dl dt {
   padding-right: 1.25rem;
-  font-size: 0.875rem;
+  font-family: var(--radova-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--pico-muted-color);
 }
 .meta-dl__lead {
   font-family: var(--radova-heading-font);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.3;
 }
 .advisory-id {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 1.25rem;
+  font-family: var(--radova-mono);
+  font-size: 1.15rem;
   font-weight: 700;
+  color: var(--radova-red);
 }
 
 /* ---------- .badge: meaning is always in the text; colour only reinforces it ---------- */
 .badge {
   display: inline-block;
-  padding: 0.125rem 0.5rem;
-  font-size: 0.875rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  font-family: var(--radova-mono);
+  font-size: 0.72rem;
   font-weight: 700;
   line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   color: var(--radova-white);
   background: var(--radova-navy);
 }
@@ -984,38 +1126,53 @@ nav.tab-grid ul {
 .button {
   display: inline-flex;
   align-items: center;
-  min-height: 48px;
-  padding: 0.75rem 1.5rem;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 9999px;
+  font-family: var(--radova-heading-font);
   font-weight: 700;
   text-decoration: none;
   color: var(--radova-white);
-  background: var(--radova-red);
+  background: var(--radova-red-3);
+  box-shadow: 0 4px 14px rgba(219, 0, 15, 0.22);
+  transition: background-color 180ms var(--radova-ease), transform 140ms var(--radova-ease), box-shadow 180ms var(--radova-ease);
 }
 .button:hover,
 .button:focus-visible {
   color: var(--radova-white);
   background: var(--radova-red-2);
+  box-shadow: 0 6px 20px rgba(187, 8, 11, 0.28);
+}
+.button:active {
+  transform: scale(0.98);
 }
 
-/* ---------- .pager: bordered Previous / Next bar (pagination and post navigation) ---------- */
+/* ---------- .pager: rounded Previous / Next bar (pagination and post navigation) ---------- */
 nav.pager {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: calc(var(--pico-spacing) * 2);
   border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius-md);
+  overflow: hidden;
   background: var(--radova-white);
+  box-shadow: var(--radova-shadow-card);
 }
 .pager a {
   display: flex;
   align-items: center;
   min-height: 52px;
-  padding: 0.75rem 1.25rem;
+  padding: 0.75rem 1.35rem;
+  font-family: var(--radova-heading-font);
   font-weight: 700;
   text-decoration: none;
+  transition: background-color 160ms var(--radova-ease), color 160ms var(--radova-ease);
 }
 .pager a:hover,
 .pager a:focus-visible {
   background: var(--radova-lavender);
+  color: var(--radova-red-3);
 }
 .pager a[rel="next"] {
   grid-column: 2;
@@ -1027,7 +1184,7 @@ nav.pager {
 /* ---------- .single-split: detail page, context left, prose right ---------- */
 .single-split {
   display: grid;
-  gap: calc(var(--pico-spacing) * 2);
+  gap: 1.75rem;
   margin: 0;
   padding: 0;
   border-radius: 0;
@@ -1036,20 +1193,38 @@ nav.pager {
 .single-split > * {
   min-width: 0;
 }
-/* Undo Pico's card header (negative margins, tint, rule) on the context column. */
+/* Context column styled as an architectural sidebar card. */
 .single-split > header {
   margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
+  padding: 1.75rem;
+  border: 1px solid var(--radova-hairline);
+  border-top: 3px solid var(--radova-red-3);
+  border-radius: var(--radova-radius);
+  background:
+    radial-gradient(55% 60% at 88% 12%, rgba(219, 0, 15, 0.07), transparent 72%),
+    linear-gradient(180deg, var(--radova-lavender) 0%, var(--radova-white) 100%);
+  box-shadow: var(--radova-shadow-card);
 }
 .single-split h1 {
   --pico-font-size: 2rem;
-  --pico-line-height: 1.15;
+  --pico-line-height: 1.14;
+  color: var(--radova-red);
 }
 .back-link a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid var(--radova-hairline);
+  background: var(--radova-white);
+  font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
+  transition: border-color 160ms var(--radova-ease), color 160ms var(--radova-ease);
+}
+.back-link a:hover {
+  border-color: var(--radova-red-3);
+  color: var(--radova-red-3);
 }
 .single-split .meta-dl {
   margin-bottom: 1.5rem;
@@ -1067,8 +1242,11 @@ main > .editorial-prose {
   margin-top: calc(var(--pico-spacing) * 2);
 }
 .editorial-prose {
-  padding: 1.5rem;
+  padding: 1.75rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
   background: var(--radova-white);
+  box-shadow: var(--radova-shadow-card);
 }
 @media (min-width: 768px) {
   .editorial-prose {
@@ -1084,12 +1262,14 @@ main > .editorial-prose {
   margin-bottom: 0;
 }
 .editorial-prose h2 {
-  --pico-font-size: 1.75rem;
+  --pico-font-size: 1.6rem;
   margin-top: 2rem;
+  color: var(--radova-red);
 }
 .editorial-prose h3 {
-  --pico-font-size: 1.375rem;
+  --pico-font-size: 1.25rem;
   margin-top: 1.5rem;
+  color: var(--radova-navy);
 }
 .editorial-prose > h2:first-child,
 .editorial-prose section:first-child > h2 {
@@ -1097,9 +1277,16 @@ main > .editorial-prose {
 }
 .editorial-prose blockquote {
   margin: 1.5rem 0;
-  padding: 0.25rem 0 0.25rem 1.25rem;
+  padding: 0.5rem 0 0.5rem 1.25rem;
   font-family: var(--radova-heading-font);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  color: var(--radova-navy);
+}
+.editorial-prose pre {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius-sm);
+  background: var(--radova-lavender);
 }
 .editorial-prose pre,
 .table-scroll {
@@ -1125,4 +1312,16 @@ main > .editorial-prose {
   font-weight: 700;
   line-height: 0.8;
   color: var(--radova-red);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-grid a,
+  .post-row,
+  .post-row h2 a,
+  .post-row h3 a,
+  .button,
+  .pager a,
+  .back-link a {
+    transition: none;
+  }
 }

@@ -15,9 +15,11 @@
     <meta name="radova:location" content="Online">
     <meta name="radova:register_url" content="https://example.com/register">
     <meta name="radova:status" content="scheduled">
+    <meta name="htmx-config" content='{"selfRequestsOnly":true,"allowScriptTags":false,"allowEval":false}'>
+    <script src="../../assets/htmx.min.js" defer></script>
   </head>
   <body>
-    <main id="main">
+    <main id="main" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
       <article>
         <header>
           <p><a href="/latest/agenda/">Agenda</a></p>

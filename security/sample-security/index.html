@@ -16,9 +16,11 @@
     <meta name="radova:patched_versions" content="1.2">
     <meta name="radova:cve" content="CVE-2026-00000">
     <meta name="radova:status" content="resolved">
+    <meta name="htmx-config" content='{"selfRequestsOnly":true,"allowScriptTags":false,"allowEval":false}'>
+    <script src="../../assets/htmx.min.js" defer></script>
   </head>
   <body>
-    <main id="main">
+    <main id="main" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
       <article>
         <header>
           <p><a href="/latest/security/">Security</a></p>
