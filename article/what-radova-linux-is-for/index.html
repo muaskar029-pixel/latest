@@ -13,15 +13,21 @@
     <meta name="radova:author" content="Radova Team">
     <meta name="radova:reading_time" content="2">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
-    <link rel="stylesheet" href="/assets/pico.classless.min.css">
-    <link rel="stylesheet" href="/assets/site.css">
-    <script src="/assets/htmx.min.js" defer></script>
-    <script src="/assets/site.js" defer></script>
+    <link rel="stylesheet" href="/latest/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/latest/assets/site.css">
+    <script src="/latest/assets/htmx.min.js" defer></script>
+    <script src="/latest/assets/site.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <header>
-      <a class="brand" href="/">RADOVA</a>
+    <header class="site-header">
+      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <nav aria-label="Site">
+        <ul>
+          <li><a href="/latest/">Latest</a></li>
+          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+        </ul>
+      </nav>
     </header>
     <main id="main">
       <article class="single-split">
@@ -86,7 +92,12 @@
         </div>
       </article>
     </main>
-    <footer>
+    <footer class="site-footer">
+      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <ul>
+        <li><a href="/latest/security/policy/">Security policy</a></li>
+        <li><a href="https://github.com/radova-linux/latest">Source code</a></li>
+      </ul>
       <p>&copy; 2026 Radova Linux</p>
     </footer>
   </body>

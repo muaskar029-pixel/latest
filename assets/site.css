@@ -41,6 +41,9 @@
   --radova-white: #FFFFFF;
   --radova-hairline: rgba(14, 3, 71, 0.12);
   --radova-heading-font: "Lato", system-ui, sans-serif;
+  --radova-radius: 12px;
+  --radova-radius-lg: 20px;
+  --radova-pill: 999px;
 
   --pico-font-family: "Roboto", system-ui, sans-serif;
   --pico-background-color: var(--radova-lavender);
@@ -69,6 +72,11 @@
 }
 
 /* ---------- Base ---------- */
+/* Reserve the scrollbar's width on short pages too, so the header stays put between pages. */
+html {
+  scrollbar-gutter: stable;
+}
+
 h1, h2, h3, h4, h5, h6 {
   --pico-font-family: var(--radova-heading-font);
 }
@@ -381,6 +389,7 @@ nav.tab-grid ul {
 /* ---------- .badge: meaning is always in the text; colour only reinforces it ---------- */
 .badge {
   display: inline-block;
+  border-radius: var(--radova-pill);
   padding: 0.125rem 0.5rem;
   font-size: 0.875rem;
   font-weight: 700;
@@ -407,13 +416,18 @@ nav.tab-grid ul {
   background: #E4E1F7;
 }
 
-/* ---------- .button: primary call to action ---------- */
+/* ---------- .button: pill call to action (Figma "Button Type") ---------- */
 .button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   min-height: 48px;
-  padding: 0.75rem 1.5rem;
+  padding: 0.625rem 1.5rem;
+  border: 1.5px solid var(--radova-red);
+  border-radius: var(--radova-pill);
   font-weight: 700;
+  line-height: 1.2;
   text-decoration: none;
   color: var(--radova-white);
   background: var(--radova-red);
@@ -421,7 +435,38 @@ nav.tab-grid ul {
 .button:hover,
 .button:focus-visible {
   color: var(--radova-white);
+  border-color: var(--radova-red-2);
   background: var(--radova-red-2);
+}
+.button:focus-visible {
+  outline: 3px solid var(--radova-red-3);
+  outline-offset: 2px;
+}
+.button--navy {
+  border-color: var(--radova-navy);
+  background: var(--radova-navy);
+}
+.button--navy:hover,
+.button--navy:focus-visible {
+  border-color: var(--radova-blue);
+  background: var(--radova-blue);
+}
+.button--small {
+  min-height: 38px;
+  padding: 0.375rem 1.125rem;
+  font-size: 0.875rem;
+}
+/* A white circle with a red arrow at the end, like "Get Radova Linux" on radova.org. */
+.button--arrow {
+  padding-right: 0.5rem;
+}
+.button--arrow::after {
+  content: "";
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--radova-white) url("icons/arrow-right-red.svg") center / 1.125rem no-repeat;
 }
 
 /* ---------- .pager: bordered Previous / Next bar (pagination and post navigation) ---------- */
@@ -552,4 +597,489 @@ main > .editorial-prose {
   font-weight: 700;
   line-height: 0.8;
   color: var(--radova-red);
+}
+
+/* ---------- .site-header / .site-footer: radova.org lockup on every page ---------- */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--radova-hairline);
+}
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-right: auto;
+  font-family: var(--radova-heading-font);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--radova-red);
+}
+.brand-lockup img {
+  width: 28px;
+  height: 28px;
+}
+/* Pico gives nav lists and nav links negative side margins; keep the About pill inside the page. */
+.site-header nav ul {
+  gap: 1.25rem;
+  margin: 0;
+}
+.site-header li {
+  padding: 0;
+}
+.site-header li a {
+  margin: 0;
+}
+/* "Latest" is always red: every page with this header is in the Latest section. */
+.site-header li a:not(.button) {
+  padding: 0.25rem 0;
+  font-weight: 700;
+  color: var(--radova-red);
+}
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--radova-hairline);
+}
+.site-footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+.site-footer li {
+  margin: 0;
+  list-style: none;
+}
+.site-footer p {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* ---------- .chip: small pill label above a title ---------- */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0.125rem 0.75rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--radova-navy);
+  background: var(--radova-white);
+}
+.chip--quiet {
+  border-color: transparent;
+  color: var(--radova-red);
+  background: transparent;
+}
+
+/* ---------- .notice-bar: one-line announcement at the top of the index ---------- */
+.notice-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  max-width: none;
+  margin-bottom: 2.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
+  font-size: 0.875rem;
+  background: var(--radova-white);
+}
+.notice-bar span {
+  flex: 1 1 12rem;
+}
+.notice-bar::before {
+  content: "";
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: var(--radova-red);
+  -webkit-mask: url("icons/shield-check.svg") center / contain no-repeat;
+  mask: url("icons/shield-check.svg") center / contain no-repeat;
+}
+.notice-bar a {
+  padding: 0.25rem 0.875rem;
+  border-radius: var(--radova-pill);
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--radova-lavender);
+}
+@media (min-width: 768px) {
+  .notice-bar {
+    justify-content: center;
+    padding: 0.625rem 1rem;
+    border-radius: var(--radova-pill);
+  }
+  .notice-bar span {
+    flex: 0 1 auto;
+  }
+}
+
+/* ---------- .hero-split: index hero, text left, newest post right ---------- */
+.hero-split {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+.hero-split > * {
+  min-width: 0;
+}
+.hero-split h1 {
+  --pico-font-size: 2.25rem;
+  margin: 1.25rem 0 1rem;
+  line-height: 1.08;
+}
+.hero-split .accent {
+  color: var(--radova-red);
+}
+.hero-split__lead {
+  font-size: 1.125rem;
+}
+.hero-split > :first-child > :last-child {
+  margin-bottom: 0;
+}
+@media (min-width: 1024px) {
+  .hero-split {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3rem;
+  }
+  .hero-split h1 {
+    --pico-font-size: 3.2rem;
+  }
+}
+
+/* .check-list: short list with a tick in a tinted circle. The tick is decoration. */
+.check-list {
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+}
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.625rem;
+  list-style: none;
+}
+.check-list li::before {
+  content: "";
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: rgba(161, 0, 0, 0.08) url("icons/check-red.svg") center / 0.875rem no-repeat;
+}
+
+/* ---------- .cover: coloured title tile inside .feature-card and .post-card ---------- */
+.cover {
+  /* Pico colours every <p> with --pico-color, so the tile sets that variable, not only color. */
+  --pico-color: var(--radova-navy);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
+  color: var(--pico-color);
+  background: var(--radova-white);
+}
+/* The category icon, large and cropped at the top right. Decoration only. */
+.cover::before {
+  content: "";
+  position: absolute;
+  top: -1.5rem;
+  right: -1.5rem;
+  width: 9rem;
+  height: 9rem;
+  background: currentColor;
+  opacity: 0.08;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+.cover--article {
+  --icon: url("icons/article.svg");
+}
+.cover--news,
+.cover--agenda,
+.cover--security {
+  --pico-color: var(--radova-white);
+}
+.cover--news {
+  --icon: url("icons/newspaper.svg");
+  border-color: var(--radova-navy);
+  background: var(--radova-navy);
+}
+.cover--agenda {
+  --icon: url("icons/calendar-blank.svg");
+  border-color: var(--radova-blue);
+  background: var(--radova-blue);
+}
+.cover--security {
+  --icon: url("icons/shield-check.svg");
+  border-color: var(--radova-red);
+  background: var(--radova-red);
+}
+.cover--article::before {
+  background: var(--radova-red);
+}
+.cover--news::before,
+.cover--agenda::before,
+.cover--security::before {
+  opacity: 0.14;
+}
+/* On a coloured tile every badge is white; its text still states the value. */
+.cover--news .badge,
+.cover--agenda .badge,
+.cover--security .badge {
+  color: var(--radova-navy);
+  background: var(--radova-white);
+}
+.cover__kicker {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 0 0 auto;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.cover__kicker .advisory-id {
+  font-size: inherit;
+}
+.cover h2,
+.cover__title {
+  margin: 2rem 0 0;
+  font-family: var(--radova-heading-font);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: inherit;
+}
+.cover h2 a {
+  color: inherit;
+  text-decoration: none;
+}
+/* The title link covers the whole tile, so the tile is one click target. */
+.cover h2 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.cover h2 a:focus-visible {
+  box-shadow: none;
+}
+.cover:hover h2 a {
+  text-decoration: underline;
+}
+.cover__summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  margin: 0.5rem 0 0;
+  overflow: hidden;
+  font-size: 0.9375rem;
+  opacity: 0.85;
+}
+
+/* ---------- .byline: author (with the Radova logo as avatar) and date ---------- */
+.byline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  color: var(--pico-muted-color);
+}
+.byline > :first-child {
+  margin-right: auto;
+  font-weight: 700;
+  color: var(--radova-navy);
+}
+.byline__author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.byline__author::before {
+  content: "";
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: 50%;
+  background: var(--radova-white) url("logo.png") center / 1rem no-repeat;
+}
+/* Inside a tile the byline is a white pill, like a photo credit. */
+.cover .byline {
+  position: relative;
+  align-self: flex-start;
+  margin-top: 1.5rem;
+  padding: 0.25rem 0.875rem 0.25rem 0.25rem;
+  border-radius: var(--radova-pill);
+  color: var(--radova-navy);
+  background: var(--radova-white);
+}
+
+/* ---------- .feature-card: the newest post, large, in the index hero ---------- */
+.feature-card {
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radova-radius-lg);
+  background: none;
+}
+.feature-card .cover {
+  min-height: 22rem;
+  padding: 1.75rem;
+  border-radius: var(--radova-radius-lg);
+}
+.feature-card .cover::before {
+  top: -2rem;
+  right: -2rem;
+  width: 12rem;
+  height: 12rem;
+}
+.feature-card h2 {
+  max-width: 18ch;
+  font-size: 2rem;
+}
+.feature-card .cover__summary {
+  -webkit-line-clamp: 3;
+  max-width: 48ch;
+  font-size: 1rem;
+}
+@media (min-width: 1024px) {
+  .feature-card .cover {
+    min-height: 26rem;
+    padding: 2.25rem;
+  }
+  .feature-card .cover::before {
+    top: -2.5rem;
+    right: -2.5rem;
+    width: 18rem;
+    height: 18rem;
+  }
+  .feature-card h2 {
+    font-size: 2.4rem;
+  }
+}
+
+/* ---------- .card-grid > .post-card: index grid, tile + byline ---------- */
+.card-grid {
+  display: grid;
+  gap: 2rem 1.5rem;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+.card-grid > li {
+  margin: 0;
+  list-style: none;
+}
+@media (min-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Two columns: an odd last card takes the whole row instead of leaving a gap. */
+  .card-grid > li:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .card-grid > li:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+.post-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: var(--radova-radius);
+  background: none;
+}
+.post-card .cover {
+  flex: 1;
+  min-height: 16rem;
+}
+.post-card:has(a:focus-visible),
+.feature-card:has(a:focus-visible) {
+  outline: 3px solid var(--radova-red-3);
+  outline-offset: 4px;
+}
+/* A category with nothing published: the link below covers the whole card. */
+.post-card__link {
+  margin: 0.75rem 0 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.post-card__link a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Category icons in the tabs. Decoration only; the text names the tab. */
+.tab-grid a::before {
+  content: "";
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-right: 0.5rem;
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat;
+  mask: var(--icon) center / contain no-repeat;
+}
+.tab-grid a[href="/latest/"] {
+  --icon: url("icons/squares-four.svg");
+}
+.tab-grid a[href="/latest/agenda/"] {
+  --icon: url("icons/calendar-blank.svg");
+}
+.tab-grid a[href="/latest/article/"] {
+  --icon: url("icons/article.svg");
+}
+.tab-grid a[href="/latest/news/"] {
+  --icon: url("icons/newspaper.svg");
+}
+.tab-grid a[href="/latest/security/"] {
+  --icon: url("icons/shield-check.svg");
+}
+/* Five narrow cells between 768 and 1023px: no room for the icon. */
+@media (min-width: 768px) and (max-width: 1023.98px) {
+  .tab-grid a::before {
+    display: none;
+  }
+}
+/* Every tab fills its cell, so a taller neighbour never shows the grey grid behind it. */
+.tab-grid li {
+  display: flex;
+}
+.tab-grid li > a {
+  flex: 1;
 }

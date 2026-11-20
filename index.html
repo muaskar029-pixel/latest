@@ -6,25 +6,46 @@
     <title>Latest - Radova</title>
     <meta name="description" content="Events, articles, news, and security advisories from Radova Linux, newest first.">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
-    <link rel="stylesheet" href="/assets/pico.classless.min.css">
-    <link rel="stylesheet" href="/assets/site.css">
-    <script src="/assets/htmx.min.js" defer></script>
-    <script src="/assets/site.js" defer></script>
+    <link rel="stylesheet" href="/latest/assets/pico.classless.min.css">
+    <link rel="stylesheet" href="/latest/assets/site.css">
+    <script src="/latest/assets/htmx.min.js" defer></script>
+    <script src="/latest/assets/site.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
-    <header>
-      <a class="brand" href="/">RADOVA</a>
+    <header class="site-header">
+      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <nav aria-label="Site">
+        <ul>
+          <li><a href="/latest/">Latest</a></li>
+          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+        </ul>
+      </nav>
     </header>
     <main id="main">
-      <header class="editorial-header">
+      <p class="notice-bar"><span>Found a security issue in Radova Linux? Report it privately.</span> <a href="/latest/security/policy/">Read the policy</a></p>
+      <section class="hero-split">
         <div>
-          <p class="eyebrow">[Radova Updates]</p>
-          <h1>Read Our Latest Updates</h1>
+          <p class="chip-row"><span class="chip">Radova Updates</span><span class="sep"> · </span><span class="chip chip--quiet">Soft launch</span></p>
+          <h1>Read Our Latest <span class="accent">Updates</span></h1>
+          <p class="hero-split__lead">Events, articles, news, and security advisories from Radova Linux, newest first.</p>
+          <ul class="check-list">
+            <li>Events and community sessions on the Agenda</li>
+            <li>Articles and news from the Radova team</li>
+            <li>Security advisories with severity and fixed versions</li>
+          </ul>
+          <p><a class="button button--arrow" href="#updates">Browse all updates</a></p>
         </div>
-        <p>Events, articles, news, and security advisories from Radova Linux, newest first.</p>
-      </header>
-      <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+        <article class="feature-card">
+          <div class="cover cover--news">
+            <p class="cover__kicker"><span class="badge badge--type">News</span><span class="sep"> · </span><span>Newest</span></p>
+            <h2><a href="/latest/news/introducing-radova-latest/">Introducing Radova Latest</a></h2>
+            <p class="cover__summary">Radova Latest is the new home for Radova Linux events, articles, news, and security advisories, newest first.</p>
+            <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T10:00:00+07:00">14 Nov 2026</time></p>
+          </div>
+        </article>
+      </section>
+      <nav class="tab-grid" id="updates" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
           <li><a href="/latest/" aria-current="page">All Latest</a></li>
           <li><a href="/latest/agenda/">Agenda</a></li>
@@ -33,42 +54,43 @@
           <li><a href="/latest/security/">Security</a></li>
         </ul>
       </nav>
-      <ol class="post-grid">
+      <ol class="card-grid">
         <li>
-          <article class="post-row post-row--news">
-            <div class="post-row__main">
-              <p class="post-row__kicker"><span class="badge badge--type">News</span></p>
-              <h2><a href="/latest/news/introducing-radova-latest/">Introducing Radova Latest</a></h2>
-              <p>Radova Latest is the new home for Radova Linux events, articles, news, and security advisories, newest first.</p>
-              <p class="meta"><time datetime="2026-11-14T10:00:00+07:00">14 Nov 2026</time></p>
+          <article class="post-card">
+            <div class="cover cover--article">
+              <p class="cover__kicker"><span class="badge badge--type">Article</span><span class="sep"> · </span><span>2 min read</span></p>
+              <h2><a href="/latest/article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
+              <p class="cover__summary">An introduction to Radova Linux: an operating system for libraries, archives, and digital assets, its four built-in applications, and the principles behind them.</p>
             </div>
-            <dl class="post-row__panel meta-dl">
-              <dt>Author</dt>
-              <dd>Radova Team</dd>
-              <dt>Tags</dt>
-              <dd class="meta-dl__lead">announcement, website</dd>
-            </dl>
+            <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
           </article>
         </li>
         <li>
-          <article class="post-row post-row--article">
-            <div class="post-row__main">
-              <p class="post-row__kicker"><span class="badge badge--type">Article</span></p>
-              <h2><a href="/latest/article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
-              <p>An introduction to Radova Linux: an operating system for libraries, archives, and digital assets, its four built-in applications, and the principles behind them.</p>
-              <p class="meta"><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time><span class="sep"> · </span><span>2 min read</span></p>
+          <div class="post-card">
+            <div class="cover cover--agenda">
+              <p class="cover__kicker"><span class="badge badge--type">Agenda</span></p>
+              <p class="cover__title">No events have been scheduled yet.</p>
             </div>
-            <dl class="post-row__panel meta-dl">
-              <dt>Author</dt>
-              <dd>Radova Team</dd>
-              <dt>Tags</dt>
-              <dd class="meta-dl__lead">introduction, architecture</dd>
-            </dl>
-          </article>
+            <p class="post-card__link"><a href="/latest/agenda/">Go to Agenda</a></p>
+          </div>
+        </li>
+        <li>
+          <div class="post-card">
+            <div class="cover cover--security">
+              <p class="cover__kicker"><span class="badge badge--type">Security</span></p>
+              <p class="cover__title">No security advisories have been published yet.</p>
+            </div>
+            <p class="post-card__link"><a href="/latest/security/">Go to Security</a></p>
+          </div>
         </li>
       </ol>
     </main>
-    <footer>
+    <footer class="site-footer">
+      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <ul>
+        <li><a href="/latest/security/policy/">Security policy</a></li>
+        <li><a href="https://github.com/radova-linux/latest">Source code</a></li>
+      </ul>
       <p>&copy; 2026 Radova Linux</p>
     </footer>
   </body>
