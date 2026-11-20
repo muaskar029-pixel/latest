@@ -14,24 +14,50 @@
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <a class="brand-lockup" href="https://radova.org/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
       <nav aria-label="Site">
         <ul>
           <li><a href="/latest/">Latest</a></li>
-          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+          <li>
+            <details class="nav-menu">
+              <summary>Resources</summary>
+              <ul>
+                <li><a href="https://packer.radova.org">Packages</a></li>
+                <li><a href="https://wiki.radova.org">Wiki</a></li>
+                <li><a href="https://radova.org/learns">Learning</a></li>
+                <li><a href="https://radova.org/events">Events</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="nav-menu">
+              <summary>About</summary>
+              <ul>
+                <li><a href="https://radova.org/about/">About</a></li>
+                <li><a href="https://radova.org/about/history">History</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="https://radova.org/about/contact">Contact</a></li>
         </ul>
       </nav>
+      <form class="nav-search" action="https://duckduckgo.com/" method="get" role="search">
+        <label class="visually-hidden" for="nav-q">Search Radova</label>
+        <input id="nav-q" type="search" name="q" placeholder="Search Radova">
+        <label class="visually-hidden" for="nav-scope">Search in</label>
+        <select id="nav-scope" name="sites">
+          <option value="radova.org">All Radova</option>
+          <option value="wiki.radova.org">Wiki</option>
+          <option value="packer.radova.org">Packages</option>
+        </select>
+        <button type="submit"><span class="visually-hidden">Search</span></button>
+      </form>
+      <a class="button button--navy site-header__cta" href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Get Radova</a>
     </header>
     <main id="main">
       <header class="editorial-header">
-        <div>
-          <p class="eyebrow">[Category: Security]</p>
-          <h1>Security</h1>
-        </div>
-        <div>
-          <p>Security advisories for Radova Linux, with severity, affected versions, and how to stay safe. Found a vulnerability? Report it privately to <a href="mailto:security@example.org" hx-boost="false">security@example.org</a>.</p>
-          <p><a class="button" href="/latest/security/policy/">Report a vulnerability</a></p>
-        </div>
+        <h1>Security</h1>
+        <p>Security advisories for Radova Linux, with severity, affected versions, and how to stay safe.</p>
       </header>
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
@@ -63,9 +89,10 @@
         <h3>Advisory IDs</h3>
         <p>Advisory IDs follow the format <strong>RSA-YYYY-NNN</strong>: the year the advisory was published and a three-digit number counting up within that year. For example, RSA-2026-001 is the first advisory of 2026.</p>
       </section>
+      <p class="page-action"><a class="button" href="/latest/security/policy/">Report a vulnerability</a></p>
     </main>
     <footer class="site-footer">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <span class="brand-lockup"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</span>
       <ul>
         <li><a href="/latest/security/policy/">Security policy</a></li>
         <li><a href="https://github.com/radova-linux/latest">Source code</a></li>

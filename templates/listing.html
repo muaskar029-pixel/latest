@@ -15,21 +15,52 @@
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <a class="brand-lockup" href="https://radova.org/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
       <nav aria-label="Site">
         <ul>
           <li><a href="/latest/">Latest</a></li>
-          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+          <li>
+            <details class="nav-menu">
+              <summary>Resources</summary>
+              <ul>
+                <li><a href="https://packer.radova.org">Packages</a></li>
+                <li><a href="https://wiki.radova.org">Wiki</a></li>
+                <li><a href="https://radova.org/learns">Learning</a></li>
+                <li><a href="https://radova.org/events">Events</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="nav-menu">
+              <summary>About</summary>
+              <ul>
+                <li><a href="https://radova.org/about/">About</a></li>
+                <li><a href="https://radova.org/about/history">History</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="https://radova.org/about/contact">Contact</a></li>
         </ul>
       </nav>
+      <form class="nav-search" action="https://duckduckgo.com/" method="get" role="search">
+        <label class="visually-hidden" for="nav-q">Search Radova</label>
+        <input id="nav-q" type="search" name="q" placeholder="Search Radova">
+        <label class="visually-hidden" for="nav-scope">Search in</label>
+        <select id="nav-scope" name="sites">
+          <option value="radova.org">All Radova</option>
+          <option value="wiki.radova.org">Wiki</option>
+          <option value="packer.radova.org">Packages</option>
+        </select>
+        <button type="submit"><span class="visually-hidden">Search</span></button>
+      </form>
+      <a class="button button--navy site-header__cta" href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Get Radova</a>
     </header>
     <main id="main">
       <!-- Listing page. Page 1 is {{type}}/index.html; page N>1 is {{type}}/page/N/index.html with " - Page N" in <title>.
-      10 items per page, newest first. One <li> per post; the right panel (dl.post-row__panel) depends on the type:
-      Article / News: Author, Tags (dd.meta-dl__lead)
-      Agenda:         Starts (dd.meta-dl__lead, WIB), Location, Status (<span class="badge badge--scheduled|cancelled">)
-      Security:       Advisory ID (dd.advisory-id), Severity (<span class="badge badge--severity-LEVEL">), Status, Affected versions
-      Only /latest/ shows the type badge (p.post-row__kicker). The agenda page has two sections: Upcoming Events and Past Events.
+      10 items per page, newest first. One <li> per post: the same card as on /latest/, without data-tags
+      (templates/README.md, "`/latest/` page", shows the card for each type). The agenda page has two sections: Upcoming Events and Past Events.
+      Security: page 1 ends with the "Report a vulnerability" button (p.page-action, as in security/index.html);
+      later pages leave it out, so a full page with Previous and Next stays within 30 links (Issue 4).
       No posts yet? Replace the <ol> and the pager with the empty state, using this category's line:
       Agenda:   No events have been scheduled yet.
       Article:  No articles have been published yet.
@@ -41,10 +72,7 @@
       </div>
       An empty Agenda section (Upcoming or Past) uses the same box without the link: "No upcoming events yet." / "No past events yet." -->
       <header class="editorial-header">
-        <div>
-          <p class="eyebrow">[Category: {{Type}}]</p>
-          <h1>{{Type}}</h1>
-        </div>
+        <h1>{{Type}}</h1>
         <p>{{description}}</p>
       </header>
       <!-- Add aria-current="page" to this category's tab. -->
@@ -57,20 +85,14 @@
           <li><a href="/latest/security/">Security</a></li>
         </ul>
       </nav>
-      <ol class="post-grid" id="post-list">
+      <ol class="card-grid" id="post-list">
         <li>
-          <article class="post-row post-row--{{type}}">
-            <div class="post-row__main">
+          <article class="post-card">
+            <div class="cover cover--{{type}}">
+              <p class="cover__kicker"><span class="badge badge--type">{{Type}}</span></p>
               <h2><a href="/latest/{{type}}/{{slug}}/">{{title}}</a></h2>
-              <p>{{summary}}</p>
-              <p class="meta"><time datetime="{{date}}">{{date_text}}</time></p>
             </div>
-            <dl class="post-row__panel meta-dl">
-              <dt>Author</dt>
-              <dd>{{author}}</dd>
-              <dt>Tags</dt>
-              <dd class="meta-dl__lead">{{tags}}</dd>
-            </dl>
+            <p class="byline"><span class="byline__author">{{author}}</span><span class="sep"> · </span><time datetime="{{date}}">{{date_text}}</time></p>
           </article>
         </li>
       </ol>
@@ -82,7 +104,7 @@
       </nav>
     </main>
     <footer class="site-footer">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <span class="brand-lockup"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</span>
       <ul>
         <li><a href="/latest/security/policy/">Security policy</a></li>
         <li><a href="https://github.com/radova-linux/latest">Source code</a></li>

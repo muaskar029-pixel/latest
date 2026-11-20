@@ -24,48 +24,90 @@
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <a class="brand-lockup" href="https://radova.org/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
       <nav aria-label="Site">
         <ul>
           <li><a href="/latest/">Latest</a></li>
-          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+          <li>
+            <details class="nav-menu">
+              <summary>Resources</summary>
+              <ul>
+                <li><a href="https://packer.radova.org">Packages</a></li>
+                <li><a href="https://wiki.radova.org">Wiki</a></li>
+                <li><a href="https://radova.org/learns">Learning</a></li>
+                <li><a href="https://radova.org/events">Events</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="nav-menu">
+              <summary>About</summary>
+              <ul>
+                <li><a href="https://radova.org/about/">About</a></li>
+                <li><a href="https://radova.org/about/history">History</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="https://radova.org/about/contact">Contact</a></li>
         </ul>
       </nav>
+      <form class="nav-search" action="https://duckduckgo.com/" method="get" role="search">
+        <label class="visually-hidden" for="nav-q">Search Radova</label>
+        <input id="nav-q" type="search" name="q" placeholder="Search Radova">
+        <label class="visually-hidden" for="nav-scope">Search in</label>
+        <select id="nav-scope" name="sites">
+          <option value="radova.org">All Radova</option>
+          <option value="wiki.radova.org">Wiki</option>
+          <option value="packer.radova.org">Packages</option>
+        </select>
+        <button type="submit"><span class="visually-hidden">Search</span></button>
+      </form>
+      <a class="button button--navy site-header__cta" href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Get Radova</a>
     </header>
     <main id="main">
       <!-- Agenda. Optional: end_time (delete meta + "Ends" row), register_url (delete meta + Register button). status is scheduled or cancelled; badge class badge--{{status}}. Put {{slug}}.ics next to this file (see templates/README.md). -->
-      <article class="single-split">
+      <article class="single">
         <header>
-          <p class="back-link"><a href="/latest/agenda/">&larr; Back to Agenda</a></p>
-          <p class="eyebrow">[Agenda]</p>
           <h1>{{title}}</h1>
-          <dl class="meta-dl">
-            <dt>Starts</dt>
-            <dd class="meta-dl__lead"><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
-            <dt>Ends</dt>
-            <dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
-            <dt>Location</dt>
-            <dd>{{location}}</dd>
-            <dt>Status</dt>
-            <dd><span class="badge badge--{{status}}">{{Status}}</span></dd>
-            <dt>Published</dt>
-            <dd><time datetime="{{date}}">{{date_text}}</time></dd>
-          </dl>
-          <p><a class="button" href="{{register_url}}" hx-boost="false">Register now</a></p>
-          <p><a href="{{slug}}.ics" download hx-boost="false">Add to calendar (.ics)</a></p>
+          <p class="single__meta">
+            <a class="button button--small" href="{{register_url}}" hx-boost="false">Register now</a>
+            <a class="button button--outline button--small" href="{{slug}}.ics" download hx-boost="false">Add to calendar (.ics)</a>
+          </p>
         </header>
+        <dl class="meta-dl">
+          <dt>Starts</dt>
+          <dd class="meta-dl__lead"><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
+          <dt>Ends</dt>
+          <dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
+          <dt>Location</dt>
+          <dd>{{location}}</dd>
+          <dt>Status</dt>
+          <dd><span class="badge badge--{{status}}">{{Status}}</span></dd>
+          <dt>Published</dt>
+          <dd><time datetime="{{date}}">{{date_text}}</time></dd>
+        </dl>
         <div class="editorial-prose">
           <p>{{body}}</p>
         </div>
       </article>
-      <!-- Post navigation: drop a link when there is no older/newer post. -->
+      <!-- Post navigation: drop a link when there is no older/newer post, and the whole nav when there is neither. -->
       <nav class="pager" aria-label="More posts">
         <a href="/latest/{{type}}/{{prev_slug}}/" rel="prev">&larr; Previous: {{prev_title}}</a>
         <a href="/latest/{{type}}/{{next_slug}}/" rel="next">Next: {{next_title}} &rarr;</a>
       </nav>
+      <!-- Up to 4 other recent posts: copy their cards from index.html, without data-tags. -->
+      <section class="more-posts" aria-labelledby="more-title">
+        <div class="more-posts__head">
+          <h2 id="more-title">More updates</h2>
+          <a href="/latest/">View all</a>
+        </div>
+        <ol class="card-grid">
+          <li>{{card}}</li>
+        </ol>
+      </section>
     </main>
     <footer class="site-footer">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <span class="brand-lockup"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</span>
       <ul>
         <li><a href="/latest/security/policy/">Security policy</a></li>
         <li><a href="https://github.com/radova-linux/latest">Source code</a></li>

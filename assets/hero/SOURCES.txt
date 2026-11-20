@@ -1,0 +1,6 @@
+Hero clips: 5 s cuts, 960x720 (4:3), no audio, H.264. Source: Mixkit (Mixkit Stock Video Free License, no attribution required).
+archives.mp4        https://mixkit.co/free-stock-video/close-up-of-a-tall-stack-of-papers-on-a-desk-45923/            2s-7s
+libraries.mp4       https://mixkit.co/free-stock-video/a-hand-runs-through-the-book-spines-in-the-library-shelf-50726/ 3s-8s
+digital-assets.mp4  https://mixkit.co/free-stock-video/35mm-film-negative-rotating-on-a-reflective-surface-47301/     6s-11s
+repositories.mp4    https://mixkit.co/free-stock-video/student-doing-research-in-university-library-with-books-and-laptop-8826/ 2s-7s
+Posters (*.jpg) are each clip's first frame.

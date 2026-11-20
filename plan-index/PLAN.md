@@ -61,7 +61,7 @@ Semua kode di folder ini **sudah diuji**: dibuat sebagai prototipe, lalu seluruh
 | Hero kiri: 2 chip, judul besar dengan kata berwarna, checklist, tombol | `.hero-split`: chip **Radova Updates** + **Soft launch**, h1 "Read Our Latest **Updates**" ("Updates" merah), 3 poin bercentang, tombol pill **Browse all updates** dengan lingkaran panah (ke `#updates`) |
 | Hero kanan: media besar + chip atribusi | `.feature-card`: post terbaru di tile navy besar dengan ikon kategori yang terpotong, ditambah chip byline putih (logo, "Radova Team", tanggal) |
 | Tab Shots / Designers / Services | `.tab-grid` yang sudah ada, ditambah ikon Phosphor per kategori |
-| Kotak search + chip "Popular" | Tidak dibuat (lihat keputusan 5) |
+| Kotak search + chip "Popular" + dropdown sort | `.post-search` + `.post-filters` di bawah tab (lihat keputusan 5) |
 | Grid kartu bergambar + baris meta (avatar, nama, angka) | `.card-grid` > `.post-card`: tile berwarna per kategori (`.cover`), lalu baris byline (avatar logo + penulis, tanggal). Kategori yang masih kosong mendapat **kartu status** |
 | CTA lengket di bawah | Tidak dibuat |
 | Footer | `.site-footer`: logo, **Security policy**, **Source code**, © |
@@ -71,10 +71,10 @@ Semua kode di folder ini **sudah diuji**: dibuat sebagai prototipe, lalu seluruh
 | # | Keputusan | Alasan | Kalau user tidak setuju |
 |---|---|---|---|
 | 1 | Sudut membulat (12px, kartu besar 20px). Tombol, badge, dan chip berbentuk pill. **Tetap tanpa shadow**, border 1px hairline. | Figma ("Button Type", "Card Implementation") dan radova.org memakai pill dan radius 12px. Larangan shadow dari brief tetap dipatuhi. | Ubah ketiga token `--radova-radius`, `--radova-radius-lg`, `--radova-pill` menjadi `0` |
-| 2 | Lato untuk judul, Roboto untuk isi (tidak berubah). | Sesuai brief. Figma menulis sebaliknya, tapi tidak diubah. | – |
+| 2 | Roboto untuk judul, Lato untuk isi. | Mengikuti Figma (`Frame 1-1.pdf`). Diubah 2026-11-20; brief lama menulis sebaliknya. | – |
 | 3 | Post terbaru tampil besar di hero dan **tidak diulang** di grid. Grid berisi 9 post berikutnya. | Padanan langsung dari media besar di hero Dribbble. Totalnya tetap 10 post terbaru, sesuai Issue 2. | – |
 | 4 | **Kartu status** untuk kategori yang masih kosong (sekarang Agenda dan Security). Teksnya memakai empty state dari Issue 9. | Grid tidak bolong. Pengunjung juga langsung tahu belum ada event atau advisory. | Hapus dua `<li>` terakhir di `files/index-main.html` sebelum Langkah 4 |
-| 5 | **Tanpa** kotak search dan chip topik. | Situs statis dengan paling banyak 10 post di halaman. Search hanya bisa menyaring grid, sedangkan post di hero tidak ikut, jadi membingungkan. Tab kategori sudah berfungsi sebagai filter. | Bisa ditambah nanti sebagai langkah terpisah |
+| 5 | **Ada** kotak search, chip "Popular", dan sort (Newest/Oldest), hanya di `/latest/`. | Hero kini berisi video, bukan post, jadi semua post ada di grid dan search bisa menyaring semuanya. Dengan JS, search menyaring kartu di halaman; tanpa JS, search dikirim ke DuckDuckGo (radova.org). | Hapus `.post-search`, `.post-filters`, `.post-filters__empty` di `index.html` |
 | 6 | Tanpa foto. Visual kartu berasal dari warna kategori dan ikon Phosphor besar. | Belum ada foto resmi. Foto di repo `abouts` sebagian bertanda "TEST DATA" atau foto stok yang lisensinya tidak jelas. Phosphor adalah set ikon di Figma ("Icon Type"). | – |
 | 7 | Header dan footer baru dipasang di **semua** halaman dan template, bukan hanya index. | Konsisten dengan radova.org. Lagi pula htmx hanya menukar `<main>`, jadi header harus sama di semua halaman. | – |
 | 8 | Footer berisi link **Source code** ke `https://github.com/radova-linux/latest`. | Footer radova.org juga punya link "Repository". | Hapus baris `<li>` itu di `tools/step3.py` sebelum Langkah 3 |

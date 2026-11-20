@@ -14,36 +14,82 @@
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <a class="brand-lockup" href="https://radova.org/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
       <nav aria-label="Site">
         <ul>
           <li><a href="/latest/">Latest</a></li>
-          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+          <li>
+            <details class="nav-menu">
+              <summary>Resources</summary>
+              <ul>
+                <li><a href="https://packer.radova.org">Packages</a></li>
+                <li><a href="https://wiki.radova.org">Wiki</a></li>
+                <li><a href="https://radova.org/learns">Learning</a></li>
+                <li><a href="https://radova.org/events">Events</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="nav-menu">
+              <summary>About</summary>
+              <ul>
+                <li><a href="https://radova.org/about/">About</a></li>
+                <li><a href="https://radova.org/about/history">History</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="https://radova.org/about/contact">Contact</a></li>
         </ul>
       </nav>
+      <form class="nav-search" action="https://duckduckgo.com/" method="get" role="search">
+        <label class="visually-hidden" for="nav-q">Search Radova</label>
+        <input id="nav-q" type="search" name="q" placeholder="Search Radova">
+        <label class="visually-hidden" for="nav-scope">Search in</label>
+        <select id="nav-scope" name="sites">
+          <option value="radova.org">All Radova</option>
+          <option value="wiki.radova.org">Wiki</option>
+          <option value="packer.radova.org">Packages</option>
+        </select>
+        <button type="submit"><span class="visually-hidden">Search</span></button>
+      </form>
+      <a class="button button--navy site-header__cta" href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Get Radova</a>
     </header>
     <main id="main">
-      <p class="notice-bar"><span>Found a security issue in Radova Linux? Report it privately.</span> <a href="/latest/security/policy/">Read the policy</a></p>
+      <p class="notice-bar"><span>Found a security issue? Report it privately.</span> <a href="/latest/security/policy/">Read the policy</a></p>
       <section class="hero-split">
         <div>
-          <p class="chip-row"><span class="chip">Radova Updates</span><span class="sep"> · </span><span class="chip chip--quiet">Soft launch</span></p>
-          <h1>Read Our Latest <span class="accent">Updates</span></h1>
-          <p class="hero-split__lead">Events, articles, news, and security advisories from Radova Linux, newest first.</p>
+          <p class="chip-row"><span class="chip">Radova Latest</span></p>
+          <h1 aria-label="One system for every archive, library, digital asset and repository">
+            One system for every
+            <span class="hero-words" data-longest="digital asset" aria-hidden="true">
+              <span class="hero-words__track">
+                <span class="is-current">archive</span><span class="sep">, </span>
+                <span>library</span><span class="sep">, </span>
+                <span>digital asset</span><span class="sep"> and </span>
+                <span>repository</span>
+              </span>
+            </span>
+          </h1>
           <ul class="check-list">
-            <li>Events and community sessions on the Agenda</li>
-            <li>Articles and news from the Radova team</li>
-            <li>Security advisories with severity and fixed versions</li>
+            <li>Events and community sessions</li>
+            <li>Articles and news from the team</li>
+            <li>Every security advisory, in one place</li>
           </ul>
           <p><a class="button button--arrow" href="#updates">Browse all updates</a></p>
         </div>
-        <article class="feature-card">
-          <div class="cover cover--news">
-            <p class="cover__kicker"><span class="badge badge--type">News</span><span class="sep"> · </span><span>Newest</span></p>
-            <h2><a href="/latest/news/introducing-radova-latest/">Introducing Radova Latest</a></h2>
-            <p class="cover__summary">Radova Latest is the new home for Radova Linux events, articles, news, and security advisories, newest first.</p>
-            <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T10:00:00+07:00">14 Nov 2026</time></p>
-          </div>
-        </article>
+        <!-- App clips, played in turn by assets/site.js; the chip (data-app, data-word) and the h1 word (same order as the clips) follow the playing clip.
+             Sources and cut points: assets/hero/SOURCES.txt -->
+        <figure class="hero-media">
+          <video class="is-active" src="/latest/assets/hero/archives.mp4" poster="/latest/assets/hero/archives.jpg" data-word="archives" data-app="Evrocks" muted playsinline preload="auto" aria-hidden="true"></video>
+          <video src="/latest/assets/hero/libraries.mp4" poster="/latest/assets/hero/libraries.jpg" data-word="libraries" data-app="Memora" muted playsinline preload="metadata" aria-hidden="true"></video>
+          <video src="/latest/assets/hero/digital-assets.mp4" poster="/latest/assets/hero/digital-assets.jpg" data-word="digital assets" data-app="Coretez" muted playsinline preload="metadata" aria-hidden="true"></video>
+          <video src="/latest/assets/hero/repositories.mp4" poster="/latest/assets/hero/repositories.jpg" data-word="institutional repositories" data-app="Linkers" muted playsinline preload="metadata" aria-hidden="true"></video>
+          <figcaption class="hero-media__app"><strong>Evrocks</strong> <span>for archives</span></figcaption>
+          <button type="button" class="hero-media__pause" aria-label="Pause video" aria-pressed="false" hidden>
+            <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/></svg>
+            <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5l11 7-11 7z" fill="currentColor"/></svg>
+          </button>
+        </figure>
       </section>
       <nav class="tab-grid" id="updates" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
@@ -54,13 +100,31 @@
           <li><a href="/latest/security/">Security</a></li>
         </ul>
       </nav>
-      <ol class="card-grid">
-        <li>
+      <!-- Without JS the search goes to DuckDuckGo on radova.org. With JS (assets/site.js) it filters the cards below,
+           and site.js adds the "Popular" chips (the cards' most used data-tags) and the sort menu. -->
+      <form class="post-search" action="https://duckduckgo.com/" method="get" role="search">
+        <label class="visually-hidden" for="post-q">Search updates</label>
+        <input id="post-q" type="search" name="q" placeholder="Search updates" aria-controls="post-cards">
+        <input type="hidden" name="sites" value="radova.org">
+        <button type="submit"><span class="visually-hidden">Search</span></button>
+      </form>
+      <ol class="card-grid" id="post-cards">
+        <li data-tags="announcement, website">
           <article class="post-card">
-            <div class="cover cover--article">
+            <div class="cover cover--news cover--image">
+              <img class="cover__image" src="/latest/assets/hero/archives.jpg" alt="" width="960" height="720" loading="lazy">
+              <p class="cover__kicker"><span class="badge badge--type">News</span></p>
+              <h2><a href="/latest/news/introducing-radova-latest/">Introducing Radova Latest</a></h2>
+            </div>
+            <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T10:00:00+07:00">14 Nov 2026</time></p>
+          </article>
+        </li>
+        <li data-tags="introduction, architecture">
+          <article class="post-card">
+            <div class="cover cover--article cover--image">
+              <img class="cover__image" src="/latest/assets/hero/libraries.jpg" alt="" width="960" height="720" loading="lazy">
               <p class="cover__kicker"><span class="badge badge--type">Article</span><span class="sep"> · </span><span>2 min read</span></p>
               <h2><a href="/latest/article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
-              <p class="cover__summary">An introduction to Radova Linux: an operating system for libraries, archives, and digital assets, its four built-in applications, and the principles behind them.</p>
             </div>
             <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
           </article>
@@ -69,7 +133,7 @@
           <div class="post-card">
             <div class="cover cover--agenda">
               <p class="cover__kicker"><span class="badge badge--type">Agenda</span></p>
-              <p class="cover__title">No events have been scheduled yet.</p>
+              <p class="cover__title">No events yet.</p>
             </div>
             <p class="post-card__link"><a href="/latest/agenda/">Go to Agenda</a></p>
           </div>
@@ -78,7 +142,7 @@
           <div class="post-card">
             <div class="cover cover--security">
               <p class="cover__kicker"><span class="badge badge--type">Security</span></p>
-              <p class="cover__title">No security advisories have been published yet.</p>
+              <p class="cover__title">No advisories yet.</p>
             </div>
             <p class="post-card__link"><a href="/latest/security/">Go to Security</a></p>
           </div>
@@ -86,7 +150,7 @@
       </ol>
     </main>
     <footer class="site-footer">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <span class="brand-lockup"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</span>
       <ul>
         <li><a href="/latest/security/policy/">Security policy</a></li>
         <li><a href="https://github.com/radova-linux/latest">Source code</a></li>

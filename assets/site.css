@@ -1,6 +1,6 @@
 /* Radova theme on top of pico.classless.min.css. Load after Pico.
-   Sections: fonts · tokens · base · site chrome · editorial-header · tab-grid · post-grid/post-row
-   · meta-dl · badge · button · pager · single-split · editorial-prose */
+   Sections: fonts · tokens · base · site chrome · editorial-header · tab-grid · empty-state
+   · meta-dl · badge · button · pager · single · editorial-prose · index (notice, hero, cards) */
 
 /* ---------- Fonts ---------- */
 @font-face {
@@ -40,12 +40,12 @@
   --radova-lavender: #F7F6FF;
   --radova-white: #FFFFFF;
   --radova-hairline: rgba(14, 3, 71, 0.12);
-  --radova-heading-font: "Lato", system-ui, sans-serif;
+  --radova-heading-font: "Roboto", system-ui, sans-serif;
   --radova-radius: 12px;
   --radova-radius-lg: 20px;
   --radova-pill: 999px;
 
-  --pico-font-family: "Roboto", system-ui, sans-serif;
+  --pico-font-family: "Lato", system-ui, sans-serif;
   --pico-background-color: var(--radova-lavender);
   --pico-color: var(--radova-navy);
   --pico-h1-color: var(--radova-navy);
@@ -72,9 +72,22 @@
 }
 
 /* ---------- Base ---------- */
+/* Body text is 16px at every width, as on Dribbble and in the Figma guide ("Normal Text").
+   Pico grows the root to 20px on wide screens, which made every component a quarter larger. */
+:root {
+  --pico-font-size: 100%;
+}
 /* Reserve the scrollbar's width on short pages too, so the header stays put between pages. */
 html {
   scrollbar-gutter: stable;
+}
+/* Wide screens: 72px page gutters like Dribbble, instead of Pico's fixed 1200/1450px boxes. */
+@media (min-width: 1280px) {
+  body > header,
+  body > main,
+  body > footer {
+    max-width: min(1440px, calc(100% - 144px));
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -82,14 +95,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Figma heading scale (56/48/40/32/24/20 px) on wide screens; Pico's smaller scale below.
-   Pico's root is 20px at >=1280px, so rem = px / 20. */
+   The root is 16px, so rem = px / 16. */
 @media (min-width: 1024px) {
-  h1 { --pico-font-size: 2.8rem; }
-  h2 { --pico-font-size: 2.4rem; }
-  h3 { --pico-font-size: 2rem; }
-  h4 { --pico-font-size: 1.6rem; }
-  h5 { --pico-font-size: 1.2rem; }
-  h6 { --pico-font-size: 1rem; }
+  h1 { --pico-font-size: 3.5rem; }
+  h2 { --pico-font-size: 3rem; }
+  h3 { --pico-font-size: 2.5rem; }
+  h4 { --pico-font-size: 2rem; }
+  h5 { --pico-font-size: 1.5rem; }
+  h6 { --pico-font-size: 1.25rem; }
 }
 
 /* Long words and URLs wrap instead of widening the page. */
@@ -115,19 +128,9 @@ main p {
   display: none;
 }
 
-.eyebrow {
-  margin-bottom: 0.25rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--radova-red);
-}
-
-/* Pico adds a large top margin to a heading that follows a paragraph; a title right under its
-   eyebrow, badge or back link belongs with it. */
+/* Page titles start at the top of their block; Pico would add a margin after a paragraph. */
 .editorial-header h1,
-.post-row h2,
-.post-row h3,
-.single-split h1 {
+.single h1 {
   margin-top: 0;
 }
 
@@ -157,188 +160,166 @@ body > footer {
   color: var(--pico-muted-color);
 }
 
-/* ---------- .editorial-header: split page header (title left, description right) ---------- */
+/* ---------- .editorial-header: page title with its description right under it ---------- */
 .editorial-header {
   display: grid;
-  gap: var(--pico-spacing);
+  gap: 0.75rem;
   margin-bottom: calc(var(--pico-spacing) * 2);
 }
 .editorial-header h1,
-.editorial-header > :nth-child(2) > :last-child,
 .editorial-header > p {
   margin-bottom: 0;
 }
-@media (min-width: 768px) {
-  .editorial-header {
-    grid-template-columns: 1fr 1fr;
-    align-items: end;
-  }
-  /* Right column: the description, plus an optional action under it. */
-  .editorial-header > :nth-child(2) {
-    justify-self: end;
-    max-width: 40ch;
-  }
-}
 
-/* ---------- .tab-grid: category tabs as equal bordered cells ---------- */
+/* ---------- .tab-grid: category tabs, icon + text, current tab in a white pill (after Dribbble) ---------- */
 nav.tab-grid {
   display: block;
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  margin-bottom: 1rem;
 }
-/* The 1px gap over a hairline background draws the cell borders. */
+/* One row; on narrow screens it scrolls sideways instead of wrapping. */
 nav.tab-grid ul {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1px;
+  display: flex;
+  gap: 0.5rem;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--radova-hairline);
-  background: var(--radova-hairline);
+  overflow-x: auto;
 }
 .tab-grid li {
+  display: flex;
+  flex: none;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-.tab-grid li:first-child {
-  grid-column: 1 / -1;
 }
 .tab-grid a {
   display: flex;
   align-items: center;
-  justify-content: center;
-  min-height: 52px;
+  min-height: 40px;
   margin: 0;
-  padding: 0.5rem 1rem;
-  border-radius: 0;
-  border-bottom: 3px solid transparent;
-  text-align: center;
+  padding: 0.25rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radova-pill);
+  white-space: nowrap;
   text-decoration: none;
-  color: var(--radova-navy);
-  background: var(--radova-lavender);
+  font-weight: 700;
+  color: rgba(14, 3, 71, 0.62); /* muted navy, 5:1 on lavender */
 }
 .tab-grid a:hover,
 .tab-grid a:focus-visible {
-  color: var(--radova-red);
-  background: var(--radova-white);
+  color: var(--radova-navy);
 }
 .tab-grid a[aria-current="page"] {
-  font-weight: 700;
+  color: var(--radova-navy);
   background: var(--radova-white);
-  border-bottom-color: var(--radova-red);
-}
-@media (min-width: 768px) {
-  nav.tab-grid ul {
-    grid-template-columns: repeat(5, 1fr);
-  }
-  .tab-grid li:first-child {
-    grid-column: auto;
-  }
+  border-color: var(--radova-hairline);
 }
 
-/* ---------- .post-grid / .post-row: bordered listing, split row ---------- */
-.post-grid {
-  display: grid;
-  gap: 1px;
-  margin: 0;
-  padding: 0;
+/* ---------- .post-search: big search pill, "Popular" chips and sort under the tabs (index only) ---------- */
+.post-search {
+  display: flex;
+  align-items: center;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   border: 1px solid var(--radova-hairline);
-  background: var(--radova-hairline);
-}
-.post-grid > li {
-  margin: 0;
-  list-style: none;
-}
-.post-row {
-  position: relative;
-  display: grid;
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  border-radius: 0;
-  background: var(--radova-hairline);
-}
-/* Grid children may shrink below their content so long words and code never widen the page. */
-.post-row > * {
-  min-width: 0;
-}
-@media (min-width: 768px) {
-  .post-row {
-    grid-template-columns: 1.2fr 0.8fr;
-  }
-}
-.post-row__main {
-  padding: 1.5rem;
+  border-radius: var(--radova-pill);
   background: var(--radova-white);
 }
-.post-row__main > :last-child {
-  margin-bottom: 0;
+.post-search:focus-within {
+  border-color: var(--radova-navy);
 }
-.post-row__kicker {
-  margin-bottom: 0.75rem;
-}
-.post-row h2,
-.post-row h3 {
-  --pico-font-size: 1.4rem;
-  --pico-line-height: 1.25;
-  margin-bottom: 0.5rem;
-  overflow-wrap: anywhere;
-}
-.post-row h2 a,
-.post-row h3 a {
-  text-decoration: none;
-}
-/* The title link is stretched over the whole row, so the row is one click target. */
-.post-row h2 a::after,
-.post-row h3 a::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-}
-.post-row:hover h2 a,
-.post-row:hover h3 a {
-  text-decoration: underline;
-}
-.post-row:has(a:focus-visible) {
-  outline: 3px solid var(--radova-red-3);
-  outline-offset: -3px;
-}
-.post-row__main p:not([class]) {
-  max-width: 60ch;
-}
-.post-row__panel {
+.post-search input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  height: auto;
   margin: 0;
-  padding: 1.5rem;
-  background: var(--radova-lavender);
+  padding: 0.5rem 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--radova-navy);
 }
-/* Visual cue only: the "/ ''" alt text keeps it silent for screen readers; Lynx ignores CSS. */
-.post-row--article .post-row__panel::after,
-.post-row--news .post-row__panel::after {
-  grid-column: 1 / -1;
-  margin-top: 1rem;
-  font-weight: 700;
-  color: var(--radova-red);
+.post-search input[type="search"]:focus-visible {
+  outline: 2px solid var(--radova-red-3);
+  outline-offset: 2px;
 }
-.post-row--article .post-row__panel::after {
-  content: "Read article \2192" / "";
+.post-search button[type="submit"] {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0 0 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--radova-red) url("icons/magnifying-glass.svg") center / 1.25rem no-repeat;
 }
-.post-row--news .post-row__panel::after {
-  content: "Read news \2192" / "";
+.post-search button[type="submit"]:hover,
+.post-search button[type="submit"]:focus-visible {
+  background-color: var(--radova-red-2);
 }
-
-.meta {
+.post-filters {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25rem 0.75rem;
-  font-size: 0.875em;
-  color: var(--pico-muted-color);
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.post-filters__popular {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+.post-filters__popular strong {
+  margin-right: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--radova-navy);
+}
+.post-filters__popular button {
+  width: auto;
+  margin: 0;
+  padding: 0.3125rem 1rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-pill);
+  font-size: 0.875rem;
+  color: var(--radova-navy);
+  background: var(--radova-white);
+}
+.post-filters__popular button:hover,
+.post-filters__popular button:focus-visible,
+.post-filters__popular button[aria-pressed="true"] {
+  border-color: var(--radova-navy);
+}
+.post-filters select {
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+  border-color: var(--radova-hairline);
+  border-radius: var(--radova-radius);
+  font-weight: 700;
+  color: var(--radova-navy);
+  background-color: var(--radova-white);
+}
+.post-filters__empty {
+  margin: 0 0 2rem;
+}
+
+/* Section titles inside a listing (Agenda: Upcoming Events, Past Events): small, like "More updates". */
+main > section > h2 {
+  --pico-font-size: 1.25rem;
+  margin: 2.5rem 0 1rem;
 }
 
 /* ---------- .empty-state: a category or section with nothing published yet ---------- */
 .empty-state {
   padding: 2rem 1.5rem;
   border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
   background: var(--radova-white);
 }
 .empty-state > :first-child {
@@ -451,6 +432,18 @@ nav.tab-grid ul {
   border-color: var(--radova-blue);
   background: var(--radova-blue);
 }
+/* Figma outline button: navy border and text, filled on hover. */
+.button--outline {
+  border-color: var(--radova-navy);
+  color: var(--radova-navy);
+  background: transparent;
+}
+.button--outline:hover,
+.button--outline:focus-visible {
+  border-color: var(--radova-navy);
+  color: var(--radova-white);
+  background: var(--radova-navy);
+}
 .button--small {
   min-height: 38px;
   padding: 0.375rem 1.125rem;
@@ -474,7 +467,9 @@ nav.pager {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: calc(var(--pico-spacing) * 2);
+  overflow: clip;
   border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
   background: var(--radova-white);
 }
 .pager a {
@@ -496,41 +491,143 @@ nav.pager {
   border-left: 1px solid var(--radova-hairline);
 }
 
-/* ---------- .single-split: detail page, context left, prose right ---------- */
-.single-split {
-  display: grid;
-  gap: calc(var(--pico-spacing) * 2);
-  margin: 0;
+/* ---------- .single: detail page, one centred column like a Dribbble shot ----------
+   Title and byline row 1024px wide, then the photo, then text in a 752px column. */
+.single {
+  max-width: 1024px;
+  margin: 1.5rem auto 0;
   padding: 0;
   border-radius: 0;
   background: none;
 }
-.single-split > * {
-  min-width: 0;
-}
-/* Undo Pico's card header (negative margins, tint, rule) on the context column. */
-.single-split > header {
-  margin: 0;
+/* Undo Pico's card header (negative margins, tint, rule). */
+.single > header {
+  margin: 0 0 2rem;
   padding: 0;
   border: 0;
   background: none;
 }
-.single-split h1 {
-  --pico-font-size: 2rem;
-  --pico-line-height: 1.15;
+.single h1 {
+  --pico-font-size: 1.5rem;
+  --pico-line-height: 1.2;
+  margin-bottom: 1rem;
 }
-.back-link a {
-  font-weight: 700;
-  text-decoration: none;
+@media (min-width: 1024px) {
+  .single h1 {
+    --pico-font-size: 2rem;
+  }
 }
-.single-split .meta-dl {
-  margin-bottom: 1.5rem;
+/* Byline left, one action right (Dribbble's author row). */
+.single__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+}
+.single__meta .byline {
+  margin: 0;
+  gap: 0.25rem 0.5rem;
+}
+.single__meta .byline > :first-child {
+  margin-right: 0;
+}
+.single__meta .sep {
+  display: inline;
+}
+.single__meta .byline__author {
+  gap: 0.75rem;
+}
+.single__meta .byline__author::before {
+  width: 3rem;
+  height: 3rem;
+  background-size: 1.75rem;
+}
+.single__media {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 3rem;
+  border-radius: var(--radova-radius);
+  object-fit: cover;
+}
+.single .meta-dl,
+.single .editorial-prose,
+.tag-list {
+  max-width: 752px;
+  margin-right: auto;
+  margin-left: auto;
+}
+.single .meta-dl {
+  margin-bottom: 2.5rem;
+}
+.single .editorial-prose {
+  padding: 0;
+  line-height: 1.6;
+  background: none;
+}
+.single .editorial-prose > *,
+.single .editorial-prose section > * {
+  max-width: none;
 }
 @media (min-width: 768px) {
-  .single-split {
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    align-items: start;
+  .single__media {
+    margin-bottom: 4.5rem;
   }
+  /* 20px body text, Dribbble's size and the Figma "Large Text". */
+  .single .editorial-prose {
+    font-size: 1.25rem;
+  }
+}
+
+/* .tag-list: the post's tags as plain pills (no tag pages yet, so no links). */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  margin-bottom: 0;
+  padding: 0;
+}
+.tag-list li {
+  margin: 0;
+  padding: 0.3125rem 1rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-pill);
+  font-size: 0.875rem;
+  list-style: none;
+  background: var(--radova-white);
+}
+
+/* .more-posts: "More updates" under a detail page, like Dribbble's "More by". */
+.more-posts {
+  margin-top: 5rem;
+  padding-top: 3rem;
+  border-top: 1px solid var(--radova-hairline);
+}
+.more-posts__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.more-posts__head h2 {
+  --pico-font-size: 1.25rem;
+  margin: 0;
+}
+.more-posts__head a {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--radova-navy);
+}
+.more-posts__head a:hover,
+.more-posts__head a:focus-visible {
+  color: var(--radova-red);
+  text-decoration: underline;
 }
 
 /* ---------- .editorial-prose: readable body column ---------- */
@@ -540,11 +637,13 @@ main > .editorial-prose {
 }
 .editorial-prose {
   padding: 1.5rem;
+  border-radius: var(--radova-radius);
   background: var(--radova-white);
 }
 @media (min-width: 768px) {
   .editorial-prose {
     padding: 2.5rem;
+    font-size: 1.125rem;
   }
 }
 .editorial-prose > *,
@@ -600,18 +699,54 @@ main > .editorial-prose {
 }
 
 /* ---------- .site-header / .site-footer: radova.org lockup on every page ---------- */
+/* Narrow: logo and "Get Radova" on top, the menu, then the search. Medium: logo, menu and
+   button in one row, search under them. Wide: one row, as on Dribbble. */
 .site-header {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "brand cta"
+    "nav nav"
+    "search search";
   align-items: center;
   gap: 0.75rem 1.5rem;
-  border-bottom: 1px solid var(--radova-hairline);
+}
+.site-header > .brand-lockup {
+  grid-area: brand;
+}
+.site-header > nav {
+  grid-area: nav;
+}
+.site-header > .nav-search {
+  grid-area: search;
+}
+.site-header__cta {
+  grid-area: cta;
+}
+@media (min-width: 1024px) {
+  .site-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand nav cta"
+      "search search search";
+    column-gap: 2.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  .site-header {
+    display: flex;
+  }
+  .site-header > nav {
+    margin-right: auto;
+  }
+  .site-header > .nav-search {
+    flex: 0 1 26rem;
+  }
 }
 .brand-lockup {
   display: inline-flex;
   align-items: center;
   gap: 0.625rem;
-  margin-right: auto;
   font-family: var(--radova-heading-font);
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -622,9 +757,66 @@ main > .editorial-prose {
   width: 28px;
   height: 28px;
 }
-/* Pico gives nav lists and nav links negative side margins; keep the About pill inside the page. */
+/* Search pill: text field, scope select and a round red button (the Dribbble search, in Radova colours). */
+.nav-search {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0.25rem 0.25rem 0.25rem 1.25rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-pill);
+  background: var(--radova-white);
+}
+.nav-search:focus-within {
+  border-color: var(--radova-navy);
+}
+.nav-search input[type="search"],
+.nav-search select {
+  height: auto;
+  margin: 0;
+  padding: 0.5rem 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: transparent;
+  color: var(--radova-navy);
+}
+.nav-search input[type="search"] {
+  flex: 1;
+  min-width: 0;
+  background-image: none;
+}
+.nav-search select {
+  flex: none;
+  width: auto;
+  padding-right: 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+.nav-search input:focus-visible,
+.nav-search select:focus-visible {
+  outline: 2px solid var(--radova-red-3);
+  outline-offset: 2px;
+}
+.nav-search button[type="submit"] {
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 0 0 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--radova-red) url("icons/magnifying-glass.svg") center / 1.25rem no-repeat;
+}
+.nav-search button[type="submit"]:hover,
+.nav-search button[type="submit"]:focus-visible {
+  background-color: var(--radova-red-2);
+}
+
+/* Pico gives nav lists and nav links negative side margins; keep the pill button inside the page. */
 .site-header nav ul {
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
   margin: 0;
 }
 .site-header li {
@@ -633,19 +825,94 @@ main > .editorial-prose {
 .site-header li a {
   margin: 0;
 }
-/* "Latest" is always red: every page with this header is in the Latest section. */
-.site-header li a:not(.button) {
+.site-header nav > ul > li > a:not(.button),
+.nav-menu > summary {
   padding: 0.25rem 0;
   font-weight: 700;
+  color: var(--radova-navy);
+}
+.site-header nav > ul > li > a:not(.button):hover,
+.nav-menu > summary:hover {
   color: var(--radova-red);
+}
+
+/* Dropdowns are plain <details>: they open without JS and read as nested lists in Lynx. */
+.nav-menu {
+  position: relative;
+  margin: 0;
+}
+.nav-menu > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  line-height: 1.5;
+}
+.nav-menu > summary::after {
+  float: none;
+  margin: 0;
+  transform: none;
+}
+.nav-menu[open] > summary {
+  margin: 0;
+}
+.nav-menu[open] > summary::after {
+  transform: rotate(180deg);
+}
+.nav-menu > summary:focus-visible {
+  outline: 2px solid var(--radova-red-3);
+  outline-offset: 2px;
+}
+.site-header .nav-menu ul {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: -1rem;
+  z-index: 20;
+  display: block;
+  min-width: 10rem;
+  padding: 0.5rem;
+  border: 1px solid var(--radova-hairline);
+  border-radius: var(--radova-radius);
+  background: var(--radova-white);
+}
+.nav-menu li {
+  display: block;
+  list-style: none;
+}
+.site-header .nav-menu a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radova-radius) - 4px);
+  color: var(--radova-navy);
+  text-decoration: none;
+}
+.site-header .nav-menu a:hover,
+.site-header .nav-menu a:focus-visible {
+  color: var(--radova-red);
+  background: var(--radova-lavender);
 }
 .site-footer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem 2rem;
-  margin-top: 2rem;
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
   border-top: 1px solid var(--radova-hairline);
+}
+.site-footer > .brand-lockup {
+  margin-right: auto;
+}
+.site-footer ul a {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--radova-navy);
+}
+.site-footer ul a:hover,
+.site-footer ul a:focus-visible {
+  color: var(--radova-red);
+  text-decoration: underline;
 }
 .site-footer ul {
   display: flex;
@@ -684,11 +951,6 @@ main > .editorial-prose {
   color: var(--radova-navy);
   background: var(--radova-white);
 }
-.chip--quiet {
-  border-color: transparent;
-  color: var(--radova-red);
-  background: transparent;
-}
 
 /* ---------- .notice-bar: one-line announcement at the top of the index ---------- */
 .notice-bar {
@@ -697,12 +959,10 @@ main > .editorial-prose {
   align-items: center;
   gap: 0.5rem 0.75rem;
   max-width: none;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3.5rem;
   padding: 0.75rem 1rem;
-  border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-radius);
-  font-size: 0.875rem;
-  background: var(--radova-white);
+  background: rgba(161, 0, 0, 0.06);
 }
 .notice-bar span {
   flex: 1 1 12rem;
@@ -717,11 +977,18 @@ main > .editorial-prose {
   mask: url("icons/shield-check.svg") center / contain no-repeat;
 }
 .notice-bar a {
-  padding: 0.25rem 0.875rem;
+  padding: 0.25rem 1rem;
+  border: 1.5px solid var(--radova-red);
   border-radius: var(--radova-pill);
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  background: var(--radova-lavender);
+  background: var(--radova-white);
+}
+.notice-bar a:hover,
+.notice-bar a:focus-visible {
+  color: var(--radova-white);
+  background: var(--radova-red);
 }
 @media (min-width: 768px) {
   .notice-bar {
@@ -747,13 +1014,50 @@ main > .editorial-prose {
 .hero-split h1 {
   --pico-font-size: 2.25rem;
   margin: 1.25rem 0 1rem;
-  line-height: 1.08;
+  line-height: 1.1;
 }
 .hero-split .accent {
   color: var(--radova-red);
 }
-.hero-split__lead {
-  font-size: 1.125rem;
+/* .hero-words: the h1's changing word, after Dribbble's hero. The hidden ::before holds
+   the longest word's width, so the line never jumps; site.js moves .is-current per clip. */
+.hero-words {
+  display: inline-block;
+  position: relative;
+}
+.hero-words::before {
+  content: attr(data-longest);
+  visibility: hidden;
+}
+.hero-words__track > span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--radova-red);
+  white-space: nowrap;
+  opacity: 0;
+}
+.hero-words__track > .is-current {
+  opacity: 1;
+}
+.hero-words__track[data-ready] > .is-current {
+  animation: hero-word-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+}
+.hero-words__track[data-ready] > .is-previous {
+  animation: hero-word-out 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes hero-word-in {
+  from { transform: translateY(0.6em); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+@keyframes hero-word-out {
+  from { transform: none; opacity: 1; }
+  to { transform: translateY(-0.6em); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-words__track[data-ready] > span {
+    animation: none;
+  }
 }
 .hero-split > :first-child > :last-child {
   margin-bottom: 0;
@@ -762,9 +1066,10 @@ main > .editorial-prose {
   .hero-split {
     grid-template-columns: 1fr 1.1fr;
     gap: 3rem;
+    margin-bottom: 5rem;
   }
   .hero-split h1 {
-    --pico-font-size: 3.2rem;
+    --pico-font-size: 3.5rem;
   }
 }
 
@@ -777,7 +1082,7 @@ main > .editorial-prose {
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  margin-bottom: 0.625rem;
+  margin-bottom: 1rem;
   list-style: none;
 }
 .check-list li::before {
@@ -789,7 +1094,7 @@ main > .editorial-prose {
   background: rgba(161, 0, 0, 0.08) url("icons/check-red.svg") center / 0.875rem no-repeat;
 }
 
-/* ---------- .cover: coloured title tile inside .feature-card and .post-card ---------- */
+/* ---------- .cover: coloured title tile inside .post-card ---------- */
 .cover {
   /* Pico colours every <p> with --pico-color, so the tile sets that variable, not only color. */
   --pico-color: var(--radova-navy);
@@ -797,7 +1102,7 @@ main > .editorial-prose {
   display: flex;
   flex-direction: column;
   padding: 1.25rem;
-  overflow: hidden;
+  overflow: clip;
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-radius);
   color: var(--pico-color);
@@ -871,7 +1176,7 @@ main > .editorial-prose {
 .cover__title {
   margin: 2rem 0 0;
   font-family: var(--radova-heading-font);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.2;
   color: inherit;
@@ -892,14 +1197,39 @@ main > .editorial-prose {
 .cover:hover h2 a {
   text-decoration: underline;
 }
-.cover__summary {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  margin: 0.5rem 0 0;
-  overflow: hidden;
-  font-size: 0.9375rem;
-  opacity: 0.85;
+
+/* .cover--image: a post with a thumbnail. The photo fills the tile and a navy fade at the
+   bottom keeps the white title readable. The photo is decoration (alt=""); the title names the post. */
+.cover--image {
+  --pico-color: var(--radova-white);
+  isolation: isolate;
+  border-color: var(--radova-navy);
+  background: var(--radova-navy);
+}
+.cover__image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cover--image::before {
+  inset: 0;
+  z-index: -1;
+  width: auto;
+  height: auto;
+  opacity: 1;
+  background: linear-gradient(to top, rgba(14, 3, 71, 0.9) 0%, rgba(14, 3, 71, 0.3) 55%, rgba(14, 3, 71, 0.55) 100%);
+  -webkit-mask: none;
+  mask: none;
+}
+.cover--image .cover__kicker > span:not(.badge) {
+  color: var(--radova-white);
+}
+.cover--image .badge {
+  color: var(--radova-navy);
+  background: var(--radova-white);
 }
 
 /* ---------- .byline: author (with the Radova logo as avatar) and date ---------- */
@@ -942,46 +1272,89 @@ main > .editorial-prose {
   background: var(--radova-white);
 }
 
-/* ---------- .feature-card: the newest post, large, in the index hero ---------- */
-.feature-card {
+/* ---------- .hero-media: app clips in the index hero, played in turn by site.js ---------- */
+.hero-media {
+  position: relative;
   margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radova-radius-lg);
+  overflow: hidden;
+  background: var(--radova-lavender);
+}
+.hero-media video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.hero-media video.is-active {
+  opacity: 1;
+}
+/* chip and button sit on the video, so they keep light colours in both themes */
+.hero-media__app,
+.hero-media__pause {
+  position: absolute;
+  bottom: 1rem;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--radova-navy);
+}
+.hero-media__app {
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  max-width: calc(100% - 5.5rem);
+  padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+  border-radius: var(--radova-pill);
+  font-size: 0.875rem;
+  line-height: 1.2;
+}
+.hero-media__app::before {
+  content: "";
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--radova-red) 0%, var(--radova-red-2) 100%);
+}
+.hero-media__app span {
+  color: rgba(14, 3, 71, 0.7);
+}
+.hero-media__pause {
+  left: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
   padding: 0;
-  border-radius: var(--radova-radius-lg);
-  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
 }
-.feature-card .cover {
-  min-height: 22rem;
-  padding: 1.75rem;
-  border-radius: var(--radova-radius-lg);
+.hero-media__pause[hidden] {
+  display: none;
 }
-.feature-card .cover::before {
-  top: -2rem;
-  right: -2rem;
-  width: 12rem;
-  height: 12rem;
-}
-.feature-card h2 {
-  max-width: 18ch;
-  font-size: 2rem;
-}
-.feature-card .cover__summary {
-  -webkit-line-clamp: 3;
-  max-width: 48ch;
-  font-size: 1rem;
-}
-@media (min-width: 1024px) {
-  .feature-card .cover {
-    min-height: 26rem;
-    padding: 2.25rem;
+/* shown on hover; stays for keyboard focus, touch screens and while paused */
+@media (hover: hover) {
+  .hero-media__pause[aria-pressed="false"]:not(:focus-visible) {
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .feature-card .cover::before {
-    top: -2.5rem;
-    right: -2.5rem;
-    width: 18rem;
-    height: 18rem;
+  .hero-media:hover .hero-media__pause {
+    opacity: 1;
   }
-  .feature-card h2 {
-    font-size: 2.4rem;
+}
+.hero-media__pause[aria-pressed="false"] .i-play,
+.hero-media__pause[aria-pressed="true"] .i-pause {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-media video {
+    transition: none;
   }
 }
 
@@ -1004,13 +1377,22 @@ main > .editorial-prose {
   .card-grid > li:last-child:nth-child(odd) {
     grid-column: 1 / -1;
   }
+  .card-grid > li:last-child:nth-child(odd) .cover {
+    aspect-ratio: 8 / 3;
+  }
 }
 @media (min-width: 1024px) {
   .card-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.25rem;
   }
   .card-grid > li:last-child:nth-child(odd) {
     grid-column: auto;
+  }
+}
+@media (min-width: 1280px) {
+  .card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 .post-card {
@@ -1023,12 +1405,16 @@ main > .editorial-prose {
   border-radius: var(--radova-radius);
   background: none;
 }
+/* 4:3 like a Dribbble shot; a long title still makes the tile taller (overflow: clip keeps that). */
 .post-card .cover {
-  flex: 1;
-  min-height: 16rem;
+  aspect-ratio: 4 / 3;
 }
-.post-card:has(a:focus-visible),
-.feature-card:has(a:focus-visible) {
+@media (min-width: 1024px) {
+  .card-grid > li:last-child:nth-child(odd) .cover {
+    aspect-ratio: 4 / 3;
+  }
+}
+.post-card:has(a:focus-visible) {
   outline: 3px solid var(--radova-red-3);
   outline-offset: 4px;
 }
@@ -1070,16 +1456,8 @@ main > .editorial-prose {
 .tab-grid a[href="/latest/security/"] {
   --icon: url("icons/shield-check.svg");
 }
-/* Five narrow cells between 768 and 1023px: no room for the icon. */
-@media (min-width: 768px) and (max-width: 1023.98px) {
-  .tab-grid a::before {
-    display: none;
-  }
-}
-/* Every tab fills its cell, so a taller neighbour never shows the grey grid behind it. */
-.tab-grid li {
-  display: flex;
-}
-.tab-grid li > a {
-  flex: 1;
+
+/* One closing action under the page content (Security: "Report a vulnerability"). */
+.page-action {
+  margin: 2rem 0 0;
 }

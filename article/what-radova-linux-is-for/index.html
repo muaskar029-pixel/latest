@@ -21,31 +21,56 @@
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <a class="brand-lockup" href="https://radova.org/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
       <nav aria-label="Site">
         <ul>
           <li><a href="/latest/">Latest</a></li>
-          <li><a class="button button--small button--navy" href="/about.html">About</a></li>
+          <li>
+            <details class="nav-menu">
+              <summary>Resources</summary>
+              <ul>
+                <li><a href="https://packer.radova.org">Packages</a></li>
+                <li><a href="https://wiki.radova.org">Wiki</a></li>
+                <li><a href="https://radova.org/learns">Learning</a></li>
+                <li><a href="https://radova.org/events">Events</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="nav-menu">
+              <summary>About</summary>
+              <ul>
+                <li><a href="https://radova.org/about/">About</a></li>
+                <li><a href="https://radova.org/about/history">History</a></li>
+              </ul>
+            </details>
+          </li>
+          <li><a href="https://radova.org/about/contact">Contact</a></li>
         </ul>
       </nav>
+      <form class="nav-search" action="https://duckduckgo.com/" method="get" role="search">
+        <label class="visually-hidden" for="nav-q">Search Radova</label>
+        <input id="nav-q" type="search" name="q" placeholder="Search Radova">
+        <label class="visually-hidden" for="nav-scope">Search in</label>
+        <select id="nav-scope" name="sites">
+          <option value="radova.org">All Radova</option>
+          <option value="wiki.radova.org">Wiki</option>
+          <option value="packer.radova.org">Packages</option>
+        </select>
+        <button type="submit"><span class="visually-hidden">Search</span></button>
+      </form>
+      <a class="button button--navy site-header__cta" href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Get Radova</a>
     </header>
     <main id="main">
-      <article class="single-split">
+      <article class="single">
         <header>
-          <p class="back-link"><a href="/latest/article/">&larr; Back to Articles</a></p>
-          <p class="eyebrow">[Article]</p>
           <h1>What Radova Linux Is For</h1>
-          <dl class="meta-dl">
-            <dt>Author</dt>
-            <dd>Radova Team</dd>
-            <dt>Published</dt>
-            <dd><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></dd>
-            <dt>Reading time</dt>
-            <dd>2 min read</dd>
-            <dt>Tags</dt>
-            <dd>introduction, architecture</dd>
-          </dl>
+          <div class="single__meta">
+            <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time><span class="sep"> · </span><span>2 min read</span></p>
+            <a class="button button--outline button--small" href="/latest/article/">All articles</a>
+          </div>
         </header>
+        <img class="single__media" src="/latest/assets/hero/libraries.jpg" alt="" width="960" height="720">
         <div class="editorial-prose editorial-prose--article">
           <p>Radova Linux is an operating system built for institutional memory: libraries, archives, and the digital assets they hold. Its aim is that an institution can boot a machine, sign in, and start managing its collections, without first spending a weekend installing and connecting separate archival software.</p>
           <p>The project sums up its approach in one line: keep it simple.</p>
@@ -90,10 +115,32 @@
           </ul>
           <p>Follow Radova Latest for news, articles, and events as the project develops.</p>
         </div>
+        <ul class="tag-list" aria-label="Tags">
+          <li>introduction</li>
+          <li>architecture</li>
+        </ul>
       </article>
+      <section class="more-posts" aria-labelledby="more-title">
+        <div class="more-posts__head">
+          <h2 id="more-title">More updates</h2>
+          <a href="/latest/">View all</a>
+        </div>
+        <ol class="card-grid">
+          <li>
+            <article class="post-card">
+              <div class="cover cover--news cover--image">
+                <img class="cover__image" src="/latest/assets/hero/archives.jpg" alt="" width="960" height="720" loading="lazy">
+                <p class="cover__kicker"><span class="badge badge--type">News</span></p>
+                <h2><a href="/latest/news/introducing-radova-latest/">Introducing Radova Latest</a></h2>
+              </div>
+              <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T10:00:00+07:00">14 Nov 2026</time></p>
+            </article>
+          </li>
+        </ol>
+      </section>
     </main>
     <footer class="site-footer">
-      <a class="brand-lockup" href="/"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</a>
+      <span class="brand-lockup"><img src="/latest/assets/logo.png" alt="" width="28" height="28">RADOVA</span>
       <ul>
         <li><a href="/latest/security/policy/">Security policy</a></li>
         <li><a href="https://github.com/radova-linux/latest">Source code</a></li>
