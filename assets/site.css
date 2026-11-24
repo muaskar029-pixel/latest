@@ -1,6 +1,8 @@
-/* Radova theme on top of pico.classless.min.css. Load after Pico.
+/* Radova theme on top of base.css (the Pico rules we use). build.py bundles both into
+   css/latest.bundle.css; edit this file, then run `python3 build.py`.
    Sections: fonts · tokens · base · site chrome · editorial-header · tab-grid · empty-state
-   · meta-dl · badge · button · pager · single · editorial-prose · index (notice, hero, cards) */
+   · meta-dl · badge · button · pager · single · editorial-prose · index (notice, hero, cards)
+   · dark mode overrides */
 
 /* ---------- Fonts ---------- */
 @font-face {
@@ -32,70 +34,104 @@
   src: url("fonts/roboto-latin-700-normal.woff2") format("woff2");
 }
 
-/* ---------- Tokens (60% Background / 30% Text & Secondary / 10% Accent CTA) ---------- */
-:root:not([data-theme=dark]),
-[data-theme=light] {
+/* ---------- Tokens ----------
+   Brand colours (navy, reds, lavender, white) are the same in both themes. Dark mode swaps only
+   the role tokens (page, surface, text, accent, muted, hairline); a component that needs more
+   gets its own :root[data-theme="dark"] rule at the end of this file, as on the Homepage. */
+:root {
   --radova-navy: #0E0347;
-  --radova-blue: #0B2E8D;
-  --radova-muted: #5b5a78;
-  --radova-red: #A10000;
-  --radova-red-2: #BB080B;
-  --radova-red-3: #DB000F;
+  --red-900: #A10000;
+  --red-700: #BB080B;
+  --red-600: #DB000F;
   --radova-lavender: #F7F6FF;
-  --radova-dock: #F0EFFC;
   --radova-white: #FFFFFF;
-  --radova-hairline: rgba(14, 3, 71, 0.12);
-  --radova-heading-font: "Roboto", system-ui, sans-serif;
-  --radova-radius: 12px;
-  --radova-radius-lg: 20px;
-  --radova-pill: 999px;
 
-  --pico-font-family: "Lato", system-ui, sans-serif;
-  --radova-body-font: "Lato", system-ui, -apple-system, sans-serif;
-  --pico-background-color: var(--radova-lavender);
-  --pico-color: var(--radova-navy);
-  --pico-muted-color: var(--radova-muted);
-  --pico-h1-color: var(--radova-navy);
-  --pico-h2-color: var(--radova-navy);
+  --radova-blue: #0B2E8D;
+  --radova-page: var(--radova-lavender);
+  --radova-surface: var(--radova-white);
+  --radova-surface-2: var(--radova-lavender);
+  --radova-text: var(--radova-navy);
+  --radova-accent: var(--red-900);
+  --radova-muted: #5b5a78;
   --radova-hairline: rgba(14, 3, 71, 0.12);
+  --radova-shadow-card: 0 2px 10px rgba(14, 3, 71, 0.04);
+
   --radova-heading-font: "Lato", system-ui, sans-serif;
+  --radova-body-font: "Lato", system-ui, -apple-system, sans-serif;
   --radova-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --radova-radius: 20px;
-  --radova-radius-md: 16px;
+  --radova-radius-lg: 20px;
   --radova-radius-sm: 12px;
-  --radova-shadow-card: 0 2px 10px rgba(14, 3, 71, 0.04);
-  --radova-shadow-hover: 0 12px 30px rgba(14, 3, 71, 0.08);
+  --radova-pill: 999px;
   --radova-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
-  --pico-font-family: "Roboto", system-ui, sans-serif;
-  --pico-background-color: var(--radova-white);
-  --pico-color: var(--radova-navy);
-  --pico-muted-color: var(--radova-muted);
-  --pico-h1-color: var(--radova-red);
-  --pico-h2-color: var(--radova-red);
-  --pico-h3-color: var(--radova-navy);
-  --pico-h4-color: var(--radova-navy);
-  --pico-h5-color: var(--radova-navy);
-  --pico-h6-color: var(--radova-navy);
+  /* Page container, as on the Homepage: content is --container-max wide, at least --pad-x in. */
+  --pad-x: 1rem;
+  --container-max: 100%;
+}
+@media (min-width: 576px) {
+  :root { --container-max: 510px; }
+}
+@media (min-width: 768px) {
+  :root { --container-max: 700px; }
+}
+@media (min-width: 1024px) {
+  :root { --container-max: 950px; }
+}
+@media (min-width: 1280px) {
+  :root { --container-max: 1200px; }
+}
+@media (min-width: 1536px) {
+  :root { --container-max: 1450px; }
+}
 
-  --pico-primary: var(--radova-red);
-  --pico-primary-background: var(--radova-red);
-  --pico-primary-border: var(--radova-red);
-  --pico-primary-underline: rgba(161, 0, 0, 0.45);
-  --pico-primary-background: var(--radova-red-3);
-  --pico-primary-border: var(--radova-red-3);
+/* Pico's colours, from the roles above. As specific as Pico's own theme blocks, so this file
+   wins by load order without !important. */
+:root:not([data-theme=dark]),
+:root[data-theme=dark] {
+  --pico-font-family: "Roboto", system-ui, sans-serif;
+  --pico-background-color: var(--radova-surface);
+  --pico-color: var(--radova-text);
+  --pico-muted-color: var(--radova-muted);
+  --pico-h1-color: var(--radova-accent);
+  --pico-h2-color: var(--radova-accent);
+  --pico-h3-color: var(--radova-text);
+  --pico-h4-color: var(--radova-text);
+  --pico-h5-color: var(--radova-text);
+  --pico-h6-color: var(--radova-text);
+
+  --pico-primary: var(--radova-accent);
+  --pico-primary-background: var(--red-600);
+  --pico-primary-border: var(--red-600);
   --pico-primary-underline: rgba(161, 0, 0, 0.5);
-  --pico-primary-hover: var(--radova-red-2);
-  --pico-primary-hover-background: var(--radova-red-2);
-  --pico-primary-hover-border: var(--radova-red-2);
-  --pico-primary-hover-underline: var(--radova-red-2);
+  --pico-primary-hover: var(--red-700);
+  --pico-primary-hover-background: var(--red-700);
+  --pico-primary-hover-border: var(--red-700);
+  --pico-primary-hover-underline: var(--red-700);
   --pico-primary-focus: rgba(219, 0, 15, 0.35);
   --pico-primary-inverse: var(--radova-white);
 
-  --pico-card-background-color: var(--radova-white);
+  --pico-card-background-color: var(--radova-surface);
   --pico-card-box-shadow: none;
   --pico-border-radius: 12px;
-  --pico-blockquote-border-color: var(--radova-red-3);
+  --pico-blockquote-border-color: var(--red-600);
+}
+
+/* Dark palette (darkmode.pdf): background #0B0711, card #150B52, text #FFFFFF / #C4C0D4. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --radova-blue: #0035C6;
+  --radova-page: #0B0711;
+  --radova-surface: #150B52;
+  --radova-surface-2: #0E0347;
+  --radova-text: #FFFFFF;
+  --radova-accent: #FFFFFF;
+  --radova-muted: #C4C0D4;
+  --radova-hairline: rgba(196, 192, 212, 0.18);
+  --radova-shadow-card: 0 4px 16px rgba(0, 0, 0, 0.35);
+
+  --pico-primary-underline: rgba(219, 0, 15, 0.8);
+  --pico-primary-hover: var(--radova-muted);
 }
 
 /* ---------- Base & Typography Hierarchy ---------- */
@@ -107,8 +143,8 @@ body {
   font-family: var(--radova-body-font);
   font-size: 1rem; /* Normal 16px */
   line-height: 1.6;
-  color: var(--radova-navy);
-  background-color: var(--radova-lavender);
+  color: var(--radova-text);
+  background-color: var(--radova-page);
   overflow-wrap: break-word;
 }
 
@@ -122,20 +158,18 @@ body {
 html {
   scrollbar-gutter: stable;
 }
-/* Wide screens: 72px page gutters like Dribbble, instead of Pico's fixed 1200/1450px boxes. */
-@media (min-width: 1280px) {
-  body > header,
-  body > main,
-  body > footer {
-    max-width: min(1440px, calc(100% - 144px));
-  }
+/* One container for header, main and footer; the widths are --container-max (tokens). */
+body > main,
+.site-header,
+.site-footer {
+  padding-inline: max(var(--pad-x), calc((100% - var(--container-max)) / 2));
 }
 
 h1, h2, h3, h4, h5, h6 {
   --pico-font-family: var(--radova-heading-font);
   font-family: var(--radova-heading-font);
   font-weight: 700;
-  color: var(--radova-navy);
+  color: var(--radova-text);
   letter-spacing: -0.015em;
 }
 
@@ -238,7 +272,7 @@ main p {
   border-radius: 6px;
   font-weight: 700;
   text-decoration: none;
-  background: var(--radova-red);
+  background: var(--red-900);
   color: var(--radova-white);
 }
 
@@ -261,11 +295,11 @@ body > header {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-decoration: none;
-  color: var(--radova-red);
+  color: var(--red-900);
 }
 .brand:hover,
 .brand:focus-visible {
-  color: var(--radova-red-2);
+  color: var(--red-700);
 }
 
 body > footer {
@@ -290,7 +324,6 @@ body > header.site-header,
   min-height: 48px;
   margin: 0;
   padding-block: 0.65rem;
-  padding-inline: max(1rem, calc((100% - 72rem) / 2));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -303,7 +336,7 @@ body > header.site-header,
 
 @supports not (backdrop-filter: blur(1px)) {
   .site-header {
-    background: var(--radova-white);
+    background: var(--radova-surface);
   }
 }
 
@@ -325,7 +358,7 @@ body > header.site-header,
   font-size: 0.8rem;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--radova-red);
+  color: var(--red-900);
 }
 
 .nav-list {
@@ -352,13 +385,12 @@ body > header.site-header,
 .nav-list a {
   font-size: 15px;
   font-weight: 500;
-  color: var(--radova-red);
+  color: var(--red-900);
   text-decoration: none;
-  transition: color 200ms cubic-bezier(.2,.7,.2,1);
 }
 
 .nav-list a:hover {
-  color: var(--radova-red-3);
+  color: var(--red-600);
 }
 
 .nav-list a[aria-current="page"] {
@@ -397,7 +429,7 @@ nav.navbar li :where(a, [role="link"]) {
   right: 0;
   left: auto;
   transform: translateY(-6px);
-  background: var(--radova-white);
+  background: var(--radova-surface);
   min-width: 250px;
   max-width: calc(100vw - 32px);
   border-radius: 16px;
@@ -446,10 +478,9 @@ nav.navbar li :where(a, [role="link"]) {
   text-decoration: none;
   text-align: left;
   border: none;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid var(--radova-hairline);
   border-radius: 0;
   cursor: pointer;
-  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
@@ -467,7 +498,7 @@ nav.navbar li :where(a, [role="link"]) {
 }
 
 .dropdown-content button.d-content-back {
-  color: var(--radova-red);
+  color: var(--red-900);
 }
 
 .dropdown-content button.d-content-back:hover,
@@ -498,9 +529,9 @@ nav.navbar li :where(a, [role="link"]) {
 }
 
 .btn-navy {
-  background-color: var(--radova-red);
-  border: none;
-  color: #f7f6ff;
+  background-color: var(--red-900);
+  border: 1px solid transparent;
+  color: var(--radova-lavender);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-weight: 700;
   font-size: 13px;
@@ -508,7 +539,6 @@ nav.navbar li :where(a, [role="link"]) {
   padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 16px;
-  transition: all 0.2s ease;
   display: inline-block;
   text-decoration: none;
   line-height: normal;
@@ -516,11 +546,11 @@ nav.navbar li :where(a, [role="link"]) {
 
 .btn-navy:hover {
   background-color: rgba(14, 3, 71, 0.05);
-  color: var(--radova-red);
+  color: var(--red-900);
 }
 
 .btn-navy.active {
-  background-color: var(--radova-red);
+  background-color: var(--red-900);
   color: var(--radova-white);
 }
 
@@ -539,19 +569,18 @@ nav.navbar li :where(a, [role="link"]) {
   border: 1px solid var(--radova-hairline);
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .nav-toggle:hover {
   background-color: rgba(14, 3, 71, 0.05);
-  border-color: var(--radova-red);
+  border-color: var(--red-900);
 }
 
 .nav-toggle span {
   display: block;
   width: 18px;
   height: 2px;
-  background-color: var(--radova-red);
+  background-color: var(--red-900);
   border-radius: 2px;
   transition: transform 0.25s ease, opacity 0.2s ease;
 }
@@ -604,7 +633,7 @@ nav.navbar li :where(a, [role="link"]) {
     width: 100%;
     height: calc(100dvh - 58px);
     margin-left: 0;
-    padding: 0.75rem max(1rem, calc((100% - 72rem) / 2)) 2rem;
+    padding: 0.75rem max(var(--pad-x), calc((100% - var(--container-max)) / 2)) 2rem;
     background: var(--radova-white);
     border-top: 1px solid var(--radova-hairline);
     overflow-y: auto;
@@ -667,7 +696,7 @@ nav.navbar li :where(a, [role="link"]) {
     width: 100%;
     margin: 0;
     padding: 0.55rem 0.75rem;
-    color: var(--radova-red);
+    color: var(--red-900);
     font-size: 15.5px;
     font-weight: 700;
     line-height: 1.3;
@@ -683,7 +712,7 @@ nav.navbar li :where(a, [role="link"]) {
   .dropdown-content a:hover,
   .dropdown-content a:focus {
     background-color: rgba(219, 0, 15, 0.08);
-    color: var(--radova-red-3);
+    color: var(--red-600);
     border-radius: 10px;
   }
 }
@@ -697,7 +726,7 @@ button.btn-lang {
   justify-content: center;
   background-color: var(--radova-white);
   border: 1.5px solid rgba(14, 3, 71, 0.22);
-  color: #0E0347;
+  color: var(--radova-navy);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-weight: 700;
   font-size: 13px;
@@ -706,12 +735,11 @@ button.btn-lang {
   border-radius: 16px;
   cursor: pointer;
   line-height: normal;
-  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
 }
 
 button.btn-lang:hover {
-  border-color: var(--radova-red);
-  color: var(--radova-red);
+  border-color: var(--red-900);
+  color: var(--red-900);
   background-color: var(--radova-lavender);
 }
 
@@ -733,11 +761,10 @@ body > footer.site-footer,
   width: 100%;
   max-width: none;
   margin: 0;
-  background: linear-gradient(180deg, #0E0347 0%, #08022b 100%);
-  border-top: 3px solid var(--radova-red-3);
+  background: var(--red-700);
+  border-top: 3px solid var(--red-600);
   padding-block: 3.5rem 2.25rem;
-  padding-inline: max(1rem, calc((100% - 72rem) / 2));
-  color: rgba(247, 246, 255, 0.78);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .footer-grid {
@@ -790,11 +817,10 @@ nav.footer-col {
 }
 
 .footer-links a {
-  color: rgba(247, 246, 255, 0.72);
+  color: rgba(255, 255, 255, 0.92);
   font-size: 14px;
   font-weight: 400;
   text-decoration: none;
-  transition: color 160ms ease;
 }
 
 .footer-links a:hover {
@@ -830,9 +856,14 @@ nav.footer-col {
   color: #FFFFFF;
 }
 
+/* The red logo would vanish on the footer, so it is drawn white there. */
+.brand-lockup-light img {
+  filter: brightness(0) invert(1);
+}
+
 .footer-copy {
   font-size: 13px;
-  color: rgba(247, 246, 255, 0.58);
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
 }
 
@@ -842,17 +873,16 @@ nav.footer-col {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(247, 246, 255, 0.85);
+  color: #FFFFFF;
   text-decoration: none;
   padding: 0.45rem 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 999px;
-  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
 }
 
 .footer-top:hover {
   color: #FFFFFF;
-  border-color: var(--radova-red-3);
+  border-color: var(--red-600);
   background-color: rgba(219, 0, 15, 0.16);
 }
 
@@ -898,15 +928,15 @@ nav.tab-grid ul {
   white-space: nowrap;
   text-decoration: none;
   font-weight: 700;
-  color: rgba(14, 3, 71, 0.62); /* muted navy, 5:1 on lavender */
+  color: var(--radova-muted);
 }
 .tab-grid a:hover,
 .tab-grid a:focus-visible {
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .tab-grid a[aria-current="page"] {
-  color: var(--radova-navy);
-  background: var(--radova-white);
+  color: var(--radova-text);
+  background: var(--radova-surface);
   border-color: var(--radova-hairline);
 }
 
@@ -918,10 +948,10 @@ nav.tab-grid ul {
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-pill);
-  background: var(--radova-white);
+  background: var(--radova-surface);
 }
 .post-search:focus-within {
-  border-color: var(--radova-navy);
+  border-color: var(--radova-text);
 }
 .post-search input[type="search"] {
   flex: 1;
@@ -933,10 +963,10 @@ nav.tab-grid ul {
   border-radius: 0;
   box-shadow: none;
   background: transparent;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .post-search input[type="search"]:focus-visible {
-  outline: 2px solid var(--radova-red-3);
+  outline: 2px solid var(--red-600);
   outline-offset: 2px;
 }
 .post-search button[type="submit"] {
@@ -947,11 +977,11 @@ nav.tab-grid ul {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--radova-red) url("icons/magnifying-glass.svg") center / 1.25rem no-repeat;
+  background: var(--red-900) url("icons/magnifying-glass.svg") center / 1.25rem no-repeat;
 }
 .post-search button[type="submit"]:hover,
 .post-search button[type="submit"]:focus-visible {
-  background-color: var(--radova-red-2);
+  background-color: var(--red-700);
 }
 .post-filters {
   display: flex;
@@ -971,7 +1001,7 @@ nav.tab-grid ul {
 .post-filters__popular strong {
   margin-right: 0.5rem;
   font-size: 0.875rem;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .post-filters__popular button {
   width: auto;
@@ -980,13 +1010,13 @@ nav.tab-grid ul {
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-pill);
   font-size: 0.875rem;
-  color: var(--radova-navy);
-  background: var(--radova-white);
+  color: var(--radova-text);
+  background: var(--radova-surface);
 }
 .post-filters__popular button:hover,
 .post-filters__popular button:focus-visible,
 .post-filters__popular button[aria-pressed="true"] {
-  border-color: var(--radova-navy);
+  border-color: var(--radova-text);
 }
 .post-filters select {
   width: auto;
@@ -998,8 +1028,8 @@ nav.tab-grid ul {
   border-color: var(--radova-hairline);
   border-radius: var(--radova-radius);
   font-weight: 700;
-  color: var(--radova-navy);
-  background-color: var(--radova-white);
+  color: var(--radova-text);
+  background-color: var(--radova-surface);
 }
 .post-filters__empty {
   margin: 0 0 2rem;
@@ -1016,13 +1046,13 @@ main > section > h2 {
   padding: 2rem 1.75rem;
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-radius);
-  background: var(--radova-white);
+  background: var(--radova-surface);
 }
 .empty-state > :first-child {
   font-family: var(--radova-heading-font);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .empty-state > :last-child {
   margin-bottom: 0;
@@ -1079,7 +1109,7 @@ main > section > h2 {
   font-family: var(--radova-mono);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--radova-red);
+  color: var(--radova-accent);
 }
 
 /* ---------- .badge ---------- */
@@ -1101,10 +1131,10 @@ main > section > h2 {
 }
 .badge--severity-critical,
 .badge--cancelled {
-  background: var(--radova-red);
+  background: var(--red-900);
 }
 .badge--severity-high {
-  background: var(--radova-red-3);
+  background: var(--red-600);
 }
 .badge--severity-medium,
 .badge--scheduled {
@@ -1123,30 +1153,30 @@ main > section > h2 {
   gap: 0.75rem;
   min-height: 48px;
   padding: 0.625rem 1.5rem;
-  border: 1.5px solid var(--radova-red);
+  border: 1.5px solid var(--red-900);
   border-radius: var(--radova-pill);
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
   color: var(--radova-white);
-  background: var(--radova-red-3);
+  background: var(--red-600);
   box-shadow: 0 4px 14px rgba(219, 0, 15, 0.22);
-  transition: background-color 180ms var(--radova-ease), transform 140ms var(--radova-ease), box-shadow 180ms var(--radova-ease);
+  transition: transform 140ms var(--radova-ease);
 }
 .button:hover,
 .button:focus-visible,
 .btn:hover,
 .btn:focus-visible {
   color: var(--radova-white);
-  border-color: var(--radova-red-2);
-  background: var(--radova-red-2);
+  border-color: var(--red-700);
+  background: var(--red-700);
   box-shadow: 0 6px 20px rgba(187, 8, 11, 0.28);
 }
 .button:active {
   transform: scale(0.98);
 }
 .button:focus-visible {
-  outline: 3px solid var(--radova-red-3);
+  outline: 3px solid var(--red-600);
   outline-offset: 2px;
 }
 .button--navy {
@@ -1160,15 +1190,15 @@ main > section > h2 {
 }
 /* Figma outline button: navy border and text, filled on hover. */
 .button--outline {
-  border-color: var(--radova-navy);
-  color: var(--radova-navy);
+  border-color: var(--radova-text);
+  color: var(--radova-text);
   background: transparent;
 }
 .button--outline:hover,
 .button--outline:focus-visible {
-  border-color: var(--radova-navy);
-  color: var(--radova-white);
-  background: var(--radova-navy);
+  border-color: var(--radova-text);
+  color: var(--radova-surface);
+  background: var(--radova-text);
 }
 .button--small {
   min-height: 38px;
@@ -1196,7 +1226,7 @@ nav.pager {
   overflow: clip;
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-radius);
-  background: var(--radova-white);
+  background: var(--radova-surface);
   box-shadow: var(--radova-shadow-card);
 }
 .pager a {
@@ -1208,13 +1238,11 @@ nav.pager {
   font-family: var(--radova-heading-font);
   font-weight: 700;
   text-decoration: none;
-  transition: background-color 160ms var(--radova-ease), color 160ms var(--radova-ease);
 }
 .pager a:hover,
 .pager a:focus-visible {
-  color: var(--radova-red);
-  background: var(--radova-lavender);
-  color: var(--radova-red-3);
+  color: var(--radova-accent);
+  background: var(--radova-surface-2);
 }
 .pager a[rel="next"] {
   grid-column: 2;
@@ -1330,7 +1358,7 @@ nav.pager {
   border-radius: var(--radova-pill);
   font-size: 0.875rem;
   list-style: none;
-  background: var(--radova-white);
+  background: var(--radova-surface);
 }
 
 /* .more-posts: "More updates" under a detail page, like Dribbble's "More by". */
@@ -1354,11 +1382,11 @@ nav.pager {
   font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .more-posts__head a:hover,
 .more-posts__head a:focus-visible {
-  color: var(--radova-red);
+  color: var(--radova-accent);
   text-decoration: underline;
 }
 
@@ -1369,7 +1397,7 @@ main > .editorial-prose {
 .editorial-prose {
   padding: 1.5rem;
   border-radius: var(--radova-radius);
-  background: var(--radova-white);
+  background: var(--radova-surface);
   box-shadow: var(--radova-shadow-card);
 }
 @media (min-width: 768px) {
@@ -1389,12 +1417,12 @@ main > .editorial-prose {
 .editorial-prose h2 {
   --pico-font-size: 1.6rem;
   margin-top: 2rem;
-  color: var(--radova-red);
+  color: var(--radova-accent);
 }
 .editorial-prose h3 {
   --pico-font-size: 1.25rem;
   margin-top: 1.5rem;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .editorial-prose > h2:first-child,
 .editorial-prose section:first-child > h2 {
@@ -1405,13 +1433,13 @@ main > .editorial-prose {
   padding: 0.5rem 0 0.5rem 1.25rem;
   font-family: var(--radova-heading-font);
   font-size: 1.2rem;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .editorial-prose pre {
   padding: 1rem 1.25rem;
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-radius-sm);
-  background: var(--radova-lavender);
+  background: var(--radova-surface-2);
 }
 .editorial-prose pre,
 .table-scroll {
@@ -1435,7 +1463,7 @@ main > .editorial-prose {
   font-size: 3.6em;
   font-weight: 700;
   line-height: 0.8;
-  color: var(--radova-red);
+  color: var(--radova-accent);
 }
 
 /* ---------- .chip: small pill label above a title ---------- */
@@ -1455,8 +1483,8 @@ main > .editorial-prose {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--radova-navy);
-  background: var(--radova-white);
+  color: var(--radova-text);
+  background: var(--radova-surface);
 }
 
 /* ---------- .notice-bar: one-line announcement at the top of the index ---------- */
@@ -1479,23 +1507,25 @@ main > .editorial-prose {
   flex: none;
   width: 1.25rem;
   height: 1.25rem;
-  background: var(--radova-red);
+  background: var(--radova-accent);
   -webkit-mask: url("icons/shield-check.svg") center / contain no-repeat;
   mask: url("icons/shield-check.svg") center / contain no-repeat;
 }
 .notice-bar a {
   padding: 0.25rem 1rem;
-  border: 1.5px solid var(--radova-red);
+  border: 1.5px solid var(--radova-accent);
   border-radius: var(--radova-pill);
   font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
-  background: var(--radova-white);
+  color: var(--radova-accent);
+  background: var(--radova-surface);
 }
 .notice-bar a:hover,
 .notice-bar a:focus-visible {
+  border-color: var(--red-900);
   color: var(--radova-white);
-  background: var(--radova-red);
+  background: var(--red-900);
 }
 @media (min-width: 768px) {
   .notice-bar {
@@ -1524,7 +1554,7 @@ main > .editorial-prose {
   line-height: 1.1;
 }
 .hero-split .accent {
-  color: var(--radova-red);
+  color: var(--radova-accent);
 }
 /* .hero-words: the h1's changing word, after Dribbble's hero. The hidden ::before holds
    the longest word's width, so the line never jumps; site.js moves .is-current per clip. */
@@ -1540,7 +1570,7 @@ main > .editorial-prose {
   position: absolute;
   top: 0;
   left: 0;
-  color: var(--radova-red);
+  color: var(--radova-accent);
   white-space: nowrap;
   opacity: 0;
 }
@@ -1604,7 +1634,7 @@ main > .editorial-prose {
 /* ---------- .cover: coloured title tile inside .post-card ---------- */
 .cover {
   /* Pico colours every <p> with --pico-color, so the tile sets that variable, not only color. */
-  --pico-color: var(--radova-navy);
+  --pico-color: var(--radova-text);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -1613,7 +1643,7 @@ main > .editorial-prose {
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-radius);
   color: var(--pico-color);
-  background: var(--radova-white);
+  background: var(--radova-surface);
 }
 /* The category icon, large and cropped at the top right. Decoration only. */
 .cover::before {
@@ -1648,11 +1678,11 @@ main > .editorial-prose {
 }
 .cover--security {
   --icon: url("icons/shield-check.svg");
-  border-color: var(--radova-red);
-  background: var(--radova-red);
+  border-color: var(--red-900);
+  background: var(--red-900);
 }
 .cover--article::before {
-  background: var(--radova-red);
+  background: var(--red-900);
 }
 .cover--news::before,
 .cover--agenda::before,
@@ -1752,7 +1782,7 @@ main > .editorial-prose {
 .byline > :first-child {
   margin-right: auto;
   font-weight: 700;
-  color: var(--radova-navy);
+  color: var(--radova-text);
 }
 .byline__author {
   display: inline-flex;
@@ -1786,7 +1816,7 @@ main > .editorial-prose {
   aspect-ratio: 4 / 3;
   border-radius: var(--radova-radius-lg);
   overflow: hidden;
-  background: var(--radova-lavender);
+  background: var(--radova-surface-2);
 }
 .hero-media video {
   position: absolute;
@@ -1826,7 +1856,7 @@ main > .editorial-prose {
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--radova-red) 0%, var(--radova-red-2) 100%);
+  background: linear-gradient(135deg, var(--red-900) 0%, var(--red-700) 100%);
 }
 .hero-media__app span {
   color: rgba(14, 3, 71, 0.7);
@@ -1859,24 +1889,6 @@ main > .editorial-prose {
 .hero-media__pause[aria-pressed="true"] .i-pause {
   display: none;
 }
-@media (prefers-reduced-motion: reduce) {
-  .tab-grid a,
-  .post-row,
-  .post-row h2 a,
-  .post-row h3 a,
-  .button,
-  .pager a,
-  .back-link a {
-    transition: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-media video {
-    transition: none;
-  }
-}
-
 /* ---------- .card-grid > .post-card: index grid, tile + byline ---------- */
 .card-grid {
   display: grid;
@@ -1934,7 +1946,7 @@ main > .editorial-prose {
   }
 }
 .post-card:has(a:focus-visible) {
-  outline: 3px solid var(--radova-red-3);
+  outline: 3px solid var(--red-600);
   outline-offset: 4px;
 }
 /* A category with nothing published: the link below covers the whole card. */
@@ -2000,11 +2012,11 @@ button.btn-theme {
   padding: 0;
   border-radius: 999px;
   border: 1.5px solid rgba(14, 3, 71, 0.18);
-  background: #ffffff;
-  color: #0E0347;
+  background: var(--radova-white);
+  color: var(--radova-navy);
   cursor: pointer;
   flex-shrink: 0;
-  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease, transform 140ms ease;
+  transition: transform 140ms ease;
 }
 
 button.btn-theme + button.btn-lang {
@@ -2018,128 +2030,72 @@ button.btn-theme + button.btn-lang {
 }
 
 button.btn-theme:hover {
-  border-color: #DB000F;
-  color: #DB000F;
-  background: #F7F6FF;
+  border-color: var(--red-600);
+  color: var(--red-600);
+  background: var(--radova-lavender);
 }
 
 button.btn-theme:active {
   transform: scale(0.96);
 }
 
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --radova-navy: #FFFFFF;
-  --radova-muted: #C4C0D4;
-  --radova-red: #FFFFFF;
-  --radova-red-2: #BB080B;
-  --radova-red-3: #DB000F;
-  --radova-blue: #0035C6;
-  --radova-lavender: #150B52;
-  --radova-dock: #0E0347;
-  --radova-white: #0B0711;
-  --radova-hairline: rgba(196, 192, 212, 0.18);
-  --radova-shadow-card: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --radova-shadow-hover: 0 14px 32px rgba(0, 0, 0, 0.5);
-
-  --pico-background-color: #0B0711;
-  --pico-color: #FFFFFF;
-  --pico-muted-color: #C4C0D4;
-  --pico-h1-color: #FFFFFF;
-  --pico-h2-color: #FFFFFF;
-  --pico-h3-color: #FFFFFF;
-  --pico-primary: #DB000F;
-  --pico-primary-background: #DB000F;
-  --pico-primary-hover-background: #BB080B;
-  --pico-card-background-color: #150B52;
-}
-
-:root[data-theme="dark"] body > header.site-header,
 :root[data-theme="dark"] .site-header {
   background: rgba(11, 7, 17, 0.88);
   border-bottom-color: rgba(196, 192, 212, 0.16);
 }
 
+/* ---------- Dark mode: per-component overrides ----------
+   The role tokens recolour pages, surfaces and text. These cover what a token swap cannot:
+   the header chrome (red in light, white in dark) and its buttons. */
 :root[data-theme="dark"] .brand-name,
-:root[data-theme="dark"] .nav-list a {
-  color: #FFFFFF;
+:root[data-theme="dark"] .nav-list a,
+:root[data-theme="dark"] .dropdown-content a,
+:root[data-theme="dark"] .dropdown-content button.d-content-back {
+  color: var(--radova-white);
 }
 
 :root[data-theme="dark"] .nav-toggle span {
-  background-color: #FFFFFF;
+  background-color: var(--radova-white);
 }
 
-:root[data-theme="dark"] .dropdown-content {
-  background-color: #150B52;
-  border-color: rgba(196, 192, 212, 0.22);
+@media (min-width: 768px) {
+  :root[data-theme="dark"] .dropdown-content {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  }
 }
 
-:root[data-theme="dark"] .dropdown-content a,
-:root[data-theme="dark"] .dropdown-content button.d-content-back {
-  color: #FFFFFF;
-}
-
+:root[data-theme="dark"] .btn-navy,
 :root[data-theme="dark"] button.btn-theme,
 :root[data-theme="dark"] button.btn-lang {
-  background-color: #150B52;
   border-color: rgba(196, 192, 212, 0.28);
-  color: #F7F6FF;
+  color: var(--radova-white);
+  background-color: var(--radova-surface);
+}
+
+:root[data-theme="dark"] .btn-navy:hover,
+:root[data-theme="dark"] .btn-navy.active {
+  border-color: var(--red-600);
+  background-color: var(--red-600);
 }
 
 :root[data-theme="dark"] button.btn-theme:hover,
 :root[data-theme="dark"] button.btn-lang:hover {
-  border-color: #DB000F;
-  color: #FFFFFF;
-  background-color: #0E0347;
-}
-
-:root[data-theme="dark"] .editorial-header,
-:root[data-theme="dark"] .single-split > header {
-  background:
-    radial-gradient(48% 70% at 86% 18%, rgba(219, 0, 15, 0.22), transparent 72%),
-    radial-gradient(40% 60% at 12% 82%, rgba(21, 11, 82, 0.65), transparent 72%),
-    linear-gradient(180deg, #0E0347 0%, #150B52 100%);
+  border-color: var(--red-600);
+  background-color: var(--radova-navy);
 }
 
 :root[data-theme="dark"] .tab-grid a[aria-current="page"] {
-  background: #DB000F;
-  border-color: #DB000F;
-  color: #FFFFFF;
+  border-color: var(--red-600);
+  color: var(--radova-white);
+  background: var(--red-600);
 }
 
-:root[data-theme="dark"] .post-row,
-:root[data-theme="dark"] .post-row__main,
-:root[data-theme="dark"] .editorial-prose,
-:root[data-theme="dark"] nav.pager {
-  background-color: #150B52;
-}
-
-:root[data-theme="dark"] .post-row--news .post-row__panel {
-  background: #0E0347;
-}
-
-:root[data-theme="dark"] .post-row--news .post-row__panel::after {
-  color: #FFFFFF;
-  background: rgba(219, 0, 15, 0.25);
-  border-color: #DB000F;
-}
-
-:root[data-theme="dark"] .eyebrow {
-  background: rgba(219, 0, 15, 0.22);
-  color: #FFFFFF;
-}
-
-:root[data-theme="dark"] .badge--type {
-  background: #0E0347;
-  color: #FFFFFF;
-}
-
-:root[data-theme="dark"] .button {
-  color: #FFFFFF;
+:root[data-theme="dark"] .site-footer {
+  background: linear-gradient(180deg, var(--radova-navy) 0%, #08022b 100%);
 }
 
 @media (max-width: 767px) {
   :root[data-theme="dark"] .header-menu {
-    background-color: #0B0711;
+    background-color: var(--radova-page);
   }
 }
