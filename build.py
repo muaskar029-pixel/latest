@@ -5,6 +5,7 @@
 
 assets/base.css + assets/site.css  ->  assets/css/latest.bundle.css
 assets/fonts.css                   ->  assets/css/fonts.css (loaded by js/loader.js)
+assets/site.js                     ->  assets/js/latest.bundle.js (loaded by js/loader.js)
 
 Run it after every edit to a source file and commit both. Standard library only.
 """
@@ -88,6 +89,28 @@ def build_css(sources, target):
     print("%s  %d -> %d bytes" % (target, len(src), len(out)))
 
 
+def minify_js(js):
+    """Comments, indentation and blank lines only. Every // comment in site.js is a whole line or
+    follows ; { or ), and no string holds "; //", so the line-based cut is safe.
+    shortcut: no syntax check (the brief allows no Node); upgrade if site.js gains other comments."""
+    out = []
+    for line in js.splitlines():
+        line = re.sub(r"(?<=[;{)])\s+// .*$", "", line).strip()
+        if line and not line.startswith("//"):
+            out.append(line)
+    return "\n".join(out) + "\n"
+
+
+def build_js(source, target):
+    src = open(os.path.join(ASSETS, source), encoding="utf-8").read()
+    out = minify_js(src)
+    path = os.path.join(ASSETS, target)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(out)
+    print("%s  %d -> %d bytes" % (target, len(src), len(out)))
+
+
 if __name__ == "__main__":
     build_css(["base.css", "site.css"], "css/latest.bundle.css")
     build_css(["fonts.css"], "css/fonts.css")
+    build_js("site.js", "js/latest.bundle.js")

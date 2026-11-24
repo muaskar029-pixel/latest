@@ -7,8 +7,6 @@
     <meta name="description" content="Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
     <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
-    <script src="/latest/assets/htmx.min.js" defer></script>
-    <script src="/latest/assets/site.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
@@ -45,7 +43,7 @@
         </nav>
       </div>
 
-      <button type="button" id="theme-toggle" class="btn-theme" data-set-theme="light" hx-get="/latest/assets/theme-dark.html" hx-target="#theme-toggle" hx-swap="outerHTML" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+      <button type="button" id="theme-toggle" class="btn-theme" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
         <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
       </button>
 
@@ -65,16 +63,16 @@
     </header>
     <main id="main">
       <header class="editorial-header">
-        <h1>Agenda</h1>
-        <p>Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).</p>
+        <h1 data-i18n="latest.agenda">Agenda</h1>
+        <p data-i18n="agenda.desc">Upcoming and past Radova events and community sessions. All times are in WIB (UTC+07:00).</p>
       </header>
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
-          <li><a href="/latest/">All Latest</a></li>
-          <li><a href="/latest/agenda/" aria-current="page">Agenda</a></li>
-          <li><a href="/latest/article/">Article</a></li>
-          <li><a href="/latest/news/">News</a></li>
-          <li><a href="/latest/security/">Security</a></li>
+          <li><a href="/latest/" data-i18n="latest.all">All Latest</a></li>
+          <li><a href="/latest/agenda/" aria-current="page" data-i18n="latest.agenda">Agenda</a></li>
+          <li><a href="/latest/article/" data-i18n="latest.article">Article</a></li>
+          <li><a href="/latest/news/" data-i18n="latest.news">News</a></li>
+          <li><a href="/latest/security/" data-i18n="latest.security">Security</a></li>
         </ul>
       </nav>
       <section aria-labelledby="upcoming">
@@ -94,27 +92,27 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <nav class="footer-col" aria-label="Learn About Radova">
-          <h3 class="footer-heading">Learn About Radova</h3>
+          <h3 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h3>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/">About</a></li>
-            <li><a href="https://radova.org/about/history">History</a></li>
-            <li><a href="https://radova.org/latest/">Latest</a></li>
-            <li><a href="https://radova.org/events">Events</a></li>
+            <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
+            <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
+            <li><a href="https://radova.org/latest/" data-i18n="nav.latest">Latest</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Resources">
-          <h3 class="footer-heading">Resources</h3>
+          <h3 class="footer-heading" data-i18n="footer.col2">Resources</h3>
           <ul class="footer-links">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a href="https://radova.org/learns">Learning</a></li>
-            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download" data-i18n="footer.download">Download ISO</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Core Pillars">
-          <h3 class="footer-heading">Core Pillars</h3>
+          <h3 class="footer-heading" data-i18n="footer.col3">Core Pillars</h3>
           <ul class="footer-links">
             <li><a href="https://radova.org/#fitur">Memora</a></li>
             <li><a href="https://radova.org/#fitur">Evrocks</a></li>
@@ -124,11 +122,11 @@
         </nav>
 
         <nav class="footer-col" aria-label="Help and Specs">
-          <h3 class="footer-heading">Help &amp; Specs</h3>
+          <h3 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h3>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/contact">Contact</a></li>
-            <li><a href="https://radova.org/#spesifikasi">System Requirements</a></li>
-            <li><a href="https://radova.org/latest/security/">Security Advisories</a></li>
+            <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/" data-i18n="footer.security">Security Advisories</a></li>
           </ul>
         </nav>
       </div>
@@ -139,10 +137,10 @@
             <img src="/latest/assets/logo.png" alt="Radova Logo" width="28">
             <span class="brand-name">RADOVA</span>
           </span>
-          <p class="footer-copy">© 2026 yuros.org · Released under the MIT License</p>
+          <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
         </div>
 
-        <a class="footer-top" href="#main">Back to top ↑</a>
+        <a class="footer-top" href="#main" data-i18n="footer.top">Back to top ↑</a>
       </div>
     </footer>
     <script src="/latest/assets/js/loader.js" defer></script>
