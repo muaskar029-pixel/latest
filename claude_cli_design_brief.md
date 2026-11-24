@@ -4,7 +4,7 @@
 You are working on the **Radova "Latest"** static site (`latest/`, `templates/`, `assets/site.css`). Issues 1–4 are partially complete in the working tree. Your task is to **refine Issues 3 & 4** and **complete Issue 5** by implementing a cohesive, reusable **Editorial Split-Grid Design System** inspired by our visual references, while strictly adhering to our technical constraints.
 
 ## 2. Strict Technical & Accessibility Constraints
-* **Zero Node/npm:** Pure static HTML, Pico CSS (`assets/pico.classless.min.css`), HTMX (`assets/htmx.min.js`), and Vanilla JS.
+* **Zero Node/npm:** Pure static HTML, CSS (`assets/base.css` with the Pico rules in use, plus `assets/site.css`, bundled into `assets/css/latest.bundle.css` by `python3 build.py`), HTMX (`assets/htmx.min.js`), and Vanilla JS.
 * **Zero Inline Code:** No `style="..."`, `<style>`, or inline JS in any HTML file. All styles must live in `assets/site.css`.
 * **Lynx Text-Browser Compatibility (`lynx -dump -width=80`):**
   * DOM reading order must remain strictly logical from top to bottom.

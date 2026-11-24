@@ -16,16 +16,15 @@
     <meta name="radova:register_url" content="{{register_url}}">
     <meta name="radova:status" content="{{status}}">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
-    <link rel="stylesheet" href="/assets/pico.classless.min.css">
-    <link rel="stylesheet" href="/assets/site.css">
-    <script src="/assets/htmx.min.js" defer></script>
-    <script src="/assets/site.js" defer></script>
+    <link rel="canonical" href="https://radova.org/latest/agenda/{{slug}}/">
+    <link rel="icon" type="image/svg+xml" href="/latest/assets/favicon.svg">
+    <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
     <header class="site-header">
       <a class="brand-lockup" href="https://radova.org/">
-        <img src="/assets/logo.png" alt="Radova Logo" width="32">
+        <img src="/latest/assets/logo.png" alt="Radova Logo" width="32">
         <span class="brand-name">RADOVA</span>
       </a>
 
@@ -43,7 +42,7 @@
         <nav class="navbar" aria-label="About menu">
           <ul class="nav-links">
             <li class="dropdown">
-              <a id="about-menu-btn" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</a>
+              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
               <div class="menu-arrow" aria-hidden="true"></div>
               <div class="dropdown-content" role="menu">
                 <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
@@ -56,7 +55,11 @@
         </nav>
       </div>
 
-      <button type="button" id="lang-toggle" class="btn-lang" aria-label="Switch language to Indonesian">EN</button>
+      <button type="button" id="theme-toggle" class="btn-theme" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+        <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
+      </button>
+
+      <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: switch language to Indonesian">EN</button>
 
       <button
         type="button"
@@ -72,60 +75,70 @@
     </header>
     <main id="main">
       <!-- Agenda. Optional: end_time (delete meta + "Ends" row), register_url (delete meta + Register button). status is scheduled or cancelled; badge class badge--{{status}}. Put {{slug}}.ics next to this file (see templates/README.md). -->
-      <article class="single-split">
+      <article class="single">
         <header>
-          <p class="back-link"><a href="/latest/agenda/">&larr; Back to Agenda</a></p>
-          <p class="eyebrow">[Agenda]</p>
           <h1>{{title}}</h1>
-          <dl class="meta-dl">
-            <dt>Starts</dt>
-            <dd class="meta-dl__lead"><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
-            <dt>Ends</dt>
-            <dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
-            <dt>Location</dt>
-            <dd>{{location}}</dd>
-            <dt>Status</dt>
-            <dd><span class="badge badge--{{status}}">{{Status}}</span></dd>
-            <dt>Published</dt>
-            <dd><time datetime="{{date}}">{{date_text}}</time></dd>
-          </dl>
-          <p><a class="button" href="{{register_url}}" hx-boost="false">Register now</a></p>
-          <p><a href="{{slug}}.ics" download hx-boost="false">Add to calendar (.ics)</a></p>
+          <p class="single__meta">
+            <a class="button button--small" href="{{register_url}}" hx-boost="false">Register now</a>
+            <a class="button button--outline button--small" href="{{slug}}.ics" download hx-boost="false">Add to calendar (.ics)</a>
+          </p>
         </header>
+        <dl class="meta-dl">
+          <dt>Starts</dt>
+          <dd class="meta-dl__lead"><time datetime="{{start_time}}">{{start_text}} WIB</time></dd>
+          <dt>Ends</dt>
+          <dd><time datetime="{{end_time}}">{{end_text}} WIB</time></dd>
+          <dt>Location</dt>
+          <dd>{{location}}</dd>
+          <dt>Status</dt>
+          <dd><span class="badge badge--{{status}}">{{Status}}</span></dd>
+          <dt>Published</dt>
+          <dd><time datetime="{{date}}">{{date_text}}</time></dd>
+        </dl>
         <div class="editorial-prose">
           <p>{{body}}</p>
         </div>
       </article>
-      <!-- Post navigation: drop a link when there is no older/newer post. -->
+      <!-- Post navigation: drop a link when there is no older/newer post, and the whole nav when there is neither. -->
       <nav class="pager" aria-label="More posts">
         <a href="/latest/{{type}}/{{prev_slug}}/" rel="prev">&larr; Previous: {{prev_title}}</a>
         <a href="/latest/{{type}}/{{next_slug}}/" rel="next">Next: {{next_title}} &rarr;</a>
       </nav>
+      <!-- Up to 4 other recent posts: copy their cards from index.html, without data-tags. -->
+      <section class="more-posts" aria-labelledby="more-title">
+        <div class="more-posts__head">
+          <h2 id="more-title">More updates</h2>
+          <a href="/latest/">View all</a>
+        </div>
+        <ol class="card-grid">
+          <li>{{card}}</li>
+        </ol>
+      </section>
     </main>
     <footer class="site-footer">
       <div class="footer-grid">
         <nav class="footer-col" aria-label="Learn About Radova">
-          <h3 class="footer-heading">Learn About Radova</h3>
+          <h2 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/">About</a></li>
-            <li><a href="https://radova.org/about/history">History</a></li>
-            <li><a href="https://radova.org/latest/">Latest</a></li>
-            <li><a href="https://radova.org/events">Events</a></li>
+            <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
+            <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
+            <li><a href="https://radova.org/latest/" data-i18n="nav.latest">Latest</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Resources">
-          <h3 class="footer-heading">Resources</h3>
+          <h2 class="footer-heading" data-i18n="footer.col2">Resources</h2>
           <ul class="footer-links">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a href="https://radova.org/learns">Learning</a></li>
-            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download" data-i18n="footer.download">Download ISO</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Core Pillars">
-          <h3 class="footer-heading">Core Pillars</h3>
+          <h2 class="footer-heading" data-i18n="footer.col3">Core Pillars</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/#fitur">Memora</a></li>
             <li><a href="https://radova.org/#fitur">Evrocks</a></li>
@@ -135,11 +148,11 @@
         </nav>
 
         <nav class="footer-col" aria-label="Help and Specs">
-          <h3 class="footer-heading">Help &amp; Specs</h3>
+          <h2 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/contact">Contact</a></li>
-            <li><a href="https://radova.org/#spesifikasi">System Requirements</a></li>
-            <li><a href="https://radova.org/latest/security/">Security Advisories</a></li>
+            <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/" data-i18n="footer.security">Security Advisories</a></li>
           </ul>
         </nav>
       </div>
@@ -147,14 +160,15 @@
       <div class="footer-bottom">
         <div class="footer-brand-bar">
           <span class="brand-lockup brand-lockup-light">
-            <img src="https://radova.org/assets/logo-white.png" alt="Radova Logo" width="28">
+            <img src="/latest/assets/logo.png" alt="Radova Logo" width="28">
             <span class="brand-name">RADOVA</span>
           </span>
-          <p class="footer-copy">© 2026 yuros.org · Released under the MIT License</p>
+          <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
         </div>
 
-        <a class="footer-top" href="#main">Back to top ↑</a>
+        <a class="footer-top" href="#main" data-i18n="footer.top">Back to top ↑</a>
       </div>
     </footer>
+    <script src="/latest/assets/js/loader.js" defer></script>
   </body>
 </html>

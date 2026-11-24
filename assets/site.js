@@ -54,13 +54,177 @@
       var current = document.querySelector('.tab-grid a[aria-current="page"]');
       if (current) current.focus();
       labelLoadMore();
+      initHeroMedia(); // a fresh /latest/ <main> brings a fresh hero
+      initPostFilters();
     }
   });
 
+  // Index hero: play the app clips one after another; the chip and the h1 word follow the playing clip.
+  // Without JS the first clip's poster stays. Reduced motion: stays still until the visitor presses play.
+  function initHeroMedia() {
+    var media = document.querySelector(".hero-media");
+    if (!media || media.dataset.ready) return;
+    media.dataset.ready = "1";
+    var clips = Array.prototype.slice.call(media.querySelectorAll("video"));
+    var chip = media.querySelector(".hero-media__app");
+    var btn = media.querySelector(".hero-media__pause");
+    var track = document.querySelector(".hero-words__track");
+    var words = track ? track.querySelectorAll("span:not(.sep)") : []; // h1 words, one per clip, in clip order
+    if (track) track.dataset.ready = "1"; // from now on, word changes animate
+    var current = 0;
+    var paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function play(v) {
+      if (!paused) {
+        var p = v.play();
+        if (p) p.catch(function () {}); // a blocked autoplay just leaves the poster
+      }
+    }
+    function show(n) {
+      clips[current].classList.remove("is-active");
+      clips[current].pause();
+      current = n % clips.length;
+      var v = clips[current];
+      v.currentTime = 0;
+      v.classList.add("is-active");
+      chip.querySelector("strong").textContent = v.dataset.app;
+      chip.querySelector("span").textContent = "for " + v.dataset.word;
+      if (words[current]) {
+        Array.prototype.forEach.call(words, function (w) { w.classList.remove("is-current", "is-previous"); });
+        words[(current + words.length - 1) % words.length].classList.add("is-previous");
+        words[current].classList.add("is-current");
+      }
+      clips[(current + 1) % clips.length].preload = "auto"; // warm up the next clip
+      play(v);
+    }
+    function setPaused(p) {
+      paused = p;
+      btn.setAttribute("aria-pressed", String(p));
+      btn.setAttribute("aria-label", p ? "Play video" : "Pause video");
+      if (p) clips[current].pause();
+      else play(clips[current]);
+    }
+
+    clips.forEach(function (v) {
+      if (v.dataset.poster) v.poster = v.dataset.poster; // hidden clips get their poster only now, off the first load
+      v.addEventListener("ended", function () { show(current + 1); });
+    });
+    btn.addEventListener("click", function () { setPaused(!paused); });
+    btn.hidden = false;
+    setPaused(paused);
+  }
+
+  // Header dropdowns are <details>: keep only one open, and close them on an outside click or Escape.
+  function closeMenus(except) {
+    document.querySelectorAll(".nav-menu[open]").forEach(function (menu) {
+      if (menu !== except) menu.open = false;
+    });
+  }
+  document.addEventListener("click", function (e) {
+    closeMenus(e.target.closest ? e.target.closest(".nav-menu") : null);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    var open = document.querySelector(".nav-menu[open]");
+    if (!open) return;
+    open.open = false;
+    open.querySelector("summary").focus();
+  });
+
+  // Index search, "Popular" chips and sort: with JS they work on the cards on the page instead of leaving it.
+  function initPostFilters() {
+    var form = document.querySelector(".post-search");
+    var list = document.getElementById("post-cards");
+    if (!form || !list || form.dataset.ready) return;
+    form.dataset.ready = "1";
+    var input = form.querySelector("input[type=search]");
+    var items = Array.prototype.slice.call(list.children);
+
+    // The chips, the sort menu and the "no match" line only work with JS, so JS adds them:
+    // Lynx and no-JS visitors never meet controls that do nothing.
+    var counts = {};
+    items.forEach(function (li) {
+      (li.dataset.tags || "").split(",").forEach(function (t) {
+        t = t.trim();
+        if (t) counts[t] = (counts[t] || 0) + 1;
+      });
+    });
+    var tags = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 6); // most used first
+    var filters = el("div", "post-filters");
+    var popular = el("p", "post-filters__popular");
+    popular.appendChild(el("strong", "", "Popular:"));
+    tags.forEach(function (t) {
+      var b = el("button", "", t);
+      b.type = "button";
+      b.setAttribute("aria-pressed", "false");
+      popular.appendChild(b);
+    });
+    var sortLabel = el("label", "visually-hidden", "Sort posts");
+    sortLabel.htmlFor = "post-sort";
+    var sort = el("select");
+    sort.id = "post-sort";
+    sort.setAttribute("aria-controls", "post-cards");
+    sort.add(new Option("Newest first", "new"));
+    sort.add(new Option("Oldest first", "old"));
+    if (tags.length) filters.appendChild(popular);
+    filters.appendChild(sortLabel);
+    filters.appendChild(sort);
+    var empty = el("p", "post-filters__empty", "No updates match your search.");
+    empty.hidden = true;
+    form.after(filters, empty);
+    var chips = popular.querySelectorAll("button");
+
+    function filter() {
+      var q = input.value.trim().toLowerCase();
+      var shown = 0;
+      items.forEach(function (li) {
+        var text = (li.textContent + " " + (li.dataset.tags || "")).toLowerCase(); // card text plus its tags
+        li.hidden = q !== "" && text.indexOf(q) === -1;
+        if (!li.hidden) shown++;
+      });
+      Array.prototype.forEach.call(chips, function (c) {
+        c.setAttribute("aria-pressed", String(c.textContent === q));
+      });
+      empty.hidden = shown > 0;
+      live.textContent = q ? shown + (shown === 1 ? " update found." : " updates found.") : "";
+    }
+    form.addEventListener("submit", function (e) { e.preventDefault(); filter(); });
+    input.addEventListener("input", filter);
+    Array.prototype.forEach.call(chips, function (c) {
+      c.addEventListener("click", function () {
+        input.value = c.getAttribute("aria-pressed") === "true" ? "" : c.textContent; // a second click clears it
+        filter();
+      });
+    });
+    // Dated posts sort by date; status cards without a <time> stay at the end.
+    sort.addEventListener("change", function (e) {
+      var dir = e.target.value === "old" ? 1 : -1;
+      function when(li) { var t = li.querySelector("time"); return t ? Date.parse(t.getAttribute("datetime")) : null; }
+      items.slice().sort(function (a, b) {
+        var x = when(a), y = when(b);
+        if (x === null || y === null) return (x === null) - (y === null);
+        return dir * (x - y);
+      }).forEach(function (li) { list.appendChild(li); });
+    });
+  }
+
+  function el(tag, className, text) {
+    var e = document.createElement(tag);
+    if (className) e.className = className;
+    if (text) e.textContent = text;
+    return e;
+  }
+
   labelLoadMore();
+  initHeroMedia();
+  initPostFilters();
 })();
 
-document.addEventListener("DOMContentLoaded", function () {
+// The bundle may load after DOMContentLoaded (js/loader.js loads it on the first interaction).
+(function (fn) {
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+  else fn();
+})(function () {
   var navBtn = document.getElementById("about-menu-btn");
   var dropdownContainer = document.querySelector(".dropdown");
   var backBtn = document.querySelector(".d-content-back");
@@ -171,34 +335,43 @@ document.addEventListener("DOMContentLoaded", function () {
       "footer.specs": "Kebutuhan Sistem",
       "footer.security": "Info Keamanan",
       "footer.copy": "© 2026 yuros.org · Dirilis di bawah Lisensi MIT",
-      "footer.top": "Ke atas ↑"
+      "footer.top": "Ke atas ↑",
+      "agenda.desc": "Acara dan sesi komunitas Radova yang akan datang dan yang sudah lewat. Semua waktu dalam WIB (UTC+07:00).",
+      "article.desc": "Artikel mendalam tentang cara Radova Linux dibangun dan pemikiran di baliknya.",
+      "news.desc": "Pengumuman, rilis, dan kabar proyek dari tim Radova.",
+      "security.desc": "Informasi keamanan Radova Linux, lengkap dengan tingkat keparahan, versi terdampak, dan cara tetap aman.",
+      "404.title": "Halaman tidak ditemukan",
+      "404.desc": "Halaman ini tidak ada atau sudah dipindahkan."
     };
 
     var nodes = [];
-    var enList = [];
 
+    // The English text is kept on each node the first time it is seen (data-en), so a node
+    // already shown in Indonesian, like the header and footer after a tab swap, keeps its English.
     function snapshotNodes() {
       nodes = Array.prototype.slice.call(document.querySelectorAll("[data-i18n], [data-i18n-prefix]"));
-      enList = nodes.map(function (node) {
-        return node.hasAttribute("data-i18n")
+      nodes.forEach(function (node) {
+        if ("en" in node.dataset) return;
+        node.dataset.en = node.hasAttribute("data-i18n")
           ? node.textContent
           : (node.firstChild ? node.firstChild.nodeValue : "");
       });
     }
 
     function applyLang(lang) {
-      nodes.forEach(function (el, i) {
+      nodes.forEach(function (el) {
         if (el.hasAttribute("data-i18n")) {
           var key = el.getAttribute("data-i18n");
-          el.textContent = lang === "id" && ID_TEXT[key] != null ? ID_TEXT[key] : enList[i];
+          el.textContent = lang === "id" && ID_TEXT[key] != null ? ID_TEXT[key] : el.dataset.en;
         } else if (el.firstChild) {
           var pkey = el.getAttribute("data-i18n-prefix");
-          el.firstChild.nodeValue = lang === "id" && ID_TEXT[pkey] != null ? ID_TEXT[pkey] + " " : enList[i];
+          el.firstChild.nodeValue = lang === "id" && ID_TEXT[pkey] != null ? ID_TEXT[pkey] + " " : el.dataset.en;
         }
       });
       document.documentElement.lang = lang;
       langBtn.textContent = lang.toUpperCase();
-      langBtn.setAttribute("aria-label", lang === "id" ? "Switch language to English" : "Switch language to Indonesian");
+      // The name starts with the visible text (EN/ID), so voice control finds the button by what it shows.
+      langBtn.setAttribute("aria-label", lang === "id" ? "ID: switch language to English" : "EN: switch language to Indonesian");
     }
 
     snapshotNodes();
@@ -226,64 +399,32 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// HTMX Dark Mode Controller (Radova darkmode.pdf palette)
+// Dark mode: plain JS like the Homepage. The choice is kept in localStorage; js/loader.js sets
+// data-theme early, this swaps the button's icon and labels and handles the clicks.
 (function () {
   "use strict";
   var THEME_KEY = "radova-theme";
   var SUN_SVG = '<svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="128" cy="128" r="56"/><line x1="128" y1="36" x2="128" y2="16"/><line x1="128" y1="240" x2="128" y2="220"/><line x1="36" y1="128" x2="16" y2="128"/><line x1="240" y1="128" x2="220" y2="128"/><line x1="63" y1="63" x2="49" y2="49"/><line x1="207" y1="207" x2="193" y2="193"/><line x1="193" y1="63" x2="207" y2="49"/><line x1="49" y1="207" x2="63" y2="193"/></svg>';
   var MOON_SVG = '<svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>';
 
-  function getAssetsBase() {
-    var script = document.querySelector('script[src*="htmx.min.js"]');
-    return script ? new URL(".", script.src).href : new URL("assets/", window.location.href).href;
-  }
-
   function applyTheme(theme) {
     var isDark = theme === "dark";
     document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
     try { localStorage.setItem(THEME_KEY, isDark ? "dark" : "light"); } catch (_) {}
     var btn = document.getElementById("theme-toggle");
-    if (btn) {
-      var nextFile = isDark ? "theme-light.html" : "theme-dark.html";
-      btn.setAttribute("data-set-theme", isDark ? "dark" : "light");
-      btn.setAttribute("aria-pressed", String(isDark));
-      btn.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-      btn.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
-      btn.setAttribute("hx-get", new URL(nextFile, getAssetsBase()).href);
-      btn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
-      if (window.htmx) window.htmx.process(btn);
-    }
+    if (!btn) return;
+    btn.setAttribute("aria-pressed", String(isDark));
+    btn.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+    btn.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+    btn.innerHTML = isDark ? SUN_SVG : MOON_SVG;
   }
 
-  function getSavedTheme() {
-    try {
-      var saved = localStorage.getItem(THEME_KEY);
-      if (saved === "dark" || saved === "light") return saved;
-    } catch (_) {}
-    return "light";
-  }
+  var saved = "light";
+  try { if (localStorage.getItem(THEME_KEY) === "dark") saved = "dark"; } catch (_) {}
+  applyTheme(saved);
 
-  document.addEventListener("DOMContentLoaded", function () {
-    applyTheme(getSavedTheme());
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest || !e.target.closest("#theme-toggle")) return;
+    applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
   });
-
-  document.addEventListener("htmx:afterSwap", function (evt) {
-    var target = evt.detail && evt.detail.target;
-    var elt = evt.detail && evt.detail.elt;
-    if ((target && target.id === "theme-toggle") || (elt && elt.id === "theme-toggle")) {
-      var freshBtn = document.getElementById("theme-toggle");
-      applyTheme(freshBtn && freshBtn.getAttribute("data-set-theme") === "dark" ? "dark" : "light");
-    } else {
-      document.documentElement.setAttribute("data-theme", getSavedTheme());
-    }
-  });
-
-  function fallbackToggle(evt) {
-    var elt = evt.detail && evt.detail.elt;
-    if (elt && elt.id === "theme-toggle") {
-      applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
-    }
-  }
-  document.addEventListener("htmx:sendError", fallbackToggle);
-  document.addEventListener("htmx:responseError", fallbackToggle);
 })();

@@ -6,16 +6,15 @@
     <title>Article - Radova Latest</title>
     <meta name="description" content="In-depth articles on how Radova Linux is built and the thinking behind it.">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
-    <link rel="stylesheet" href="../assets/pico.classless.min.css">
-    <link rel="stylesheet" href="../assets/site.css">
-    <script src="../assets/htmx.min.js" defer></script>
-    <script src="../assets/site.js" defer></script>
+    <link rel="canonical" href="https://radova.org/latest/article/">
+    <link rel="icon" type="image/svg+xml" href="/latest/assets/favicon.svg">
+    <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
     <header class="site-header">
       <a class="brand-lockup" href="https://radova.org/">
-        <img src="/assets/logo.png" alt="Radova Logo" width="32">
+        <img src="/latest/assets/logo.png" alt="Radova Logo" width="32">
         <span class="brand-name">RADOVA</span>
       </a>
 
@@ -33,7 +32,7 @@
         <nav class="navbar" aria-label="About menu">
           <ul class="nav-links">
             <li class="dropdown">
-              <a id="about-menu-btn" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</a>
+              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
               <div class="menu-arrow" aria-hidden="true"></div>
               <div class="dropdown-content" role="menu">
                 <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
@@ -46,11 +45,11 @@
         </nav>
       </div>
 
-      <button type="button" id="theme-toggle" class="btn-theme" data-set-theme="light" hx-get="../assets/theme-dark.html" hx-target="#theme-toggle" hx-swap="outerHTML" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+      <button type="button" id="theme-toggle" class="btn-theme" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
         <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
       </button>
 
-      <button type="button" id="lang-toggle" class="btn-lang" aria-label="Switch language to Indonesian">EN</button>
+      <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: switch language to Indonesian">EN</button>
 
       <button
         type="button"
@@ -66,35 +65,27 @@
     </header>
     <main id="main">
       <header class="editorial-header">
-        <div>
-          <p class="eyebrow">[Category: Article]</p>
-          <h1>Article</h1>
-        </div>
-        <p>In-depth articles on how Radova Linux is built and the thinking behind it.</p>
+        <h1 data-i18n="latest.article">Article</h1>
+        <p data-i18n="article.desc">In-depth articles on how Radova Linux is built and the thinking behind it.</p>
       </header>
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
-          <li><a href="/latest/">All Latest</a></li>
-          <li><a href="/latest/agenda/">Agenda</a></li>
-          <li><a href="/latest/article/" aria-current="page">Article</a></li>
-          <li><a href="/latest/news/">News</a></li>
-          <li><a href="/latest/security/">Security</a></li>
+          <li><a href="/latest/" data-i18n="latest.all">All Latest</a></li>
+          <li><a href="/latest/agenda/" data-i18n="latest.agenda">Agenda</a></li>
+          <li><a href="/latest/article/" aria-current="page" data-i18n="latest.article">Article</a></li>
+          <li><a href="/latest/news/" data-i18n="latest.news">News</a></li>
+          <li><a href="/latest/security/" data-i18n="latest.security">Security</a></li>
         </ul>
       </nav>
-      <ol class="post-grid" id="post-list" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
+      <ol class="card-grid" id="post-list">
         <li>
-          <article class="post-row post-row--article">
-            <div class="post-row__main">
+          <article class="post-card">
+            <div class="cover cover--article cover--image">
+              <img class="cover__image" src="/latest/assets/hero/libraries.jpg" alt="" width="960" height="720" loading="lazy">
+              <p class="cover__kicker"><span class="badge badge--type">Article</span><span class="sep"> · </span><span>2 min read</span></p>
               <h2><a href="/latest/article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
-              <p>An OS built for libraries and archives—and the four tools inside it.</p>
-              <p class="meta"><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time><span class="sep"> · </span><span>2 min read</span></p>
             </div>
-            <dl class="post-row__panel meta-dl">
-              <dt>Author</dt>
-              <dd>Radova Team</dd>
-              <dt>Tags</dt>
-              <dd class="meta-dl__lead">introduction, architecture</dd>
-            </dl>
+            <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
           </article>
         </li>
       </ol>
@@ -102,27 +93,27 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <nav class="footer-col" aria-label="Learn About Radova">
-          <h3 class="footer-heading">Learn About Radova</h3>
+          <h2 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/">About</a></li>
-            <li><a href="https://radova.org/about/history">History</a></li>
-            <li><a href="https://radova.org/latest/">Latest</a></li>
-            <li><a href="https://radova.org/events">Events</a></li>
+            <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
+            <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
+            <li><a href="https://radova.org/latest/" data-i18n="nav.latest">Latest</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Resources">
-          <h3 class="footer-heading">Resources</h3>
+          <h2 class="footer-heading" data-i18n="footer.col2">Resources</h2>
           <ul class="footer-links">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a href="https://radova.org/learns">Learning</a></li>
-            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download" data-i18n="footer.download">Download ISO</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Core Pillars">
-          <h3 class="footer-heading">Core Pillars</h3>
+          <h2 class="footer-heading" data-i18n="footer.col3">Core Pillars</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/#fitur">Memora</a></li>
             <li><a href="https://radova.org/#fitur">Evrocks</a></li>
@@ -132,11 +123,11 @@
         </nav>
 
         <nav class="footer-col" aria-label="Help and Specs">
-          <h3 class="footer-heading">Help &amp; Specs</h3>
+          <h2 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/contact">Contact</a></li>
-            <li><a href="https://radova.org/#spesifikasi">System Requirements</a></li>
-            <li><a href="https://radova.org/latest/security/">Security Advisories</a></li>
+            <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/" data-i18n="footer.security">Security Advisories</a></li>
           </ul>
         </nav>
       </div>
@@ -144,14 +135,15 @@
       <div class="footer-bottom">
         <div class="footer-brand-bar">
           <span class="brand-lockup brand-lockup-light">
-            <img src="https://radova.org/assets/logo-white.png" alt="Radova Logo" width="28">
+            <img src="/latest/assets/logo.png" alt="Radova Logo" width="28">
             <span class="brand-name">RADOVA</span>
           </span>
-          <p class="footer-copy">© 2026 yuros.org · Released under the MIT License</p>
+          <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
         </div>
 
-        <a class="footer-top" href="#main">Back to top ↑</a>
+        <a class="footer-top" href="#main" data-i18n="footer.top">Back to top ↑</a>
       </div>
     </footer>
+    <script src="/latest/assets/js/loader.js" defer></script>
   </body>
 </html>

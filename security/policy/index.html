@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Security Policy - Radova Latest</title>
+    <meta name="description" content="How to report a security vulnerability in Radova Linux privately, what is in scope, and what to expect.">
+    <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="canonical" href="https://radova.org/latest/security/policy/">
+    <link rel="icon" type="image/svg+xml" href="/latest/assets/favicon.svg">
+    <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+    <header class="site-header">
+      <a class="brand-lockup" href="https://radova.org/">
+        <img src="/latest/assets/logo.png" alt="Radova Logo" width="32">
+        <span class="brand-name">RADOVA</span>
+      </a>
+
+      <div id="primary-nav" class="header-menu">
+        <nav aria-label="Primary navigation">
+          <ul class="nav-list">
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
+            <li><a href="/latest/" aria-current="page" data-i18n="nav.latest">Latest</a></li>
+          </ul>
+        </nav>
+
+        <nav class="navbar" aria-label="About menu">
+          <ul class="nav-links">
+            <li class="dropdown">
+              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
+              <div class="menu-arrow" aria-hidden="true"></div>
+              <div class="dropdown-content" role="menu">
+                <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
+                <a class="d-content-r" href="https://radova.org/about/history" role="menuitem" data-i18n="nav.history">History</a>
+                <a class="d-content-c" href="https://radova.org/about/contact" role="menuitem" data-i18n="nav.contact">Contact</a>
+                <button type="button" class="d-content-back" role="menuitem" data-i18n="nav.back">Back</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <button type="button" id="theme-toggle" class="btn-theme" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+        <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
+      </button>
+
+      <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: switch language to Indonesian">EN</button>
+
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Buka menu navigasi"
+        aria-controls="primary-nav"
+        aria-expanded="false"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+    <main id="main">
+      <article class="single">
+        <header>
+          <h1>Security Policy</h1>
+          <div class="single__meta">
+            <p class="byline"><span>Updated <time datetime="2026-11-14">14 Nov 2026</time></span></p>
+            <a class="button button--outline button--small" href="/latest/security/">All advisories</a>
+          </div>
+        </header>
+        <dl class="meta-dl">
+          <dt>Contact</dt>
+          <dd><a href="mailto:security@example.org" hx-boost="false">security@example.org</a></dd>
+          <dt>First response</dt>
+          <dd>Within 3 business days</dd>
+          <dt>Disclosure window</dt>
+          <dd>Up to 90 days</dd>
+        </dl>
+        <div class="editorial-prose">
+          <p>This policy explains how to report a security vulnerability in Radova Linux privately, what is in scope, and what you can expect from us.</p>
+          <h2>Report a vulnerability</h2>
+          <p>Email <a href="mailto:security@example.org" hx-boost="false">security@example.org</a> with the details. Please report privately: do not open a public issue, pull request, or discussion, and do not share the details publicly until a fix or advisory is out.</p>
+          <p>Include as much of the following as you can:</p>
+          <ul>
+            <li>What is affected: the Radova Linux version, the application (Memora, Evrocks, Coretez, or Linkers), or the web page.</li>
+            <li>Steps to reproduce, or a proof of concept.</li>
+            <li>The impact you observed or expect.</li>
+            <li>How we can reach you, and whether you would like to be credited in the advisory.</li>
+          </ul>
+          <h2>Scope</h2>
+          <p>In scope:</p>
+          <ul>
+            <li>Radova Linux and the packages and configuration it ships.</li>
+            <li>Memora, Evrocks, Coretez, and Linkers as shipped in Radova Linux.</li>
+            <li>The radova.org websites, including Radova Latest.</li>
+          </ul>
+          <p>Out of scope:</p>
+          <ul>
+            <li>Vulnerabilities in upstream software that Radova Linux ships unchanged. Please report those to the upstream project; we are happy to help coordinate.</li>
+            <li>Denial-of-service or load testing against radova.org.</li>
+            <li>Social engineering, phishing, and physical attacks.</li>
+            <li>Reports from automated scanners without a demonstrated impact.</li>
+          </ul>
+          <h2>What to expect</h2>
+          <ul>
+            <li>We acknowledge your report within 3 business days.</li>
+            <li>We send an initial assessment, including whether we can reproduce the issue and its severity, within 10 business days.</li>
+            <li>We keep you updated at least every 14 days until the issue is resolved.</li>
+          </ul>
+          <h2>Coordinated disclosure</h2>
+          <p>We ask that you give us up to 90 days from your report to release a fix before you disclose the issue publicly. We agree the publication date with you, and may publish earlier if the vulnerability is being actively exploited.</p>
+          <p>Once a fix or mitigation is available, we publish an advisory on <a href="/latest/security/">Radova Latest: Security</a> with its advisory ID, severity, affected and patched versions, and credit for the reporter if they want it.</p>
+          <h2>Good-faith research</h2>
+          <p>We will not pursue legal action against research done in good faith that follows this policy: report privately, avoid privacy violations and data destruction, and do not degrade our services.</p>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <nav class="footer-col" aria-label="Learn About Radova">
+          <h2 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h2>
+          <ul class="footer-links">
+            <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
+            <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
+            <li><a href="https://radova.org/latest/" data-i18n="nav.latest">Latest</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Resources">
+          <h2 class="footer-heading" data-i18n="footer.col2">Resources</h2>
+          <ul class="footer-links">
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download" data-i18n="footer.download">Download ISO</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Core Pillars">
+          <h2 class="footer-heading" data-i18n="footer.col3">Core Pillars</h2>
+          <ul class="footer-links">
+            <li><a href="https://radova.org/#fitur">Memora</a></li>
+            <li><a href="https://radova.org/#fitur">Evrocks</a></li>
+            <li><a href="https://radova.org/#fitur">Coretez</a></li>
+            <li><a href="https://radova.org/#fitur">Linkers</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer-col" aria-label="Help and Specs">
+          <h2 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h2>
+          <ul class="footer-links">
+            <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/" data-i18n="footer.security">Security Advisories</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-brand-bar">
+          <span class="brand-lockup brand-lockup-light">
+            <img src="/latest/assets/logo.png" alt="Radova Logo" width="28">
+            <span class="brand-name">RADOVA</span>
+          </span>
+          <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
+        </div>
+
+        <a class="footer-top" href="#main" data-i18n="footer.top">Back to top ↑</a>
+      </div>
+    </footer>
+    <script src="/latest/assets/js/loader.js" defer></script>
+  </body>
+</html>

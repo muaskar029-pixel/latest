@@ -7,16 +7,15 @@
     <title>{{Type}} - Page {{n}} - Radova Latest</title>
     <meta name="description" content="{{description}}">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
-    <link rel="stylesheet" href="/assets/pico.classless.min.css">
-    <link rel="stylesheet" href="/assets/site.css">
-    <script src="/assets/htmx.min.js" defer></script>
-    <script src="/assets/site.js" defer></script>
+    <link rel="canonical" href="https://radova.org/latest/{{type}}/page/{{n}}/">
+    <link rel="icon" type="image/svg+xml" href="/latest/assets/favicon.svg">
+    <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
   </head>
   <body>
     <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
     <header class="site-header">
       <a class="brand-lockup" href="https://radova.org/">
-        <img src="/assets/logo.png" alt="Radova Logo" width="32">
+        <img src="/latest/assets/logo.png" alt="Radova Logo" width="32">
         <span class="brand-name">RADOVA</span>
       </a>
 
@@ -34,7 +33,7 @@
         <nav class="navbar" aria-label="About menu">
           <ul class="nav-links">
             <li class="dropdown">
-              <a id="about-menu-btn" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</a>
+              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
               <div class="menu-arrow" aria-hidden="true"></div>
               <div class="dropdown-content" role="menu">
                 <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
@@ -47,7 +46,11 @@
         </nav>
       </div>
 
-      <button type="button" id="lang-toggle" class="btn-lang" aria-label="Switch language to Indonesian">EN</button>
+      <button type="button" id="theme-toggle" class="btn-theme" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
+        <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
+      </button>
+
+      <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: switch language to Indonesian">EN</button>
 
       <button
         type="button"
@@ -62,12 +65,11 @@
       </button>
     </header>
     <main id="main">
-      <!-- Listing page. Page 1 is latest/{{type}}/index.html; page N>1 is latest/{{type}}/page/N/index.html with " - Page N" in <title>.
-      10 items per page, newest first. One <li> per post; the right panel (dl.post-row__panel) depends on the type:
-      Article / News: Author, Tags (dd.meta-dl__lead)
-      Agenda:         Starts (dd.meta-dl__lead, WIB), Location, Status (<span class="badge badge--scheduled|cancelled">)
-      Security:       Advisory ID (dd.advisory-id), Severity (<span class="badge badge--severity-LEVEL">), Status, Affected versions
-      Only /latest/ shows the type badge (p.post-row__kicker). The agenda page has two sections: Upcoming Events and Past Events.
+      <!-- Listing page. Page 1 is {{type}}/index.html; page N>1 is {{type}}/page/N/index.html with " - Page N" in <title>.
+      10 items per page, newest first. One <li> per post: the same card as on /latest/, without data-tags
+      (templates/README.md, "`/latest/` page", shows the card for each type). The agenda page has two sections: Upcoming Events and Past Events.
+      Security: page 1 ends with the "Report a vulnerability" button (p.page-action, as in security/index.html);
+      later pages leave it out, so a full page with Previous and Next stays within 30 links (Issue 4).
       No posts yet? Replace the <ol> and the pager with the empty state, using this category's line:
       Agenda:   No events have been scheduled yet.
       Article:  No articles have been published yet.
@@ -79,36 +81,27 @@
       </div>
       An empty Agenda section (Upcoming or Past) uses the same box without the link: "No upcoming events yet." / "No past events yet." -->
       <header class="editorial-header">
-        <div>
-          <p class="eyebrow">[Category: {{Type}}]</p>
-          <h1>{{Type}}</h1>
-        </div>
-        <p>{{description}}</p>
+        <h1 data-i18n="latest.{{type}}">{{Type}}</h1>
+        <p data-i18n="{{type}}.desc">{{description}}</p>
       </header>
       <!-- Add aria-current="page" to this category's tab. -->
       <nav class="tab-grid" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
         <ul>
-          <li><a href="/latest/">All Latest</a></li>
-          <li><a href="/latest/agenda/">Agenda</a></li>
-          <li><a href="/latest/article/">Article</a></li>
-          <li><a href="/latest/news/">News</a></li>
-          <li><a href="/latest/security/">Security</a></li>
+          <li><a href="/latest/" data-i18n="latest.all">All Latest</a></li>
+          <li><a href="/latest/agenda/" data-i18n="latest.agenda">Agenda</a></li>
+          <li><a href="/latest/article/" data-i18n="latest.article">Article</a></li>
+          <li><a href="/latest/news/" data-i18n="latest.news">News</a></li>
+          <li><a href="/latest/security/" data-i18n="latest.security">Security</a></li>
         </ul>
       </nav>
-      <ol class="post-grid" id="post-list">
+      <ol class="card-grid" id="post-list">
         <li>
-          <article class="post-row post-row--{{type}}">
-            <div class="post-row__main">
+          <article class="post-card">
+            <div class="cover cover--{{type}}">
+              <p class="cover__kicker"><span class="badge badge--type">{{Type}}</span></p>
               <h2><a href="/latest/{{type}}/{{slug}}/">{{title}}</a></h2>
-              <p>{{summary}}</p>
-              <p class="meta"><time datetime="{{date}}">{{date_text}}</time></p>
             </div>
-            <dl class="post-row__panel meta-dl">
-              <dt>Author</dt>
-              <dd>{{author}}</dd>
-              <dt>Tags</dt>
-              <dd class="meta-dl__lead">{{tags}}</dd>
-            </dl>
+            <p class="byline"><span class="byline__author">{{author}}</span><span class="sep"> · </span><time datetime="{{date}}">{{date_text}}</time></p>
           </article>
         </li>
       </ol>
@@ -122,27 +115,27 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <nav class="footer-col" aria-label="Learn About Radova">
-          <h3 class="footer-heading">Learn About Radova</h3>
+          <h2 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/">About</a></li>
-            <li><a href="https://radova.org/about/history">History</a></li>
-            <li><a href="https://radova.org/latest/">Latest</a></li>
-            <li><a href="https://radova.org/events">Events</a></li>
+            <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
+            <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
+            <li><a href="https://radova.org/latest/" data-i18n="nav.latest">Latest</a></li>
+            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Resources">
-          <h3 class="footer-heading">Resources</h3>
+          <h2 class="footer-heading" data-i18n="footer.col2">Resources</h2>
           <ul class="footer-links">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a href="https://radova.org/learns">Learning</a></li>
-            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
+            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download" data-i18n="footer.download">Download ISO</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Core Pillars">
-          <h3 class="footer-heading">Core Pillars</h3>
+          <h2 class="footer-heading" data-i18n="footer.col3">Core Pillars</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/#fitur">Memora</a></li>
             <li><a href="https://radova.org/#fitur">Evrocks</a></li>
@@ -152,11 +145,11 @@
         </nav>
 
         <nav class="footer-col" aria-label="Help and Specs">
-          <h3 class="footer-heading">Help &amp; Specs</h3>
+          <h2 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/contact">Contact</a></li>
-            <li><a href="https://radova.org/#spesifikasi">System Requirements</a></li>
-            <li><a href="https://radova.org/latest/security/">Security Advisories</a></li>
+            <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/" data-i18n="footer.security">Security Advisories</a></li>
           </ul>
         </nav>
       </div>
@@ -164,14 +157,15 @@
       <div class="footer-bottom">
         <div class="footer-brand-bar">
           <span class="brand-lockup brand-lockup-light">
-            <img src="https://radova.org/assets/logo-white.png" alt="Radova Logo" width="28">
+            <img src="/latest/assets/logo.png" alt="Radova Logo" width="28">
             <span class="brand-name">RADOVA</span>
           </span>
-          <p class="footer-copy">© 2026 yuros.org · Released under the MIT License</p>
+          <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
         </div>
 
-        <a class="footer-top" href="#main">Back to top ↑</a>
+        <a class="footer-top" href="#main" data-i18n="footer.top">Back to top ↑</a>
       </div>
     </footer>
+    <script src="/latest/assets/js/loader.js" defer></script>
   </body>
 </html>
