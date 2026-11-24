@@ -85,6 +85,7 @@ if (p) clips[current].pause();
 else play(clips[current]);
 }
 clips.forEach(function (v) {
+if (v.dataset.poster) v.poster = v.dataset.poster;
 v.addEventListener("ended", function () { show(current + 1); });
 });
 btn.addEventListener("click", function () { setPaused(!paused); });

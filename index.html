@@ -87,12 +87,14 @@
           <p><a class="button button--arrow" href="#updates">Browse all updates</a></p>
         </div>
         <!-- App clips, played in turn by assets/site.js; the chip (data-app, data-word) and the h1 word (same order as the clips) follow the playing clip.
+             Only the first clip has a poster, the LCP image: the hidden clips get theirs from data-poster when site.js starts, and no clip
+             downloads before it plays (preload="none"), so the first load spends the mobile bandwidth on the CSS and that one poster.
              Sources and cut points: assets/hero/SOURCES.txt -->
         <figure class="hero-media">
-          <video class="is-active" src="/latest/assets/hero/archives.mp4" poster="/latest/assets/hero/archives.jpg" data-word="archives" data-app="Evrocks" muted playsinline preload="auto" aria-hidden="true"></video>
-          <video src="/latest/assets/hero/libraries.mp4" poster="/latest/assets/hero/libraries.jpg" data-word="libraries" data-app="Memora" muted playsinline preload="metadata" aria-hidden="true"></video>
-          <video src="/latest/assets/hero/digital-assets.mp4" poster="/latest/assets/hero/digital-assets.jpg" data-word="digital assets" data-app="Coretez" muted playsinline preload="metadata" aria-hidden="true"></video>
-          <video src="/latest/assets/hero/repositories.mp4" poster="/latest/assets/hero/repositories.jpg" data-word="institutional repositories" data-app="Linkers" muted playsinline preload="metadata" aria-hidden="true"></video>
+          <video class="is-active" src="/latest/assets/hero/archives.mp4" poster="/latest/assets/hero/archives.jpg" data-word="archives" data-app="Evrocks" muted playsinline preload="none" aria-hidden="true"></video>
+          <video src="/latest/assets/hero/libraries.mp4" data-poster="/latest/assets/hero/libraries.jpg" data-word="libraries" data-app="Memora" muted playsinline preload="none" aria-hidden="true"></video>
+          <video src="/latest/assets/hero/digital-assets.mp4" data-poster="/latest/assets/hero/digital-assets.jpg" data-word="digital assets" data-app="Coretez" muted playsinline preload="none" aria-hidden="true"></video>
+          <video src="/latest/assets/hero/repositories.mp4" data-poster="/latest/assets/hero/repositories.jpg" data-word="institutional repositories" data-app="Linkers" muted playsinline preload="none" aria-hidden="true"></video>
           <figcaption class="hero-media__app"><strong>Evrocks</strong> <span>for archives</span></figcaption>
           <button type="button" class="hero-media__pause" aria-label="Pause video" aria-pressed="false" hidden>
             <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 5h3v14H7zM14 5h3v14h-3z" fill="currentColor"/></svg>

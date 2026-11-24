@@ -99,7 +99,7 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 | `.notice-bar` | One-line notice at the top of `/latest/` |
 | `.hero-split`, `.chip`, `.check-list` | `/latest/` hero: chips, `<h1>` with one word in `.accent`, check list and button on the left, `.hero-media` on the right |
 | `.cover` + `--article`, `--news`, `--agenda`, `--security` | Coloured title tile with the category icon; holds `.cover__kicker`, and the title (`h2`, or `p.cover__title` on a status card) |
-| `.hero-media` | `/latest/` hero: the app clips in `assets/hero/` (one `<video>` each, with `data-app` and `data-word`), played in turn by `site.js`; the `<h1>` words in `.hero-words__track` follow the clips in the same order (`.is-current`); not a post |
+| `.hero-media` | `/latest/` hero: the app clips in `assets/hero/` (one `<video preload="none">` each, with `data-app` and `data-word`; only the first has `poster`, the others `data-poster`, set by `site.js`), played in turn by `site.js`; the `<h1>` words in `.hero-words__track` follow the clips in the same order (`.is-current`); not a post |
 | `.card-grid` > `.post-card` | Post grid on `/latest/`, the category pages and "More updates": `.cover` + `.byline`, or a status card with `.post-card__link` (`/latest/` only) |
 | `.byline` (`.byline__author`) | Author with the Radova logo as avatar, or location / status; then the date |
 

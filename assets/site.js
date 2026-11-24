@@ -106,6 +106,7 @@
     }
 
     clips.forEach(function (v) {
+      if (v.dataset.poster) v.poster = v.dataset.poster; // hidden clips get their poster only now, off the first load
       v.addEventListener("ended", function () { show(current + 1); });
     });
     btn.addEventListener("click", function () { setPaused(!paused); });
