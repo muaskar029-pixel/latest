@@ -11,9 +11,11 @@
     <meta name="radova:summary" content="Placeholder article used to test Article layout and styling.">
     <meta name="radova:tags" content="sample, linux">
     <meta name="radova:reading_time" content="1">
+    <meta name="htmx-config" content='{"selfRequestsOnly":true,"allowScriptTags":false,"allowEval":false}'>
+    <script src="../../assets/htmx.min.js" defer></script>
   </head>
   <body>
-    <main id="main">
+    <main id="main" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
       <article>
         <header>
           <p><a href="/latest/article/">Article</a></p>
