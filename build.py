@@ -4,6 +4,7 @@
     python3 build.py
 
 assets/base.css + assets/site.css  ->  assets/css/latest.bundle.css
+assets/fonts.css                   ->  assets/css/fonts.css (loaded by js/loader.js)
 
 Run it after every edit to a source file and commit both. Standard library only.
 """
@@ -89,3 +90,4 @@ def build_css(sources, target):
 
 if __name__ == "__main__":
     build_css(["base.css", "site.css"], "css/latest.bundle.css")
+    build_css(["fonts.css"], "css/fonts.css")

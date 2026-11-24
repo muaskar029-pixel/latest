@@ -1,38 +1,9 @@
 /* Radova theme on top of base.css (the Pico rules we use). build.py bundles both into
    css/latest.bundle.css; edit this file, then run `python3 build.py`.
-   Sections: fonts · tokens · base · site chrome · editorial-header · tab-grid · empty-state
+   Webfonts are in fonts.css, loaded on first interaction by js/loader.js.
+   Sections: tokens · base · site chrome · editorial-header · tab-grid · empty-state
    · meta-dl · badge · button · pager · single · editorial-prose · index (notice, hero, cards)
    · dark mode overrides */
-
-/* ---------- Fonts ---------- */
-@font-face {
-  font-family: "Lato";
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("fonts/lato-latin-400-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Lato";
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url("fonts/lato-latin-700-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  src: url("fonts/roboto-latin-400-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-  src: url("fonts/roboto-latin-700-normal.woff2") format("woff2");
-}
 
 /* ---------- Tokens ----------
    Brand colours (navy, reds, lavender, white) are the same in both themes. Dark mode swaps only
@@ -57,7 +28,7 @@
   --radova-shadow-card: 0 2px 10px rgba(14, 3, 71, 0.04);
 
   --radova-heading-font: "Lato", system-ui, sans-serif;
-  --radova-body-font: "Lato", system-ui, -apple-system, sans-serif;
+  --radova-body-font: "Roboto Variable", system-ui, -apple-system, sans-serif;
   --radova-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --radova-radius: 20px;
   --radova-radius-lg: 20px;
@@ -89,7 +60,7 @@
    wins by load order without !important. */
 :root:not([data-theme=dark]),
 :root[data-theme=dark] {
-  --pico-font-family: "Roboto", system-ui, sans-serif;
+  --pico-font-family: var(--radova-body-font);
   --pico-background-color: var(--radova-surface);
   --pico-color: var(--radova-text);
   --pico-muted-color: var(--radova-muted);
