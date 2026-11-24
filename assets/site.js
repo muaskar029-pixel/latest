@@ -369,7 +369,8 @@
       });
       document.documentElement.lang = lang;
       langBtn.textContent = lang.toUpperCase();
-      langBtn.setAttribute("aria-label", lang === "id" ? "Switch language to English" : "Switch language to Indonesian");
+      // The name starts with the visible text (EN/ID), so voice control finds the button by what it shows.
+      langBtn.setAttribute("aria-label", lang === "id" ? "ID: switch language to English" : "EN: switch language to Indonesian");
     }
 
     snapshotNodes();

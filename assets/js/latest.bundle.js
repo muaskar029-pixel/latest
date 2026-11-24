@@ -318,7 +318,7 @@ el.firstChild.nodeValue = lang === "id" && ID_TEXT[pkey] != null ? ID_TEXT[pkey]
 });
 document.documentElement.lang = lang;
 langBtn.textContent = lang.toUpperCase();
-langBtn.setAttribute("aria-label", lang === "id" ? "Switch language to English" : "Switch language to Indonesian");
+langBtn.setAttribute("aria-label", lang === "id" ? "ID: switch language to English" : "EN: switch language to Indonesian");
 }
 snapshotNodes();
 var currentLang = "en";

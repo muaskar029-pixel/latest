@@ -515,6 +515,12 @@ nav.navbar li :where(a, [role="link"]) {
   line-height: normal;
 }
 
+/* #about-menu-btn is a <button> inside nav li: outrank Pico's nav li [type=button] (0,1,2) */
+.navbar .btn-navy {
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
 .btn-navy:hover {
   background-color: rgba(14, 3, 71, 0.05);
   color: var(--red-900);
@@ -768,6 +774,7 @@ nav.footer-col {
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.02em;
+  line-height: 1.22; /* fixed: as an <h2> it would take Pico's h2 line height */
   color: #FFFFFF;
   margin: 0 0 1rem;
 }

@@ -18,7 +18,6 @@
     var t = e.target.closest && e.target.closest("#theme-toggle, #lang-toggle, .nav-toggle, #about-menu-btn, .d-content-back");
     if (!t) return;
     pending = t;
-    e.preventDefault(); // #about-menu-btn is still an <a href="#">
   }
 
   function load() {

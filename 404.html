@@ -6,6 +6,7 @@
     <title>Page not found - Radova</title>
     <meta name="description" content="The page you were looking for could not be found.">
     <meta name="htmx-config" content='{"allowEval":false,"allowScriptTags":false,"selfRequestsOnly":true,"includeIndicatorStyles":false}'>
+    <link rel="icon" type="image/svg+xml" href="/latest/assets/favicon.svg">
     <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
   </head>
   <body>
@@ -30,7 +31,7 @@
         <nav class="navbar" aria-label="About menu">
           <ul class="nav-links">
             <li class="dropdown">
-              <a id="about-menu-btn" href="#" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</a>
+              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
               <div class="menu-arrow" aria-hidden="true"></div>
               <div class="dropdown-content" role="menu">
                 <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
@@ -47,7 +48,7 @@
         <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
       </button>
 
-      <button type="button" id="lang-toggle" class="btn-lang" aria-label="Switch language to Indonesian">EN</button>
+      <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: switch language to Indonesian">EN</button>
 
       <button
         type="button"
@@ -80,7 +81,7 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <nav class="footer-col" aria-label="Learn About Radova">
-          <h3 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h3>
+          <h2 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
             <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
@@ -90,7 +91,7 @@
         </nav>
 
         <nav class="footer-col" aria-label="Resources">
-          <h3 class="footer-heading" data-i18n="footer.col2">Resources</h3>
+          <h2 class="footer-heading" data-i18n="footer.col2">Resources</h2>
           <ul class="footer-links">
             <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
             <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
@@ -100,7 +101,7 @@
         </nav>
 
         <nav class="footer-col" aria-label="Core Pillars">
-          <h3 class="footer-heading" data-i18n="footer.col3">Core Pillars</h3>
+          <h2 class="footer-heading" data-i18n="footer.col3">Core Pillars</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/#fitur">Memora</a></li>
             <li><a href="https://radova.org/#fitur">Evrocks</a></li>
@@ -110,7 +111,7 @@
         </nav>
 
         <nav class="footer-col" aria-label="Help and Specs">
-          <h3 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h3>
+          <h2 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
             <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
