@@ -1,5 +1,0 @@
-Contact: mailto:security@example.org
-Expires: 2027-11-13T17:00:00.000Z
-Preferred-Languages: en, id
-Policy: https://radova.org/latest/security/policy/
-Canonical: https://radova.org/.well-known/security.txt

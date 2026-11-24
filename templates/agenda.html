@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>try{if(localStorage.getItem("radova-theme")==="dark")document.documentElement.setAttribute("data-theme","dark")}catch(_){}</script>
     <title>{{title}} - Radova Latest</title>
     <meta name="description" content="{{summary}}">
     <meta name="radova:title" content="{{title}}">
@@ -24,7 +25,7 @@
     <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
     <header class="site-header">
       <a class="brand-lockup" href="https://radova.org/">
-        <img src="/latest/assets/logo.png" alt="Radova Logo" width="32">
+        <img src="/latest/assets/logo.png" alt="Radova Logo" width="32" height="32">
         <span class="brand-name">RADOVA</span>
       </a>
 
@@ -44,11 +45,11 @@
             <li class="dropdown">
               <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
               <div class="menu-arrow" aria-hidden="true"></div>
-              <div class="dropdown-content" role="menu">
-                <a class="d-content-h" href="https://radova.org/about/" role="menuitem" data-i18n="nav.about">About</a>
-                <a class="d-content-r" href="https://radova.org/about/history" role="menuitem" data-i18n="nav.history">History</a>
-                <a class="d-content-c" href="https://radova.org/about/contact" role="menuitem" data-i18n="nav.contact">Contact</a>
-                <button type="button" class="d-content-back" role="menuitem" data-i18n="nav.back">Back</button>
+              <div class="dropdown-content">
+                <a class="d-content-h" href="https://radova.org/about/" data-i18n="nav.about">About</a>
+                <a class="d-content-r" href="https://radova.org/about/history" data-i18n="nav.history">History</a>
+                <a class="d-content-c" href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a>
+                <button type="button" class="d-content-back" data-i18n="nav.back">Back</button>
               </div>
             </li>
           </ul>
@@ -64,7 +65,7 @@
       <button
         type="button"
         class="nav-toggle"
-        aria-label="Buka menu navigasi"
+        aria-label="Open navigation menu"
         aria-controls="primary-nav"
         aria-expanded="false"
       >
@@ -160,7 +161,7 @@
       <div class="footer-bottom">
         <div class="footer-brand-bar">
           <span class="brand-lockup brand-lockup-light">
-            <img src="/latest/assets/logo.png" alt="Radova Logo" width="28">
+            <img src="/latest/assets/logo.png" alt="Radova Logo" width="28" height="28" loading="lazy" decoding="async">
             <span class="brand-name">RADOVA</span>
           </span>
           <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
