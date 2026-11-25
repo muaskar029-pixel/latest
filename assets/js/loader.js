@@ -42,9 +42,9 @@
     addEventListener(type, load, { once: true, passive: true });
   });
 
-  // A saved dark theme or Indonesian needs the bundle now, not on the first interaction.
+  // A saved dark theme needs the bundle now, not on the first interaction.
   try {
     if (localStorage.getItem("radova-theme") === "dark") document.documentElement.setAttribute("data-theme", "dark");
-    if (localStorage.getItem("radova-theme") === "dark" || localStorage.getItem("radova-lang") === "id") load();
+    if (localStorage.getItem("radova-theme") === "dark") load();
   } catch (_) {}
 })();

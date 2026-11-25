@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="/latest/assets/css/latest.bundle.css">
   </head>
   <body>
-    <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
       <a class="brand-lockup" href="https://radova.org/">
         <img src="/latest/assets/logo.png" alt="Radova Logo" width="32" height="32">
@@ -33,24 +33,24 @@
       <div id="primary-nav" class="header-menu">
         <nav aria-label="Primary navigation">
           <ul class="nav-list">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
-            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
-            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
-            <li><a href="/latest/" aria-current="page" data-i18n="nav.latest">Latest</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
+            <li><a href="https://radova.org/learns">Learning</a></li>
+            <li><a href="https://radova.org/events">Events</a></li>
+            <li><a href="/latest/" aria-current="page">Latest</a></li>
           </ul>
         </nav>
 
         <nav class="navbar" aria-label="About menu">
           <ul class="nav-links">
             <li class="dropdown">
-              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false" data-i18n="nav.about">About</button>
+              <button type="button" id="about-menu-btn" class="btn-navy" aria-haspopup="true" aria-expanded="false">About</button>
               <div class="menu-arrow" aria-hidden="true"></div>
               <div class="dropdown-content">
-                <a class="d-content-h" href="https://radova.org/about/" data-i18n="nav.about">About</a>
-                <a class="d-content-r" href="https://radova.org/about/history" data-i18n="nav.history">History</a>
-                <a class="d-content-c" href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a>
-                <button type="button" class="d-content-back" data-i18n="nav.back">Back</button>
+                <a class="d-content-h" href="https://radova.org/about/">About</a>
+                <a class="d-content-r" href="https://radova.org/about/history">History</a>
+                <a class="d-content-c" href="https://radova.org/about/contact">Contact</a>
+                <button type="button" class="d-content-back">Back</button>
               </div>
             </li>
           </ul>
@@ -60,8 +60,6 @@
       <button type="button" id="theme-toggle" class="btn-theme" aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode">
         <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>
       </button>
-
-      <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: switch language to Indonesian">EN</button>
 
       <button
         type="button"
@@ -74,6 +72,11 @@
         <span></span>
         <span></span>
       </button>
+      <div class="lang-menu">
+        <button type="button" id="lang-toggle" class="btn-lang" aria-label="EN: choose language" aria-expanded="false" aria-controls="lang-list"><span>EN</span></button>
+        <ul id="lang-list" class="lang-list" hidden>
+        </ul>
+      </div>
     </header>
     <main id="main">
       <!-- Security. Optional: cve (delete meta + "CVE" row). severity: low|medium|high|critical; status: investigating|mitigated|resolved|informational. -->
@@ -143,27 +146,27 @@
     <footer class="site-footer">
       <div class="footer-grid">
         <nav class="footer-col" aria-label="Learn About Radova">
-          <h2 class="footer-heading" data-i18n="footer.col1">Learn About Radova</h2>
+          <h2 class="footer-heading">Learn About Radova</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/" data-i18n="nav.about">About</a></li>
-            <li><a href="https://radova.org/about/history" data-i18n="nav.history">History</a></li>
-            <li><a href="https://radova.org/latest/" data-i18n="nav.latest">Latest</a></li>
-            <li><a href="https://radova.org/events" data-i18n="nav.events">Events</a></li>
+            <li><a href="https://radova.org/about/">About</a></li>
+            <li><a href="https://radova.org/about/history">History</a></li>
+            <li><a href="https://radova.org/latest/">Latest</a></li>
+            <li><a href="https://radova.org/events">Events</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Resources">
-          <h2 class="footer-heading" data-i18n="footer.col2">Resources</h2>
+          <h2 class="footer-heading">Resources</h2>
           <ul class="footer-links">
-            <li><a target="_blank" rel="noopener" href="https://packer.radova.org" data-i18n="nav.packages">Packages</a></li>
-            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org" data-i18n="nav.wiki">Wiki</a></li>
-            <li><a href="https://radova.org/learns" data-i18n="nav.learning">Learning</a></li>
-            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download" data-i18n="footer.download">Download ISO</a></li>
+            <li><a target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
+            <li><a target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
+            <li><a href="https://radova.org/learns">Learning</a></li>
+            <li><a href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
           </ul>
         </nav>
 
         <nav class="footer-col" aria-label="Core Pillars">
-          <h2 class="footer-heading" data-i18n="footer.col3">Core Pillars</h2>
+          <h2 class="footer-heading">Core Pillars</h2>
           <ul class="footer-links">
             <li><a href="https://radova.org/#fitur">Memora</a></li>
             <li><a href="https://radova.org/#fitur">Evrocks</a></li>
@@ -173,11 +176,11 @@
         </nav>
 
         <nav class="footer-col" aria-label="Help and Specs">
-          <h2 class="footer-heading" data-i18n="footer.col4">Help &amp; Specs</h2>
+          <h2 class="footer-heading">Help &amp; Specs</h2>
           <ul class="footer-links">
-            <li><a href="https://radova.org/about/contact" data-i18n="nav.contact">Contact</a></li>
-            <li><a href="https://radova.org/#spesifikasi" data-i18n="footer.specs">System Requirements</a></li>
-            <li><a href="https://radova.org/latest/security/" data-i18n="footer.security">Security Advisories</a></li>
+            <li><a href="https://radova.org/about/contact">Contact</a></li>
+            <li><a href="https://radova.org/#spesifikasi">System Requirements</a></li>
+            <li><a href="https://radova.org/latest/security/">Security Advisories</a></li>
           </ul>
         </nav>
       </div>
@@ -188,10 +191,10 @@
             <img src="/latest/assets/logo.png" alt="Radova Logo" width="28" height="28" loading="lazy" decoding="async">
             <span class="brand-name">RADOVA</span>
           </span>
-          <p class="footer-copy" data-i18n="footer.copy">© 2026 yuros.org · Released under the MIT License</p>
+          <p class="footer-copy">© 2026 yuros.org · Released under the MIT License</p>
         </div>
 
-        <a class="footer-top" href="#main" data-i18n="footer.top">Back to top ↑</a>
+        <a class="footer-top" href="#main">Back to top ↑</a>
       </div>
     </footer>
     <script src="/latest/assets/js/loader.js" defer></script>

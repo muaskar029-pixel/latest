@@ -1,61 +1,15 @@
 (function () {
 "use strict";
+function tr(en, id, ar) {
+var lang = document.documentElement.lang;
+return lang === "id" ? id : lang === "ar" ? ar : en;
+}
 var live = Object.assign(document.createElement("p"), { className: "visually-hidden" });
 live.setAttribute("aria-live", "polite");
 document.body.appendChild(live);
 var THEME_KEY = "radova-theme";
-var LANG_KEY = "radova-lang";
 var SUN_SVG = '<svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="128" cy="128" r="56"/><line x1="128" y1="36" x2="128" y2="16"/><line x1="128" y1="240" x2="128" y2="220"/><line x1="36" y1="128" x2="16" y2="128"/><line x1="240" y1="128" x2="220" y2="128"/><line x1="63" y1="63" x2="49" y2="49"/><line x1="207" y1="207" x2="193" y2="193"/><line x1="193" y1="63" x2="207" y2="49"/><line x1="49" y1="207" x2="63" y2="193"/></svg>';
 var MOON_SVG = '<svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M216.7 152.6A91.9 91.9 0 0 1 103.4 39.3a92 92 0 1 0 113.3 113.3Z"/></svg>';
-var ID_TEXT = {
-"skip": "Langsung ke konten",
-"nav.packages": "Paket",
-"nav.wiki": "Wiki",
-"nav.learning": "Belajar",
-"nav.events": "Acara",
-"nav.latest": "Terbaru",
-"nav.about": "Tentang",
-"nav.history": "Sejarah",
-"nav.contact": "Kontak",
-"nav.back": "Kembali",
-"latest.eyebrow": "[Pembaruan Radova]",
-"latest.title": "Baca Pembaruan Terbaru Kami",
-"latest.desc": "Acara, artikel, berita, dan informasi keamanan dari Radova Linux, diurutkan dari yang terbaru.",
-"latest.all": "Semua Terbaru",
-"latest.agenda": "Agenda",
-"latest.article": "Artikel",
-"latest.news": "Berita",
-"latest.security": "Keamanan",
-"footer.col1": "Tentang Radova",
-"footer.col2": "Sumber Daya",
-"footer.col3": "Pilar Utama",
-"footer.col4": "Bantuan & Spesifikasi",
-"footer.download": "Unduh ISO",
-"footer.specs": "Kebutuhan Sistem",
-"footer.security": "Info Keamanan",
-"footer.copy": "© 2026 yuros.org · Dirilis di bawah Lisensi MIT",
-"footer.top": "Ke atas ↑",
-"agenda.desc": "Acara dan sesi komunitas Radova yang akan datang dan yang sudah lewat. Semua waktu dalam WIB (UTC+07:00).",
-"article.desc": "Artikel mendalam tentang cara Radova Linux dibangun dan pemikiran di baliknya.",
-"news.desc": "Pengumuman, rilis, dan kabar proyek dari tim Radova.",
-"security.desc": "Informasi keamanan Radova Linux, lengkap dengan tingkat keparahan, versi terdampak, dan cara tetap aman.",
-"404.title": "Halaman tidak ditemukan",
-"404.desc": "Halaman ini tidak ada atau sudah dipindahkan.",
-"404.cta": "Lihat pembaruan terbaru",
-"latest.notice": "Menemukan celah keamanan? Laporkan secara privat.",
-"latest.noticeCta": "Baca kebijakan",
-"latest.heroChip": "Radova Terbaru",
-"latest.heroTitle": "Satu sistem untuk setiap",
-"latest.c1": "Acara dan sesi komunitas",
-"latest.c2": "Artikel dan berita dari tim",
-"latest.c3": "Semua info keamanan, di satu tempat",
-"latest.browse": "Lihat semua pembaruan",
-"latest.searchPh": "Cari pembaruan",
-"latest.emptyAgenda": "Belum ada acara.",
-"latest.goAgenda": "Buka Agenda",
-"latest.emptySecurity": "Belum ada info keamanan.",
-"latest.goSecurity": "Buka Keamanan"
-};
 function syncPager(tidy) {
 var pager = document.getElementById("pager");
 if (!pager) return;
@@ -65,7 +19,7 @@ if (prev) prev.remove();
 if (!pager.querySelector('a[rel="next"]')) return pager.remove();
 }
 var next = pager.querySelector('a[rel="next"][hx-get]');
-if (next) next.textContent = "Load more";
+if (next) next.textContent = tr("Load more", "Muat lebih banyak", "تحميل المزيد");
 }
 function initHeroMedia() {
 var media = document.querySelector(".hero-media");
@@ -92,7 +46,7 @@ var v = clips[cur];
 v.currentTime = 0;
 v.classList.add("is-active");
 chip.querySelector("strong").textContent = v.dataset.app;
-chip.querySelector("span").textContent = "for " + v.dataset.word;
+chip.querySelector("span").textContent = v.dataset.word;
 if (words[cur]) {
 [].forEach.call(words, function (w) { w.classList.remove("is-current", "is-previous"); });
 words[(cur + words.length - 1) % words.length].classList.add("is-previous");
@@ -104,7 +58,7 @@ play(v);
 function setPaused(p) {
 paused = p;
 btn.setAttribute("aria-pressed", String(p));
-btn.setAttribute("aria-label", p ? "Play video" : "Pause video");
+btn.setAttribute("aria-label", p ? tr("Play video", "Putar video", "تشغيل الفيديو") : tr("Pause video", "Jeda video", "إيقاف الفيديو مؤقتًا"));
 if (p) clips[cur].pause(); else play(clips[cur]);
 }
 clips.forEach(function (v) {
@@ -133,7 +87,7 @@ var tags = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[
 var filters = Object.assign(document.createElement("div"), { className: "post-filters" });
 var popular = Object.assign(document.createElement("p"), { className: "post-filters__popular" });
 if (tags.length) {
-popular.appendChild(Object.assign(document.createElement("strong"), { textContent: "Popular:" }));
+popular.appendChild(Object.assign(document.createElement("strong"), { textContent: tr("Popular:", "Populer:", "الأكثر شيوعًا:") }));
 tags.forEach(function (t) {
 var b = Object.assign(document.createElement("button"), { type: "button", textContent: t });
 b.setAttribute("aria-pressed", "false");
@@ -143,13 +97,13 @@ filters.appendChild(popular);
 }
 var sort = Object.assign(document.createElement("select"), { id: "post-sort" });
 sort.setAttribute("aria-controls", "post-cards");
-sort.add(new Option("Newest first", "new"));
-sort.add(new Option("Oldest first", "old"));
+sort.add(new Option(tr("Newest first", "Terbaru dulu", "الأحدث أولًا"), "new"));
+sort.add(new Option(tr("Oldest first", "Terlama dulu", "الأقدم أولًا"), "old"));
 filters.append(
-Object.assign(document.createElement("label"), { className: "visually-hidden", htmlFor: "post-sort", textContent: "Sort posts" }),
+Object.assign(document.createElement("label"), { className: "visually-hidden", htmlFor: "post-sort", textContent: tr("Sort posts", "Urutkan postingan", "ترتيب المنشورات") }),
 sort
 );
-var empty = Object.assign(document.createElement("p"), { className: "post-filters__empty", textContent: "No updates match your search.", hidden: true });
+var empty = Object.assign(document.createElement("p"), { className: "post-filters__empty", textContent: tr("No updates match your search.", "Tidak ada pembaruan yang cocok dengan pencarian Anda.", "لا توجد تحديثات تطابق بحثك."), hidden: true });
 form.after(filters, empty);
 var chips = popular.querySelectorAll("button");
 function filter() {
@@ -162,7 +116,7 @@ if (hit) shown++;
 });
 [].forEach.call(chips, function (c) { c.setAttribute("aria-pressed", String(c.textContent === q)); });
 empty.hidden = shown > 0;
-live.textContent = q ? shown + (shown === 1 ? " update found." : " updates found.") : "";
+live.textContent = q ? tr(shown + (shown === 1 ? " update found." : " updates found."), shown + " pembaruan ditemukan.", "عدد التحديثات المطابقة: " + shown) : "";
 }
 form.addEventListener("submit", function (e) { e.preventDefault(); filter(); });
 input.addEventListener("input", filter);
@@ -188,40 +142,11 @@ document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
 try { localStorage.setItem(THEME_KEY, dark ? "dark" : "light"); } catch (_) {}
 var btn = document.getElementById("theme-toggle");
 if (!btn) return;
-var label = dark ? "Switch to light mode" : "Switch to dark mode";
+var label = dark ? tr("Switch to light mode", "Beralih ke mode terang", "التبديل إلى الوضع الفاتح") : tr("Switch to dark mode", "Beralih ke mode gelap", "التبديل إلى الوضع الداكن");
 btn.setAttribute("aria-pressed", String(dark));
 btn.setAttribute("aria-label", label);
 btn.setAttribute("title", label);
 btn.innerHTML = dark ? SUN_SVG : MOON_SVG;
-}
-var i18nNodes = [];
-var currentLang = "en";
-try {
-var savedLang = localStorage.getItem(LANG_KEY);
-if (savedLang === "id") currentLang = "id";
-} catch (_) {}
-function snapshotI18n() {
-i18nNodes = [].slice.call(document.querySelectorAll("[data-i18n], [data-i18n-prefix], [data-i18n-placeholder]"));
-i18nNodes.forEach(function (el) {
-if ("en" in el.dataset) return;
-if (el.hasAttribute("data-i18n-placeholder")) el.dataset.en = el.getAttribute("placeholder") || "";
-else if (el.hasAttribute("data-i18n")) el.dataset.en = el.textContent;
-else el.dataset.en = el.firstChild ? el.firstChild.nodeValue : "";
-});
-}
-function applyLang(lang) {
-i18nNodes.forEach(function (el) {
-var idVal = function (attr) { var k = el.getAttribute(attr); return lang === "id" && ID_TEXT[k] != null ? ID_TEXT[k] : null; };
-if (el.hasAttribute("data-i18n-placeholder")) el.setAttribute("placeholder", idVal("data-i18n-placeholder") || el.dataset.en);
-else if (el.hasAttribute("data-i18n")) el.textContent = idVal("data-i18n") || el.dataset.en;
-else if (el.firstChild) el.firstChild.nodeValue = (idVal("data-i18n-prefix") ? idVal("data-i18n-prefix") + " " : el.dataset.en);
-});
-document.documentElement.lang = lang;
-var langBtn = document.getElementById("lang-toggle");
-if (langBtn) {
-langBtn.textContent = lang.toUpperCase();
-langBtn.setAttribute("aria-label", lang === "id" ? "ID: switch language to English" : "EN: switch language to Indonesian");
-}
 }
 function initNav() {
 var navBtn = document.getElementById("about-menu-btn");
@@ -251,7 +176,7 @@ document.addEventListener("keydown", function (e) { if (e.key === "Escape") clos
 if (!toggleBtn || !primaryNav) return;
 function setMenu(open) {
 toggleBtn.setAttribute("aria-expanded", String(open));
-toggleBtn.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+toggleBtn.setAttribute("aria-label", open ? tr("Close navigation menu", "Tutup menu navigasi", "إغلاق قائمة التنقل") : tr("Open navigation menu", "Buka menu navigasi", "فتح قائمة التنقل"));
 primaryNav.classList.toggle("is-open", open);
 document.body.style.overflow = open ? "hidden" : "";
 }
@@ -273,7 +198,7 @@ syncPager(true);
 if (added > 0) {
 var first = target.children[countBefore].querySelector("h2 a, h3 a");
 if (first) first.focus();
-live.textContent = added + (added === 1 ? " more post loaded." : " more posts loaded.");
+live.textContent = tr(added + (added === 1 ? " more post loaded." : " more posts loaded."), added + " postingan lagi dimuat.", "تم تحميل منشورات إضافية: " + added);
 }
 return;
 }
@@ -283,8 +208,6 @@ if (current) current.focus();
 syncPager(false);
 initHeroMedia();
 initPostFilters();
-snapshotI18n();
-if (currentLang !== "en") applyLang(currentLang);
 }
 });
 var savedTheme = "light";
@@ -294,15 +217,26 @@ syncPager(false);
 initHeroMedia();
 initPostFilters();
 initNav();
-snapshotI18n();
-if (currentLang !== "en") applyLang(currentLang);
 document.addEventListener("click", function (e) {
 if (e.target.closest("#theme-toggle")) {
 applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark");
-} else if (e.target.closest("#lang-toggle")) {
-currentLang = currentLang === "en" ? "id" : "en";
-applyLang(currentLang);
-try { localStorage.setItem(LANG_KEY, currentLang); } catch (_) {}
 }
+var langList = document.getElementById("lang-list");
+var langBtn = document.getElementById("lang-toggle");
+if (!langList || !langBtn) return;
+var onToggle = !!e.target.closest("#lang-toggle");
+if (onToggle || !e.target.closest(".lang-menu")) {
+var open = onToggle && langList.hidden;
+langList.hidden = !open;
+langBtn.setAttribute("aria-expanded", String(open));
+}
+});
+document.addEventListener("keydown", function (e) {
+var langList = document.getElementById("lang-list");
+if (e.key !== "Escape" || !langList || langList.hidden) return;
+langList.hidden = true;
+var langBtn = document.getElementById("lang-toggle");
+langBtn.setAttribute("aria-expanded", "false");
+langBtn.focus();
 });
 })();
