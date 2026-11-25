@@ -72,7 +72,7 @@
 
 /* ponytail: minimal base reset replacing 27KB Pico base.css */
 *, ::after, ::before { box-sizing: border-box; background-repeat: no-repeat; }
-html { -webkit-text-size-adjust: 100%; font-size: 16px; scrollbar-gutter: stable; }
+html { scroll-padding-block-start: 5.5rem; -webkit-text-size-adjust: 100%; font-size: 16px; scrollbar-gutter: stable; }
 body { width: 100%; margin: 0; }
 main { display: block; }
 h1, h2, h3, p, ul, ol, dl { margin-top: 0; margin-bottom: 1rem; }
@@ -167,7 +167,7 @@ h6 {
   font-size: 1rem; /* 16px */
   line-height: 1.6;
   letter-spacing: -0.02em;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 
 /* Figma heading scale (56/48/40/32/24/20 px) on wide screens; Pico's smaller scale below.
@@ -507,6 +507,7 @@ nav.navbar li :where(a, [role="link"]) {
 }
 
 @media (max-width: 767px) {
+  button.btn-theme, .nav-toggle { width: 44px; height: 44px; min-height: 44px; }
   .nav-toggle {
     display: inline-flex;
     position: relative;
@@ -528,7 +529,7 @@ nav.navbar li :where(a, [role="link"]) {
     padding: 0.75rem max(var(--pad-x), calc((100% - var(--container-max)) / 2)) 2rem;
     background: var(--radova-white);
     border-top: 1px solid var(--radova-hairline);
-    overflow-y: auto;
+    overflow-y: auto; overscroll-behavior: contain;
     gap: 0.125rem;
   }
 
