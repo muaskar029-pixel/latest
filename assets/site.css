@@ -83,12 +83,12 @@ img, svg, video { vertical-align: middle; }
 img { max-width: 100%; height: auto; border-style: none; }
 [hidden] { display: none !important; }
 button, input, select { font-family: inherit; font-size: 1rem; line-height: 1.5; margin: 0; }
-input[type=search] { width: 100%; appearance: none; padding: 0.75rem 1rem 0.75rem 2.75rem; border: 1px solid #cfd5e2; border-radius: 5rem; background: #fbfbfc; color: var(--radova-text); }
+input[type=search] { width: 100%; appearance: none; padding-block:0.75rem 0.75rem;padding-inline:2.75rem 1rem; border: 1px solid #cfd5e2; border-radius: 5rem; background: #fbfbfc; color: var(--radova-text); }
 :root[data-theme="dark"] input[type=search] { border-color: #2a3140; background: #1c212b; }
 [role=search] { display: inline-flex; position: relative; width: 100%; margin-bottom: 1rem; border-radius: 5rem; }
 article { margin-bottom: 1rem; padding: 1rem; border-radius: var(--radova-radius-sm); }
 table { width: 100%; border-collapse: collapse; }
-td, th { padding: 0.5rem 1rem; border-bottom: 1px solid var(--radova-hairline); text-align: left; }
+td, th { padding: 0.5rem 1rem; border-bottom: 1px solid var(--radova-hairline); text-align: start; }
 @media (prefers-reduced-motion: reduce) { *, ::after, ::before { animation-duration: 1ms !important; transition-duration: 0s !important; scroll-behavior: auto !important; } }
 
 /* ---------- Base & Typography Hierarchy ---------- */
@@ -217,10 +217,10 @@ main p {
 /* ---------- Site Chrome (<header> & <footer>) ---------- */
 .skip-link {
   position: absolute;
-  left: -9999px;
+  inset-inline-start: -9999px;
 }
 .skip-link:focus {
-  left: 1rem;
+  inset-inline-start: 1rem;
   top: 1rem;
   z-index: 100;
   padding: 0.5rem 1rem;
@@ -300,7 +300,7 @@ body > header.site-header,
 }
 
 .navbar {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .nav-links {
@@ -322,8 +322,8 @@ nav.navbar li :where(a, [role="link"]) {
 .dropdown-content {
   position: absolute;
   top: calc(100% + 18px);
-  right: 0;
-  left: auto;
+  inset-inline-end: 0;
+  inset-inline-start: auto;
   transform: translateY(-6px);
   background: var(--radova-surface);
   min-width: 250px;
@@ -340,8 +340,8 @@ nav.navbar li :where(a, [role="link"]) {
   content: '';
   position: absolute;
   top: -22px;
-  left: 0;
-  right: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
   height: 22px;
   background: transparent;
 }
@@ -372,7 +372,7 @@ nav.navbar li :where(a, [role="link"]) {
   text-transform: uppercase;
   letter-spacing: 1px;
   text-decoration: none;
-  text-align: left;
+  text-align: start;
   border: none;
   border-bottom: 1px solid var(--radova-hairline);
   border-radius: 0;
@@ -405,13 +405,13 @@ nav.navbar li :where(a, [role="link"]) {
 .menu-arrow {
   position: absolute;
   top: 100%;
-  right: 20px;
-  left: auto;
+  inset-inline-end: 20px;
+  inset-inline-start: auto;
   transform: none;
   width: 0;
   height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-inline-start: 10px solid transparent;
+  border-inline-end: 10px solid transparent;
   border-bottom: 10px solid #A3A3A3;
   z-index: 1000;
   display: none;
@@ -457,7 +457,7 @@ nav.navbar li :where(a, [role="link"]) {
   gap: 5px;
   width: 38px;
   height: 38px;
-  margin-left: auto;
+  margin-inline-start: auto;
   background: transparent;
   border: 1px solid var(--radova-hairline);
   border-radius: 10px;
@@ -502,7 +502,7 @@ nav.navbar li :where(a, [role="link"]) {
   }
 
   .header-menu .navbar {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
@@ -524,7 +524,7 @@ nav.navbar li :where(a, [role="link"]) {
     justify-content: flex-start;
     width: 100%;
     height: calc(100dvh - 58px);
-    margin-left: 0;
+    margin-inline-start: 0;
     padding: 0.75rem max(var(--pad-x), calc((100% - var(--container-max)) / 2)) 2rem;
     background: var(--radova-white);
     border-top: 1px solid var(--radova-hairline);
@@ -630,14 +630,14 @@ button.btn-lang:hover {
 
 @media (max-width: 767px) {
   button.btn-lang {
-    margin-left: auto;
+    margin-inline-start: auto;
     padding: 0.45rem 0.75rem;
     position: relative;
     z-index: 1002;
   }
 
   .nav-toggle {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
@@ -800,7 +800,7 @@ nav.tab-grid ul {
   display: flex;
   align-items: center;
   margin: 0 0 1rem;
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  padding-block:0.5rem 0.5rem;padding-inline:1.5rem 0.5rem;
   border: 1px solid var(--radova-hairline);
   border-radius: var(--radova-pill);
   background: var(--radova-surface);
@@ -828,7 +828,7 @@ nav.tab-grid ul {
   flex: none;
   width: 2.5rem;
   height: 2.5rem;
-  margin: 0 0 0 0.5rem;
+  margin-block:0 0;margin-inline:0.5rem 0;
   padding: 0;
   border: 0;
   border-radius: 50%;
@@ -854,7 +854,7 @@ nav.tab-grid ul {
   margin: 0;
 }
 .post-filters__popular strong {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
   font-size: 0.875rem;
   color: var(--radova-text);
 }
@@ -932,7 +932,7 @@ main > section > h2 {
   border-top: 0;
 }
 .meta-dl dt {
-  padding-right: 1.25rem;
+  padding-inline-end: 1.25rem;
   font-family: var(--radova-mono);
   font-size: 0.78rem;
   text-transform: uppercase;
@@ -1047,7 +1047,7 @@ main > section > h2 {
 }
 /* A white circle with a red arrow at the end, like "Get Radova Linux" on radova.org. */
 .button--arrow {
-  padding-right: 0.5rem;
+  padding-inline-end: 0.5rem;
 }
 .button--arrow::after {
   content: "";
@@ -1087,8 +1087,8 @@ nav.pager {
 .pager a[rel="next"] {
   grid-column: 2;
   justify-content: flex-end;
-  text-align: right;
-  border-left: 1px solid var(--radova-hairline);
+  text-align: end;
+  border-inline-start: 1px solid var(--radova-hairline);
 }
 
 /* ---------- .single: detail page, one centred column like a Dribbble shot ----------
@@ -1131,7 +1131,7 @@ nav.pager {
   gap: 0.25rem 0.5rem;
 }
 .single__meta .byline > :first-child {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 .single__meta .sep {
   display: inline;
@@ -1157,8 +1157,8 @@ nav.pager {
 .single .editorial-prose,
 .tag-list {
   max-width: 752px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
 }
 .single .meta-dl {
   margin-bottom: 2.5rem;
@@ -1270,7 +1270,7 @@ main > .editorial-prose {
 }
 .editorial-prose blockquote {
   margin: 1.5rem 0;
-  padding: 0.5rem 0 0.5rem 1.25rem;
+  padding-block:0.5rem 0.5rem;padding-inline:1.25rem 0;
   font-family: var(--radova-heading-font);
   font-size: 1.2rem;
   color: var(--radova-text);
@@ -1297,8 +1297,8 @@ main > .editorial-prose {
   vertical-align: top;
 }
 .editorial-prose--article > p:first-of-type::first-letter {
-  float: left;
-  margin: 0.05em 0.12em 0 0;
+  float: inline-start;
+  margin-block:0.05em 0;margin-inline:0 0.12em;
   font-family: var(--radova-heading-font);
   font-size: 3.6em;
   font-weight: 700;
@@ -1409,7 +1409,7 @@ main > .editorial-prose {
 .hero-words__track > span {
   position: absolute;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   color: var(--radova-accent);
   white-space: nowrap;
   opacity: 0;
@@ -1489,7 +1489,7 @@ main > .editorial-prose {
   content: "";
   position: absolute;
   top: -1.5rem;
-  right: -1.5rem;
+  inset-inline-end: -1.5rem;
   width: 9rem;
   height: 9rem;
   background: currentColor;
@@ -1619,7 +1619,7 @@ main > .editorial-prose {
   color: var(--radova-muted);
 }
 .byline > :first-child {
-  margin-right: auto;
+  margin-inline-end: auto;
   font-weight: 700;
   color: var(--radova-text);
 }
@@ -1642,7 +1642,7 @@ main > .editorial-prose {
   position: relative;
   align-self: flex-start;
   margin-top: 1.5rem;
-  padding: 0.25rem 0.875rem 0.25rem 0.25rem;
+  padding-block:0.25rem 0.25rem;padding-inline:0.25rem 0.875rem;
   border-radius: var(--radova-pill);
   color: var(--radova-navy);
   background: var(--radova-white);
@@ -1679,12 +1679,12 @@ main > .editorial-prose {
   color: var(--radova-navy);
 }
 .hero-media__app {
-  right: 1rem;
+  inset-inline-end: 1rem;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   max-width: calc(100% - 5.5rem);
-  padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+  padding-block:0.4rem 0.4rem;padding-inline:0.4rem 0.9rem;
   border-radius: var(--radova-pill);
   font-size: 0.875rem;
   line-height: 1.2;
@@ -1701,7 +1701,7 @@ main > .editorial-prose {
   color: rgba(14, 3, 71, 0.7);
 }
 .hero-media__pause {
-  left: 1rem;
+  inset-inline-start: 1rem;
   display: grid;
   place-items: center;
   width: 2.75rem;
@@ -1806,24 +1806,24 @@ main > .editorial-prose {
   flex: none;
   width: 1.125rem;
   height: 1.125rem;
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
   background: currentColor;
   -webkit-mask: var(--icon) center / contain no-repeat;
   mask: var(--icon) center / contain no-repeat;
 }
-.tab-grid a[href="/latest/"] {
+.tab-grid li:first-child a {
   --icon: url("icons/squares-four.svg");
 }
-.tab-grid a[href="/latest/agenda/"] {
+.tab-grid a[href$="/agenda/"] {
   --icon: url("icons/calendar-blank.svg");
 }
-.tab-grid a[href="/latest/article/"] {
+.tab-grid a[href$="/article/"] {
   --icon: url("icons/article.svg");
 }
-.tab-grid a[href="/latest/news/"] {
+.tab-grid a[href$="/news/"] {
   --icon: url("icons/newspaper.svg");
 }
-.tab-grid a[href="/latest/security/"] {
+.tab-grid a[href$="/security/"] {
   --icon: url("icons/shield-check.svg");
 }
 
@@ -1842,7 +1842,7 @@ button.btn-theme {
   width: 36px;
   height: 36px;
   min-height: 36px;
-  margin-left: auto;
+  margin-inline-start: auto;
   border-radius: 999px;
   border: 1.5px solid rgba(14, 3, 71, 0.18);
   background: var(--radova-white);
@@ -1852,12 +1852,12 @@ button.btn-theme {
   transition: transform 140ms ease;}
 
 button.btn-theme + button.btn-lang {
-  margin-left: 0;
+  margin-inline-start: 0;
 }
 
 @media (min-width: 768px) {
   button.btn-theme {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 

@@ -85,7 +85,7 @@ Lists (`tags`, `affected_versions`, `patched_versions`, `cve`) are comma-separat
 | `.editorial-header` | Listing page header: `<h1>`, then the description under it |
 | `.tab-grid` | Category tabs, icon + text in one row; the current one (`aria-current="page"`) sits in a white pill |
 | `.post-search`, `.post-filters` | `/latest/` only: search pill, "Popular" chips and sort above `#post-cards`. Only the search form is in the HTML: without JS it goes to DuckDuckGo on radova.org. With JS (`site.js`) it filters the cards on the page, and `site.js` adds `.post-filters`: up to 6 chips from the cards' most used `data-tags`, and the sort menu |
-| `.single` | Detail page in one centred column, like a Dribbble shot: `<header>` (`<h1>`, then `.single__meta`: byline left, one button right), optional `img.single__media` (4:3 photo, `alt=""`), optional `.meta-dl`, `.editorial-prose`, optional `.tag-list` |
+| `.single` | Detail page in one centred column, like a Dribbble shot: `<header>` (`<h1>`, then `.single__meta`: byline left, one button right), optional `img.single__media` (4:3 photo, `alt=""`; `{{image}}` is the 960 WebP, `{{image_640}}` its 640 copy), optional `.meta-dl`, `.editorial-prose`, optional `.tag-list` |
 | `.tag-list` | The post's tags as pills under the text, one `<li>` per tag |
 | `.more-posts` | "More updates" under a detail page: heading, "View all" link, and a `.card-grid` with up to 4 cards of other recent posts |
 | `.editorial-prose--article` | Adds the drop cap; Article pages only |
@@ -150,7 +150,7 @@ Grid card, one `<li>` per post (here an Article):
 </li>
 ```
 
-Thumbnail (optional): add `cover--image` to the cover and, as its first child, `<img class="cover__image" src="{{image}}" alt="" width="960" height="720" loading="lazy">`. Use a 4:3 photo, at least 960x720, under 100 KB. `alt` stays empty: the title already names the post.
+Thumbnail (optional): add `cover--image` to the cover and, as its first child, `<img class="cover__image" src="{{image}}" alt="" width="960" height="720" loading="lazy">`. Use a 4:3 photo as WebP at 960x720 plus a 640x480 copy named `*-640.webp`, and add `srcset="<name>-640.webp 640w, <name>.webp 960w"` with the `sizes` used on the existing cards (`ffmpeg -i in.jpg -c:v libwebp -quality 80 name.webp`, and with `-vf scale=640:-2` for the copy). `alt` stays empty: the title already names the post.
 
 `data-tags` copies the post's `radova:tags`; the search above the grid matches the card text and these tags, and the "Popular" chips are made from them.
 
