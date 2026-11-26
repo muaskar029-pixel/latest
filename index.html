@@ -89,7 +89,7 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
 .reuters-section-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding-top:2rem;margin-bottom:1.25rem}
 .reuters-section-bar h2{margin:0;font-size:1.25rem;font-weight:900;letter-spacing:-0.015em;text-transform:uppercase}
 
-.d-flex{display:flex}.d-inline-flex{display:inline-flex}.d-grid{display:grid}.d-block{display:block}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-start{align-items:flex-start}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.m-0{margin:0}.p-0{padding:0}.rel{position:relative}.w-full{width:100%}.font-heading{font-family:var(--radova-heading-font)}.fw-700{font-weight:700}.fw-900{font-weight:900}.uppercase{text-transform:uppercase}.no-underline{text-decoration:none}.text-white{color:#FFFFFF}</style>
+.d-flex{display:flex}.d-inline-flex{display:inline-flex}.d-grid{display:grid}.d-block{display:block}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-start{align-items:flex-start}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.m-0{margin:0}.p-0{padding:0}.rel{position:relative}.w-full{width:100%}.font-heading{font-family:var(--radova-heading-font)}.fw-700{font-weight:700}.fw-900{font-weight:900}.uppercase{text-transform:uppercase}.no-underline{text-decoration:none}.text-white{color:#FFFFFF}@media (min-width:768px){.dropdown::after{content:"-";color:transparent;position:absolute;top:100%;inset-inline-end:0;width:250px;height:24px;display:none}.dropdown:hover::after,.dropdown:focus-within::after{display:block}}@media (min-width:768px){body>header.site-header,.site-header{gap:clamp(0.5rem,1.2vw,20px)}.site-header .header-menu{gap:clamp(0.75rem,2vw,46px)}.site-header .nav-list{flex-wrap:nowrap!important;gap:clamp(0.65rem,1.6vw,28px)}.site-header .brand-lockup,.site-header .nav-list a,.site-header .btn-navy,.site-header button.btn-lang{white-space:nowrap;flex-shrink:0}}</style>
     <link rel="stylesheet" href="assets/css/latest-below.css" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="assets/css/latest-below.css"></noscript>
     <link rel="alternate" hreflang="en" href="https://radova.org/latest/">
@@ -110,8 +110,8 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
           <ul class="nav-list d-flex items-center m-0 p-0">
             <li><a class="no-underline" target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
             <li><a class="no-underline" target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a class="no-underline" href="https://radova.org/learns">Learning</a></li>
-            <li><a class="no-underline" href="https://radova.org/events">Events</a></li>
+            <li><a class="no-underline" href="https://radova.org/learns/">Learning</a></li>
+            <li><a class="no-underline" href="https://radova.org/events/">Events</a></li>
             <li><a class="no-underline" href="./" aria-current="page">Latest</a></li>
           </ul>
         </nav>
@@ -158,23 +158,20 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
     </header>
 
     <main id="main">
-      <!-- 1. Compact Sub-Header Bar (Categories + Security Policy Link) -->
       <div class="reuters-subnav">
         <nav class="tab-grid" id="updates" aria-label="Categories" hx-boost="true" hx-select="main" hx-target="main" hx-swap="outerHTML" hx-push-url="true">
           <ul>
             <li><a href="./" aria-current="page">All Latest</a></li>
-            <li><a href="agenda/">Agenda</a></li>
-            <li><a href="article/">Article</a></li>
-            <li><a href="news/">News</a></li>
-            <li><a href="security/">Security</a></li>
+            <li><a href="./agenda/">Agenda</a></li>
+            <li><a href="./article/">Article</a></li>
+            <li><a href="./news/">News</a></li>
+            <li><a href="./security/">Security</a></li>
           </ul>
         </nav>
-        <p class="notice-bar"><span>Found a security issue? Report it privately.</span> <a href="security/policy/">Read disclosure policy</a></p>
+        <p class="notice-bar"><span>Found a security issue? Report it privately.</span> <a href="./security/policy/">Read disclosure policy</a></p>
       </div>
 
-      <!-- 2. Reuters Front-Page Lead Headline & Side Visual Stack -->
       <section class="reuters-front" aria-label="Top stories">
-        <!-- Main Left Column: Stacked Headline -> Summary -> Author & Timestamp -> Large Hero Photo -->
         <div class="reuters-lead">
           <article class="reuters-lead__top">
             <h1><a class="reuters-lead__link" href="news/introducing-radova-latest/">Introducing Radova Latest: official newsroom for releases, architecture articles, and security advisories</a></h1>
@@ -188,49 +185,46 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
             </figure>
           </article>
 
-          <!-- 3-Column Sub-Story Strip below Lead Photo -->
           <ul class="reuters-substrip">
             <li>
-              <span class="reuters-substrip__tag">Article · By Radova Team</span>
-              <h3><a href="article/what-radova-linux-is-for/">What Radova Linux Is For</a></h3>
-              <p>How Memora, Evrocks, Coretez, and Linkers ship pre-installed in one OS for libraries and archives.</p>
+              <span class="reuters-substrip__tag">News · By ikhsanadzani</span>
+              <h3><a href="news/radova-linux-2026-11-iso-release/">Radova Linux 2026.11 ISO Released</a></h3>
+              <p>The November 2026.11.06 x86_64 installation image ships with kernel hardening defaults, UEFI/BIOS dual boot, and turnkey archival services.</p>
             </li>
             <li>
-              <span class="reuters-substrip__tag">Agenda · By Radova Team</span>
-              <h3><a href="agenda/">Upcoming Community Events &amp; Sessions</a></h3>
-              <p>Follow live discussion sessions and community schedules with downloadable ICS calendar files.</p>
+              <span class="reuters-substrip__tag">Article · By ikhsanadzani</span>
+              <h3><a href="article/zero-trust-storage-luks2-archival-integrity/">Zero-Trust Storage & LUKS2 Archival Integrity</a></h3>
+              <p>How Radova Linux combines Argon2id LUKS2 full-disk encryption, SHA-256 manifest ledgers, and immutable snapshots to protect archival storage.</p>
             </li>
             <li>
-              <span class="reuters-substrip__tag">Security · By Radova Security</span>
-              <h3><a href="security/">Security Advisories &amp; Severity Ratings</a></h3>
-              <p>Track RSA-YYYY-NNN bulletins, affected package versions, and private vulnerability disclosure.</p>
+              <span class="reuters-substrip__tag">News · By ikhsanadzani</span>
+              <h3><a href="news/packer-mirror-network-expansion/">Packer Mirror Network & Signing Expansion</a></h3>
+              <p>New regional repository mirrors and mandatory keyring verification reduce package sync latency for libraries and campus archives.</p>
             </li>
           </ul>
         </div>
 
-        <!-- Right Column: Stacked Visual Stories (Matches right column of reuters.com) -->
         <aside class="reuters-side" aria-label="Featured coverage">
           <article class="reuters-side__card">
             <a class="reuters-side__media" href="article/what-radova-linux-is-for/" tabindex="-1" aria-hidden="true">
               <img src="assets/hero/libraries.jpg" alt="" width="960" height="720" loading="lazy">
             </a>
-            <p class="reuters-side__meta"><span class="reuters-side__cat">Article</span><span aria-hidden="true">·</span><span>By <strong class="reuters-side__author">Radova Team</strong></span><span aria-hidden="true">·</span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
+            <p class="reuters-side__meta"><span class="reuters-side__cat">Article</span><span aria-hidden="true">·</span><span>By <strong class="reuters-side__author">ikhsanadzani</strong></span><span aria-hidden="true">·</span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
             <h2><a href="article/what-radova-linux-is-for/">What Radova Linux Is For: four archival pillars pre-installed in one OS</a></h2>
-            <p class="reuters-side__summary">Boot a machine, sign in, and start managing collections with Memora, Evrocks, Coretez, and Linkers ready out of the box.</p>
+            <p class="reuters-side__summary">Why libraries, archives, and institutional repositories need a pre-integrated Linux OS with Memora, Evrocks, Coretez, and Linkers.</p>
           </article>
 
           <article class="reuters-side__card">
-            <a class="reuters-side__media" href="security/policy/" tabindex="-1" aria-hidden="true">
-              <img src="assets/hero/repositories.jpg" alt="" width="960" height="720" loading="lazy">
+            <a class="reuters-side__media" href="article/inside-memora-evrocks-coretez-linkers/" tabindex="-1" aria-hidden="true">
+              <img src="assets/hero/digital-assets.jpg" alt="" width="960" height="720" loading="lazy">
             </a>
-            <p class="reuters-side__meta"><span class="reuters-side__cat">Security</span><span aria-hidden="true">·</span><span>By <strong class="reuters-side__author">Radova Security</strong></span><span aria-hidden="true">·</span><time datetime="2026-11-14T08:00:00+07:00">14 Nov 2026</time></p>
-            <h2><a href="security/policy/">Vulnerability Disclosure Policy &amp; RSA Security Advisories</a></h2>
-            <p class="reuters-side__summary">How to report vulnerabilities privately to the Radova Security team and track affected package versions.</p>
+            <p class="reuters-side__meta"><span class="reuters-side__cat">Article</span><span aria-hidden="true">·</span><span>By <strong class="reuters-side__author">ikhsanadzani</strong></span><span aria-hidden="true">·</span><time datetime="2026-11-06T08:45:00+07:00">06 Nov 2026</time></p>
+            <h2><a href="article/inside-memora-evrocks-coretez-linkers/">Inside the Four Pillars: How Memora, Evrocks, Coretez, and Linkers Work Together</a></h2>
+            <p class="reuters-side__summary">An architectural walkthrough of how Radova's four pre-installed applications share metadata schemas, local storage pools, and service supervision.</p>
           </article>
         </aside>
       </section>
 
-      <!-- 4. Reuters Sectional Coverage & Searchable Feed -->
       <div class="reuters-section-bar">
         <h2>All Coverage &amp; Dispatches</h2>
       </div>
@@ -243,7 +237,7 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
       </form>
 
       <ol class="card-grid" id="post-cards">
-        <li data-tags="announcement, website">
+        <li data-tags="announcement, website, newsroom">
           <article class="post-card">
             <a class="post-card__media" href="news/introducing-radova-latest/" tabindex="-1" aria-hidden="true">
               <img class="cover__image" src="assets/hero/archives.jpg" alt="" width="960" height="720" loading="lazy">
@@ -256,7 +250,7 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
             </div>
           </article>
         </li>
-        <li data-tags="introduction, architecture">
+        <li data-tags="introduction, architecture, radova-linux">
           <article class="post-card">
             <a class="post-card__media" href="article/what-radova-linux-is-for/" tabindex="-1" aria-hidden="true">
               <img class="cover__image" src="assets/hero/libraries.jpg" alt="" width="960" height="720" loading="lazy">
@@ -265,7 +259,59 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
               <p class="cover__kicker"><span class="badge badge--type">Article</span><span class="sep"> · </span><span>2 min read</span></p>
               <h2><a href="article/what-radova-linux-is-for/">What Radova Linux Is For</a></h2>
               <p class="post-card__summary">Why libraries, archives, and institutional repositories need a pre-integrated Linux OS with Memora, Evrocks, Coretez, and Linkers.</p>
-              <p class="byline"><span class="byline__author">Radova Team</span><span class="sep"> · </span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
+              <p class="byline"><span class="byline__author"><img class="reuters-lead__avatar" src="assets/ikhsanadzani.jpg" alt="ikhsanadzani" width="22" height="22">ikhsanadzani</span><span class="sep"> · </span><time datetime="2026-11-14T09:00:00+07:00">14 Nov 2026</time></p>
+            </div>
+          </article>
+        </li>
+        <li data-tags="release, iso, mkarchiso">
+          <article class="post-card">
+            <a class="post-card__media" href="news/radova-linux-2026-11-iso-release/" tabindex="-1" aria-hidden="true">
+              <img class="cover__image" src="assets/hero/digital-assets.jpg" alt="" width="960" height="720" loading="lazy">
+            </a>
+            <div class="post-card__body">
+              <p class="cover__kicker"><span class="badge badge--type">News</span><span class="sep"> · </span><span>Release 2026.11</span></p>
+              <h2><a href="news/radova-linux-2026-11-iso-release/">Radova Linux 2026.11 ISO Released</a></h2>
+              <p class="post-card__summary">The November 2026.11.06 x86_64 installation image ships with kernel hardening defaults, UEFI/BIOS dual boot, and turnkey archival services.</p>
+              <p class="byline"><span class="byline__author"><img class="reuters-lead__avatar" src="assets/ikhsanadzani.jpg" alt="ikhsanadzani" width="22" height="22">ikhsanadzani</span><span class="sep"> · </span><time datetime="2026-11-12T14:00:00+07:00">12 Nov 2026</time></p>
+            </div>
+          </article>
+        </li>
+        <li data-tags="security, luks2, storage">
+          <article class="post-card">
+            <a class="post-card__media" href="article/zero-trust-storage-luks2-archival-integrity/" tabindex="-1" aria-hidden="true">
+              <img class="cover__image" src="assets/hero/archives.jpg" alt="" width="960" height="720" loading="lazy">
+            </a>
+            <div class="post-card__body">
+              <p class="cover__kicker"><span class="badge badge--type">Article</span><span class="sep"> · </span><span>3 min read</span></p>
+              <h2><a href="article/zero-trust-storage-luks2-archival-integrity/">Zero-Trust Storage & LUKS2 Archival Integrity</a></h2>
+              <p class="post-card__summary">How Radova Linux combines Argon2id LUKS2 full-disk encryption, SHA-256 manifest ledgers, and immutable snapshots to protect archival storage.</p>
+              <p class="byline"><span class="byline__author"><img class="reuters-lead__avatar" src="assets/ikhsanadzani.jpg" alt="ikhsanadzani" width="22" height="22">ikhsanadzani</span><span class="sep"> · </span><time datetime="2026-11-11T09:30:00+07:00">11 Nov 2026</time></p>
+            </div>
+          </article>
+        </li>
+        <li data-tags="packer, mirrors, infrastructure">
+          <article class="post-card">
+            <a class="post-card__media" href="news/packer-mirror-network-expansion/" tabindex="-1" aria-hidden="true">
+              <img class="cover__image" src="assets/hero/repositories.jpg" alt="" width="960" height="720" loading="lazy">
+            </a>
+            <div class="post-card__body">
+              <p class="cover__kicker"><span class="badge badge--type">News</span><span class="sep"> · </span><span>Infrastructure</span></p>
+              <h2><a href="news/packer-mirror-network-expansion/">Packer Mirror Network & Signing Expansion</a></h2>
+              <p class="post-card__summary">New regional repository mirrors and mandatory keyring verification reduce package sync latency for libraries and campus archives.</p>
+              <p class="byline"><span class="byline__author"><img class="reuters-lead__avatar" src="assets/ikhsanadzani.jpg" alt="ikhsanadzani" width="22" height="22">ikhsanadzani</span><span class="sep"> · </span><time datetime="2026-11-08T11:30:00+07:00">08 Nov 2026</time></p>
+            </div>
+          </article>
+        </li>
+        <li data-tags="memora, evrocks, coretez, linkers">
+          <article class="post-card">
+            <a class="post-card__media" href="article/inside-memora-evrocks-coretez-linkers/" tabindex="-1" aria-hidden="true">
+              <img class="cover__image" src="assets/hero/digital-assets.jpg" alt="" width="960" height="720" loading="lazy">
+            </a>
+            <div class="post-card__body">
+              <p class="cover__kicker"><span class="badge badge--type">Article</span><span class="sep"> · </span><span>3 min read</span></p>
+              <h2><a href="article/inside-memora-evrocks-coretez-linkers/">Inside the Four Pillars: Memora, Evrocks, Coretez, Linkers</a></h2>
+              <p class="post-card__summary">An architectural walkthrough of how Radova's four pre-installed applications share metadata schemas, local storage pools, and service supervision.</p>
+              <p class="byline"><span class="byline__author"><img class="reuters-lead__avatar" src="assets/ikhsanadzani.jpg" alt="ikhsanadzani" width="22" height="22">ikhsanadzani</span><span class="sep"> · </span><time datetime="2026-11-06T08:45:00+07:00">06 Nov 2026</time></p>
             </div>
           </article>
         </li>
@@ -297,6 +343,7 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
         </li>
       </ol>
     </main>
+
     <footer class="site-footer">
       <div class="footer-grid d-grid">
         <nav class="footer-col d-block" aria-label="Learn About Radova">
@@ -305,7 +352,7 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
             <li><a class="no-underline" href="https://radova.org/about/">About</a></li>
             <li><a class="no-underline" href="https://radova.org/about/history">History</a></li>
             <li><a class="no-underline" href="https://radova.org/latest/">Latest</a></li>
-            <li><a class="no-underline" href="https://radova.org/events">Events</a></li>
+            <li><a class="no-underline" href="https://radova.org/events/">Events</a></li>
           </ul>
         </nav>
 
@@ -314,7 +361,7 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
           <ul class="footer-links d-flex flex-col m-0 p-0">
             <li><a class="no-underline" target="_blank" rel="noopener" href="https://packer.radova.org">Packages</a></li>
             <li><a class="no-underline" target="_blank" rel="noopener" href="https://wiki.radova.org">Wiki</a></li>
-            <li><a class="no-underline" href="https://radova.org/learns">Learning</a></li>
+            <li><a class="no-underline" href="https://radova.org/learns/">Learning</a></li>
             <li><a class="no-underline" href="https://sourceforge.net/projects/memora/files/radova-linux-2026.11.06-x86_64.iso/download">Download ISO</a></li>
           </ul>
         </nav>
@@ -329,8 +376,8 @@ nav.tab-grid ul{display:flex;align-items:center;gap:0.15rem;margin:0;padding:0;o
           </ul>
         </nav>
 
-        <nav class="footer-col d-block" aria-label="Help and Specs">
-          <h2 class="footer-heading font-heading fw-700 text-white">Help &amp; Specs</h2>
+        <nav class="footer-col d-block" aria-label="Help & Specs">
+          <h2 class="footer-heading font-heading fw-700 text-white">Help & Specs</h2>
           <ul class="footer-links d-flex flex-col m-0 p-0">
             <li><a class="no-underline" href="https://radova.org/about/contact">Contact</a></li>
             <li><a class="no-underline" href="https://radova.org/#spesifikasi">System Requirements</a></li>
