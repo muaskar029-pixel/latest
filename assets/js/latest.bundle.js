@@ -154,7 +154,9 @@ var dropdown = document.querySelector(".dropdown");
 var backBtn = document.querySelector(".d-content-back");
 var toggleBtn = document.querySelector(".nav-toggle");
 var primaryNav = document.getElementById("primary-nav");
+var hideTimer = null;
 function closeDropdown() {
+clearTimeout(hideTimer);
 if (!navBtn) return;
 navBtn.classList.remove("active");
 navBtn.setAttribute("aria-expanded", "false");
@@ -163,11 +165,12 @@ if (dropdown && dropdown.contains(document.activeElement)) document.activeElemen
 if (navBtn && dropdown) {
 navBtn.addEventListener("click", function (e) {
 e.preventDefault();
+clearTimeout(hideTimer);
 navBtn.setAttribute("aria-expanded", String(navBtn.classList.toggle("active")));
 });
 if (!matchMedia("(pointer: coarse)").matches) {
-dropdown.addEventListener("mouseenter", function () { navBtn.classList.add("active"); navBtn.setAttribute("aria-expanded", "true"); });
-dropdown.addEventListener("mouseleave", closeDropdown);
+dropdown.addEventListener("mouseenter", function () { clearTimeout(hideTimer); navBtn.classList.add("active"); navBtn.setAttribute("aria-expanded", "true"); });
+dropdown.addEventListener("mouseleave", function () { clearTimeout(hideTimer); hideTimer = setTimeout(closeDropdown, 300); });
 }
 if (backBtn) backBtn.addEventListener("click", function (e) { e.preventDefault(); closeDropdown(); });
 document.addEventListener("click", function (e) { if (!dropdown.contains(e.target)) closeDropdown(); });
@@ -203,6 +206,28 @@ live.textContent = tr(added + (added === 1 ? " more post loaded." : " more posts
 return;
 }
 if (target && target.tagName === "MAIN") {
+var pathInfo = e.detail.pathInfo;
+var respUrl = (pathInfo && (pathInfo.responsePath || pathInfo.finalRequestPath || pathInfo.requestPath)) || (e.detail.xhr && e.detail.xhr.responseURL);
+if (respUrl) {
+var baseHref = new URL(respUrl, window.location.href).href;
+target.querySelectorAll("a[href]:not([href^='#']):not([href^='http']):not([href^='mailto:'])").forEach(function (a) {
+a.setAttribute("href", new URL(a.getAttribute("href"), baseHref).href);
+});
+target.querySelectorAll("img[src]:not([src^='http']):not([src^='data:'])").forEach(function (img) {
+img.setAttribute("src", new URL(img.getAttribute("src"), baseHref).href);
+});
+if (e.detail.xhr && e.detail.xhr.responseText) {
+var parsed = new DOMParser().parseFromString(e.detail.xhr.responseText, "text/html");
+var newLang = parsed.getElementById("lang-list");
+var curLang = document.getElementById("lang-list");
+if (newLang && curLang) {
+newLang.querySelectorAll("a[href]").forEach(function (a) {
+a.setAttribute("href", new URL(a.getAttribute("href"), baseHref).href);
+});
+curLang.innerHTML = newLang.innerHTML;
+}
+}
+}
 var current = document.querySelector('.tab-grid a[aria-current="page"]');
 if (current) current.focus();
 syncPager(false);
