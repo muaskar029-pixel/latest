@@ -24,7 +24,7 @@
   function load() {
     if (loaded) return;
     loaded = true;
-    add("link", { rel: "stylesheet", href: new URL("../css/fonts.css", base).href });
+    // ponytail: fonts.css already loaded non-blocking in <head>
     // htmx starts only before DOMContentLoaded or once readyState is "complete"; in between it never does.
     function htmx() { add("script", { src: new URL("../htmx.min.js", base).href }); }
     if (document.readyState === "complete") htmx();
