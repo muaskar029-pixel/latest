@@ -102,3 +102,4 @@ body>footer.site-footer,.site-footer{width:100%;max-width:none;margin:0;backgrou
 .reuters-lead__avatar{width:24px;height:24px;border-radius:50%;object-fit:cover;border:1px solid var(--radova-hairline);flex-shrink:0}
 a[href^="mailto:"]{overflow-wrap:anywhere}
 body>main,.site-header,.site-footer{padding-inline:max(var(--pad-x),calc((100% - var(--container-max))/ 2))}
+.site-footer{width:100%;padding-inline:max(var(--pad-x,1rem),calc((100% - var(--container-max,1200px)) / 2));box-sizing:border-box}.site-footer nav,.site-footer .footer-col{display:block}.site-footer .footer-links,.site-footer nav ul{display:flex;flex-direction:column;align-items:flex-start;margin:0;padding:0;list-style:none}.site-footer .footer-links li,.site-footer nav li{margin:0;padding:0;list-style:none}
