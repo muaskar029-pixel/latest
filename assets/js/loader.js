@@ -44,7 +44,9 @@
 
   // A saved dark theme needs the bundle now, not on the first interaction.
   try {
-    if (localStorage.getItem("radova-theme") === "dark") document.documentElement.setAttribute("data-theme", "dark");
-    if (localStorage.getItem("radova-theme") === "dark") load();
+    if (localStorage.getItem("radova-theme") === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+      load();
+    }
   } catch (_) {}
 })();
