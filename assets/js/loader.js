@@ -1,5 +1,5 @@
 // Loads what the first paint does not need on the first interaction, like the Homepage:
-// css/fonts.css (until then the system font shows), js/latest.bundle.js and htmx.
+// css/fonts.css (until then the system font shows), js/latest.bundle.js?v=2 and htmx.
 // Paths are relative to this file.
 (function () {
   "use strict";
@@ -30,7 +30,7 @@
     if (document.readyState === "complete") htmx();
     else addEventListener("load", htmx, { once: true });
     add("script", {
-      src: new URL("latest.bundle.js", base).href,
+      src: new URL("latest.bundle.js?v=2", base).href,
       onload: function () {
         ready = true;
         document.removeEventListener("click", onClick, true);
